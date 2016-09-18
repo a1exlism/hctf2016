@@ -32,19 +32,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<script src="<?php echo base_url('assets/js/countdown.js')?>"></script>
 	<script src="<?php echo base_url('assets/js/TweenMax.js')?>"></script>
 	<script>
+		var deadline = new Date('2016-10-15 00:00:00').getTime();
 		var countDown = new IOWA.CountdownTimer.Core(
-			new Date(Date.now() + 1000 * 60 * 60 * 24 * 50 ),
+			new Date(deadline),
 			document.querySelector('countdown-timer')
 		);
 		countDown.setUp(false);
 		countDown.attachEvents();
 		countDown.play(false);
-
-		setTimeout(function() {
-			document.getElementsByTagName('canvas')[0].style.display = 'block'
-		}, 2500);
-
-		document.getElementsByTagName('canvas')[0].style.display = 'none';
+		
 	</script>
 </body>
 </html>

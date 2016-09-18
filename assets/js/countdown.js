@@ -191,8 +191,8 @@ IOWA.CountdownTimer.Band.prototype.stopPlaying = function() {
     this.renderFlat(),
         this.isPlaying = !1
 };
-IOWA.CountdownTimer.INTRO_PAUSE = 500;
-IOWA.CountdownTimer.INTRO_LENGTH = 1500;
+IOWA.CountdownTimer.INTRO_PAUSE = null;
+IOWA.CountdownTimer.INTRO_LENGTH = null;
 IOWA.CountdownTimer.Intro = function(t, e, i) {
     this.parent = i,
         this.radius = 0,
@@ -204,9 +204,9 @@ IOWA.CountdownTimer.Intro = function(t, e, i) {
         this.firstRun = !0,
         this.count = 0,
         this.duration = .99,
-        this.speed = 4,
+        this.speed = 4, //  终于找到了, speed越低切换越快
         this.isStarted = !1,
-        this.isFinished = !1,
+        this.isFinished = 1,  //这个设置为1, 直接跳过
         this.canvasElement = t,
         this.rectangles = [[{
             x: -2.6750303030303035,
