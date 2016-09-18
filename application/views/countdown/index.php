@@ -39,6 +39,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		countDown.setUp(false);
 		countDown.attachEvents();
 		countDown.play(false);
+
+		setTimeout(function() {
+			document.getElementsByTagName('canvas')[0].style.display = 'block'
+		}, 2500);
+
+		document.getElementsByTagName('canvas')[0].style.display = 'none';
 	</script>
 </body>
 </html>
