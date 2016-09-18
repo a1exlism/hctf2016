@@ -279,7 +279,7 @@ class CI_Form_validation {
 	/**
 	 * Set Error Message
 	 *
-	 * Lets users set their own error messages on the fly. Note:
+	 * Lets user set their own error messages on the fly. Note:
 	 * The key name has to match the function name that it corresponds to.
 	 *
 	 * @param	array

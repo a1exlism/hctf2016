@@ -1,0 +1,181 @@
+/* ---  fonts  --- */
+/* latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Roboto Light'), local('Roboto-Light'), url(../fonts/Hgo13k-tfSpn0qi1SFdUfVtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'), local('Roboto-Regular'), url(../fonts/CWB0XYA8bzo0kSThX0UTuA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+
+/* ---  reset  ---*/
+* {
+	margin: 0;
+	padding: 0;
+	font-family: Roboto,sans-serif;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+body {
+	margin: 0;
+}
+
+/* 去除选中的虚线框 */
+a,input,button,select,textarea{
+	outline:none
+}
+
+a:focus {
+	outline: none;
+}
+
+canvas {
+	display: block;
+	vertical-align: bottom;
+}
+
+/* --- particles.js container --- */
+
+#particles-js {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background-color: #111;
+	-webkit-background-size: cover; /*背景图覆盖*/
+	background-size: cover;
+	background-position: 50% 50%;
+}
+
+/* Navigation Bar */
+#navbar a{
+	color: rgba(255, 255, 255, 0.7);
+}
+
+#navbar .navbar-toggle, #navbar .navbar-toggle .icon-bar{
+	background-color: rgba(255, 255, 255, 0.15);
+}
+
+#navbar .nav>li>a:hover, #navbar .nav>li>a:focus {
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+#navbar .navbar-toggle {
+	padding: 7px 8px;
+	border-radius: 0;
+}
+
+.panel-body .form-group{
+	margin-bottom: 10px;
+}
+/* Login Container */
+
+.panel-login {
+	/* 垂直居中 */
+  position: relative;
+  transform:translateY(65%);
+}
+
+.panel-login {
+	background-color: rgba(255, 255, 255, 0.15);
+
+}
+
+.panel-login .panel-body,.panel-login .panel-heading {
+	padding: 10px;
+}
+
+.panel-login .panel-heading hr {
+	margin-top: 10px;
+	margin-bottom: 0;
+	clear: both;
+	border: 0;
+	height: 1px;
+	background-image: -webkit-linear-gradient(left,rgba(255,255,255, 0.35),rgba(255,255,255, 0.35),rgba(255,255,255, 0.35));
+	background-image: -moz-linear-gradient(left,rgba(255,255,255,0.35),rgba(255,255,255,0.35),rgba(255,255,255,0.35));
+	background-image: -ms-linear-gradient(left,rgba(255,255,255,0.35),rgba(255,255,255,0.35),rgba(255,255,255,0.35));
+	background-image: -o-linear-gradient(left,rgba(255,255,255,0.35),rgba(255,255,255,0.35),rgba(255,255,255,0.35));
+}
+
+.panel-login .panel-heading {
+	text-align: center;
+}
+
+.panel-login input {
+	background-color: transparent;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+/* 自定义check box */
+.panel-login input[type='checkbox'] {
+	display: none;
+	-moz-user-select: none;
+}
+
+.panel-login label[for='remember'] {
+	display: inline-block;
+}
+
+.panel-login label[for='remember']::before {
+	content: '';
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	background-color: rgba(255, 255, 255, 0.4);
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+.panel-login input[type='checkbox']:checked+label[for='remember']::before {
+	background-color: rgba(181, 255, 147, 0.76);
+}
+
+.panel-heading .col-xs-6{
+	height: 25px;
+	vertical-align: middle;
+}
+
+.panel-login a:link,a:hover,a:visited{
+	font-family: "Roboto";
+	font-weight: 400;
+	line-height: 25px;
+	color: rgba(255, 255, 255, 0.89);
+	text-decoration:none;
+}
+
+
+#form-login {
+	display: block;
+}
+
+.btn-login {
+
+}
+
+#submit-login {
+
+}
+
+.forget-password {
+
+}
+
+/* Register Container */
+#form-register {
+	display: none;
+}
+
+#submit-register {
+
+}
+
+.btn-register {
+
+}
