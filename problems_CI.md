@@ -44,3 +44,10 @@ http://example.com/[controller-class]/[controller-method]/[arguments]
   RewriteCond $1 !^(index\.php|images|assets|robots\.txt|$)
   RewriteRule ^(.*)$ /hctf2016/index.php/$1 [L] 
   ```
+
+6. [php双入口重写规则(apache2)](https://segmentfault.com/q/1010000002491453)
+嗯... 发现.htaccess规则理解错误, 左边应该是origin.
+>[Apache Rewrite规则详解](http://lijichao.blog.51cto.com/67487/157731)
+RewriteRule ^/(.*) http://www.colorme.com.cn/ [L]
+#含义是如果Client请求的主机中的前缀符合上述条件，则直接进行跳转到http://www.colorme.com.cn/,
+[L]意味着立即停止重写操作，并不再应用其他重写规则.

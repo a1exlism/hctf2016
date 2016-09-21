@@ -35,7 +35,7 @@ $config['base_url'] = '/hctf2016';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'admin.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
