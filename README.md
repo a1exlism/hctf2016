@@ -1,18 +1,16 @@
 # hctf_platform_2016
 CI framework
 
+## 目录结构(file structure)
+两个入口,两个htaccess
 
-## Controller命名规范
-### -controller
-首字母必须大写
-用户界面以`I_`为前缀
-管理员界面以`A_`为前缀
+### index
+用户界面(主界面)
+通过根目录/index.html 进行跳转
+入口文件: index.php
 
-### .htaccess重写规则
-```bash
-RewriteRule ^i_(.*)$ /hctf2016/index.php/$1 [L] 
-RewriteRule ^a_(.*)$ /hctf2016/adm1n.php/$1 [L] 
-```
+### adm1n
+管理员界面
+手动输入
 
-### 类名
-和文件名相同(大小写一致)
+入口文件: admin.php
