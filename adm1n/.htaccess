@@ -2,7 +2,7 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond $1 !^(admin\.php|index\.php|images|assets|robots\.txt|$)
-RewriteRule ^(.*)$ /hctf2016/index/index.php/$1
+RewriteRule ^(.*)$ /hctf2016/adm1n/admin.php/$1
 #<IfModule authz_core_module>
 #    Require all denied
 #</IfModule>

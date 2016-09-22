@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Countdown extends CI_Controller {
+class Login extends CI_Controller {
 
 	/**
-	 * Index Page for this controller.
+	 * index Page for this controller.
 	 *
 	 * Maps to the following URL
 	 * 		http://example.com/index.php/welcome
@@ -20,6 +20,6 @@ class Countdown extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('countdown/index');
+		$this->load->view('index/login');
 	}
 }

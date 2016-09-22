@@ -27,7 +27,7 @@ $config['base_url'] = '/hctf2016';
 
 /*
 |--------------------------------------------------------------------------
-| Index File
+| index File
 |--------------------------------------------------------------------------
 |
 | Typically this will be your index.php file, unless you've renamed it to

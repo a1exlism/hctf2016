@@ -1,0 +1,10 @@
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond $1 !^(admin\.php|index\.php|images|assets|robots\.txt|$)
+#RewriteRule ^i_(.*)$ /hctf2016/index.php/$1 [L]
+RewriteRule ^A_(.*)$ /hctf2016/adm1n.php/$1
+
+#RewriteRule ^(.*)$ /hctf2016/index.php/$1 [L]
+
+# 如果符合xxx前缀, 就进行跳转

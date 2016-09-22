@@ -48,6 +48,12 @@ http://example.com/[controller-class]/[controller-method]/[arguments]
 6. [php双入口重写规则(apache2)](https://segmentfault.com/q/1010000002491453)
 嗯... 发现.htaccess规则理解错误, 左边应该是origin.
 >[Apache Rewrite规则详解](http://lijichao.blog.51cto.com/67487/157731)
-RewriteRule ^/(.*) http://www.colorme.com.cn/ [L]
-#含义是如果Client请求的主机中的前缀符合上述条件，则直接进行跳转到http://www.colorme.com.cn/,
+RewriteRule ^/(.*) http://www.xxx.com/ [L]
+// 含义是如果Client请求的主机中的前缀符合上述条件，则直接进行跳转到http://www.xxx.com/,
 [L]意味着立即停止重写操作，并不再应用其他重写规则.
+
+7. github 远程版本回退:
+[一介布衣](http://yijiebuyi.com/blog/8f985d539566d0bf3b804df6be4e0c90.html)
+[小胡子哥](http://www.barretlee.com/blog/2014/04/28/git-roll-back/)
+
+8. 多入口按照需求重新改了, refer: https://segmentfault.com/q/1010000002491453
