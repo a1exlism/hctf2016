@@ -1,8 +1,11 @@
+
+
 body {
 	margin: 0;
 	padding: 0;
 	background-color: #222;
 }
+
 
 #countdown-container {
 	width: 100%;
@@ -17,4 +20,26 @@ countdown-timer {
 	text-align: center;
 	overflow: hidden;
 	position: relative;
+}
+
+countdown-timer > canvas {
+	margin: 15% auto 0;
+}
+
+div h1 {
+	color: #ccc;
+	text-align: left;
+	margin: 0 auto;
+}
+
+.h1_head {
+
+}
+
+.h1_start {
+
+}
+
+.h1_end {
+	display: none;
 }
