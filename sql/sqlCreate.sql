@@ -50,10 +50,10 @@ CREATE TABLE hctf2016.bulletin (
 CREATE TABLE hctf2016.card_info (
   card_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
   team_token VARCHAR(40)
-
+);
 
 /*管理员*/
 CREATE TABLE hctf2016.ADMIM_qwe(
   user VARCHAR(40) NOT NULL,
-  pass VARCHAR(40) NOT NULL)  
+  pass VARCHAR(40) NOT NULL
 );

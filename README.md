@@ -14,3 +14,5 @@ CI framework
 手动输入
 
 入口文件: admin.php
+
+新的需求：用户提交flag时需要使用验证码，验证码用拖动式
