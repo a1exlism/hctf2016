@@ -8,7 +8,9 @@
 </head>
 <body>
 <div>
-	<h1 class="h1_head">Time remaining</h1>
+	<h1 class="h1_head">HCTF 2016</h1>
+	<h1 class="h1_start">Time to start</h1>
+	<h1 class="h1_end" style="display: none">Time to end</h1>
 </div>
 <div id="countdown-container">
 	<countdown-timer>
@@ -48,10 +50,9 @@
 			</g>
 		</svg>
 	</countdown-timer>
-	<div>
-		<h1 class="h1_start">to Start</h1>
-		<h1 class="h1_end" style="display: none">to End </h1>
-	</div>
+</div>
+<div class="login_btn">
+	<input type="button" value="Enter" onclick="window.location.href='index/login'">
 </div>
 <script src="assets/js/countdown.js"></script>
 <script src="assets/js/TweenMax.js"></script>
@@ -70,29 +71,39 @@
 		var currentTime = new Date(),
 				startTime   = new Date('2016-10-15 10:00:00'),
 				endTime     = new Date('2016-10-17 10:00:00'); //2days
+		var h1Start = document.getElementsByClassName('h1_start')[0],
+				h1End = document.getElementsByClassName('h1_end')[0],
+				loginBtn = document.getElementsByClassName('login_btn')[0];
 
+		function displayToggle() {
+			h1Start.style.display = 'none';
+			h1End.style.display = 'block';
+			loginBtn.style.display = 'block';
+		}
 
 		if (currentTime.getTime() < startTime.getTime()) {
 			getTimer(startTime.getTime());
 			if (currentTime.getMonth() == (10 - 1) && currentTime.getDate() == 15 && currentTime.getHours() == 9) {
-
+//			if (1) {
 				setInterval(function () {
 					//  time refresh
 					if (new Date().getHours() === 10) {
-
+//					if (1) {
+						displayToggle();
 						delete countDown;
 						var timer_node = document.querySelector('countdown-timer');
 						timer_node.removeChild(timer_node.lastChild);
-
-						//	getTimer(endTime.getTime());
+						getTimer(endTime.getTime());
 						//  这么写规避一下..
-						window.location.href = 'index/login';
-
+						setTimeout(function() {
+							window.location.href = 'index/login';
+						}, 3000);
 					}
-				}, 3000);
+				}, 1000);
 			}
 		} else {
 			getTimer(endTime.getTime());
+			displayToggle();
 		}
 	}
 
