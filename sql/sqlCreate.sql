@@ -10,9 +10,10 @@ CREATE TABLE hctf2016.team_info (
 	team_phone INT(12) UNSIGNED NOT NULL ,
 	team_token VARCHAR(40) NOT NULL ,
   is_expand BOOL NOT NULL ,
-#   是否可以开题
+  -- 是否可以开题
   total_score INT NOT NULL ,
   compet_level INT UNSIGNED NOT NULL ,
+  -- 可挑战层数
   is_cheat BOOL NOT NULL,
   team_pass VARCHAR(40) NOT NULL
 );
@@ -23,8 +24,10 @@ CREATE TABLE hctf2016.challenge_info (
   challenge_score INT UNSIGNED NOT NULL ,
   challenge_description VARCHAR(200) NOT NULL ,
   challenge_hit VARCHAR(100) ,
+  challenge_level INT UNSIGNED NOT NULL ,
+  -- 开题层数
   challenge_api VARCHAR(40)
-#   api 为多flag接口
+  -- api 为多flag接口
 );
 
 /* -- Dynamic Notify -- */
@@ -34,9 +37,11 @@ CREATE TABLE hctf2016.dynamic_notify (
   challenge_id INT UNSIGNED NOT NULL ,
   challenge_open_time INT NOT NULL ,
   challenge_solved_time INT ,
-#   解题时间
+  -- 解题时间
+  challenge_level INT UNSIGNED NOT NULL ,
+  -- 解题层数设置
   challenge_flag VARCHAR(50)
-#   flag 和 team_token 验重
+  -- flag 和 team_token 验重
 );
 
 /* -- Bulletin 公告 -- */
