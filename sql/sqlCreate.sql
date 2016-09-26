@@ -38,8 +38,6 @@ CREATE TABLE hctf2016.dynamic_notify (
   challenge_open_time INT NOT NULL ,
   challenge_solved_time INT ,
   -- 解题时间
-  challenge_level INT UNSIGNED NOT NULL ,
-  -- 解题层数设置
   challenge_flag VARCHAR(50)
   -- flag 和 team_token 验重
 );
@@ -60,5 +58,6 @@ CREATE TABLE hctf2016.card_info (
 /*管理员*/
 CREATE TABLE hctf2016.ADMIM_qwe(
   user VARCHAR(40) NOT NULL,
-  pass VARCHAR(40) NOT NULL
+  pass VARCHAR(40) NOT NULL,
+  key  VARCHAR(40) NOT NULL
 );
