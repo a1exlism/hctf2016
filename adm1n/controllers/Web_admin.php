@@ -26,7 +26,6 @@ class Web_admin extends CI_Controller
 		$key = $this -> session -> userdata('key');
 
 
-
 		if($is_login==1 && $admin==$this -> admin && $key==$this -> key)
 		{
 			echo "<script>window.location.href='/hctf2016/adm1n/Web_admin/admin'</script>";
@@ -78,10 +77,18 @@ class Web_admin extends CI_Controller
 
 	public function admin()
 	{
-		$is_login=$this -> session -> userdata('is_login');
+		/*$is_login=$this -> session -> userdata('is_login');
 		$admin=$this -> session ->userdata('admin');
 		$key=$this-> session ->userdata('key');
 		if(empty($is_login) || empty($admin) || empty($key))
+		{
+			echo "<script>window.location.href='/hctf2016/adm1n/web_admin/index/".$key."'</script>";
+		}*/
+
+		$this->load->model('session_check');
+		$s=$this->session_check->check();
+
+		if(!$s)
 		{
 			echo "<script>window.location.href='/hctf2016/adm1n/web_admin/index/".$key."'</script>";
 		}
