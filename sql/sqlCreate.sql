@@ -59,5 +59,5 @@ CREATE TABLE hctf2016.card_info (
 CREATE TABLE hctf2016.admin_qwe(
   user VARCHAR(40) NOT NULL  PRIMARY KEY,
   pass VARCHAR(40) NOT NULL,
-  key  VARCHAR(40) NOT NULL
+  `key`  VARCHAR(40) NOT NULL
 );
