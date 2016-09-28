@@ -56,8 +56,8 @@ CREATE TABLE hctf2016.card_info (
 );
 
 /*管理员*/
-CREATE TABLE hctf2016.ADMIM_qwe(
-  user VARCHAR(40) NOT NULL,
+CREATE TABLE hctf2016.admin_qwe(
+  user VARCHAR(40) NOT NULL  PRIMARY KEY,
   pass VARCHAR(40) NOT NULL,
   key  VARCHAR(40) NOT NULL
 );
