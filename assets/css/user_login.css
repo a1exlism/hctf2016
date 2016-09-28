@@ -28,6 +28,19 @@ body {
 	margin: 0;
 }
 
+/* placeholder IE10+ */
+input::-webkit-input-placeholder{
+	text-align: center;
+}
+
+input::-moz-placeholder{
+	text-align: center;
+}
+
+input::input-placeholder {
+	text-align: center;
+}
+
 /* 去除选中的虚线框 */
 a,input,button,select,textarea{
 	outline:none
@@ -57,6 +70,7 @@ canvas {
 /* Navigation Bar */
 #navbar a{
 	color: rgba(255, 255, 255, 0.7);
+	position: fixed;
 }
 
 #navbar .navbar-toggle, #navbar .navbar-toggle .icon-bar{
@@ -72,20 +86,21 @@ canvas {
 	border-radius: 0;
 }
 
+#login-div {
+	/* 垂直居中 */
+	position: absolute;
+	top: 20%;
+	margin: 0 auto;
+	width: 100%;
+}
+
 .panel-body .form-group{
 	margin-bottom: 10px;
 }
 /* Login Container */
 
 .panel-login {
-	/* 垂直居中 */
-  position: relative;
-  transform:translateY(65%);
-}
-
-.panel-login {
 	background-color: rgba(255, 255, 255, 0.15);
-
 }
 
 .panel-login .panel-body,.panel-login .panel-heading {

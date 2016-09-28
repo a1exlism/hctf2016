@@ -22,4 +22,8 @@ class Login extends CI_Controller {
 	{
 		$this->load->view('index/login');
 	}
+
+	function register () {
+		$this->load->model('User_model');
+	}
 }
