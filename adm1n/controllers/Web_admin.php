@@ -87,10 +87,9 @@ class Web_admin extends CI_Controller
 
 		$this->load->model('session_check');
 		$s=$this->session_check->check();
-
 		if(!$s)
 		{
-			echo "<script>window.location.href='/hctf2016/adm1n/web_admin/index/".$key."'</script>";
+			echo "<script>window.location.href='/hctf2016/adm1n/web_admin/index'</script>";
 		}
 
 		else

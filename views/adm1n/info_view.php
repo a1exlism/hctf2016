@@ -17,7 +17,7 @@
 <form action="/hctf2016/adm1n/info/change" method="post">
 	<input type="text" name="c_id" placeholder="input bulletin_id">
 	<input type="text" name="c_message" placeholder="input new message">
-	<input type="submit" value="CHANGE">
+	<input type="submit" value="UPDATE">
 </form>
 <br />
 <a href="/hctf2016/adm1n/web_admin/admin">back</a>
