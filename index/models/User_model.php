@@ -6,12 +6,24 @@ class	User_model extends CI_Model {
 		$this -> load -> database();
 	}
 
-	function user_register ($teamname, $email, $password) {
+	function user_register ($teamname, $email, $password)
+	{
+
+//		$token  team token 设置
 		$insert_data = array(
-			''
-		)
-		$this -> db -> isnert('user', );
+			'team_name' => $teamname,
+			'team_email' => $email,
+			'team_school' => $school,
+			'team_token' => $token,
+			'is_expand' => 0,
+			'total_score' => 0,
+			'compet_level' => 1,
+			'is_cheat' => 0,
+			'team_pass' => $password
+		);
+		$this->db->insert('team_info', $insert_data);
 	}
+
 }
 
 ?>
