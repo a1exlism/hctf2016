@@ -7,6 +7,7 @@ class challenge extends CI_controller
 	{
 		parent::__construct();
 		$this->load->model('session_check');
+		$this->load->model('challenge_model');
 		$run=$this->session_check->check();
 		if($run==0)
 		{
@@ -21,7 +22,7 @@ class challenge extends CI_controller
 
 	public function show()
 	{
-		$this->load->model('challenge_model');
+		//$this->load->model('challenge_model');
 		$id=$this->input->post('id');
 		$result=$this->challenge_model->show($id);
 		//var_dump($result);
@@ -34,10 +35,7 @@ class challenge extends CI_controller
 
 	public function add()
 	{
-		$this->load->model('challenge_model');
-		
-		$id=$this->input->post('id');
-		$id=$this->security->xss_clean($id);
+		//$this->load->model('challenge_model');
 
 		$score=$this->input->post('score');
 		$score=$this->security->xss_clean($score);
@@ -45,7 +43,7 @@ class challenge extends CI_controller
 		$description=$this->input->post('description');
 		$description=$this->security->xss_clean($description);
 
-		$level=$this->input->post('$level');
+		$level=$this->input->post('level');
 		$level=$this->security->xss_clean($level);
 
 		$hit=$this->input->post('hit');
@@ -54,30 +52,45 @@ class challenge extends CI_controller
 		$api=$this->input->post('api');
 		$api=$this->security->xss_clean($api);
 
-		$data=array(
+
+
+		if(!is_numeric($score) || empty($description) || is_numeric($level))
+		{
+			echo "<script>alert('you have to input something!')</script>";
+			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
+			//var_dump($score);
+			//var_dump($description);
+			//var_dump($level);
+			//var_dump($hit);
+			//var_dump($api);
+		}
+		else
+		{
+			$data=array(
 					'challenge_score'=>$score,
 					'challenge_description'=>$description,
 					'challenge_level'=>$level,
 					'challenge_hit'=>$hit,
 					'challenge_api'=>$api
 					);
-		$bool=$this->challenge_model->add($data,$id);
-		if($bool==0)
-		{
-			echo "<script>alert('add failed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
-		}
-		else if($bool == 1)
-		{
-			echo "<script>alert('add succeed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";	
+			$bool=$this->challenge_model->add($data);
+			if($bool==0)
+			{
+				echo "<script>alert('add failed!')</script>";
+				//echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
+			}
+			else if($bool == 1)
+			{
+				echo "<script>alert('add succeed!')</script>";
+				//echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";	
+			}
 		}
 
 	}
 
 	public function change()
 	{
-		$this->load->model('challenge_model');
+		//$this->load->model('challenge_model');
 		
 		$id=$this->input->post('id');
 		$id=$this->security->xss_clean($id);
@@ -96,6 +109,12 @@ class challenge extends CI_controller
 
 		$api=$this->input->post('api');
 		$api=$this->security->xss_clean($api);
+
+		if(!is_numeric($id))
+		{
+			echo "<script>alert('you have to input id!')</script>";
+			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
+		}
 
 		$data=array(
 					'challenge_score'=>$score,
@@ -117,6 +136,34 @@ class challenge extends CI_controller
 			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";	
 		}
 	}
+
+	public function delete()
+	{
+		$id=$this->input->post('id');
+		$id=$this->security->xss_clean($id);
+
+		if(!is_numeric($id))
+		{
+			echo "<script>alert('you have to input id!')</script>";
+			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";	
+		}
+		else
+		{
+			$bool=$this->challenge_model->delete($id);
+
+			if($bool==0)
+			{
+				echo "<script>alert('delete failed!')</script>";
+				echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
+			}
+			else if($bool == 1)
+			{
+				echo "<script>alert('delete succeed!')</script>";
+				echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";	
+			}
+		}
+	}
+
 }
 
 ?>

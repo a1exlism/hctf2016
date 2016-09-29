@@ -26,18 +26,38 @@ class Challenge_model extends CI_model
 		return $result;
 	}
 
-	public function add($data,$id)
+	public function add($data)
 	{
-		$tem=$this->db->where('challenge_id',$id)->get('challenge_info');
-		$tem=$tem->result_array();
-
-		
-		
-		$result=$this->db->insert('challenge_info',$data,$where);
+		$result=$this->db->insert('challenge_info',$data);
 		return $result;
 	}
 
+	public function change($data,$id)
+	{
+		$tmp=$this->db->where('challenge_id',$id)->get('challenge_info');
+		$tmp=$tmp->result_array();
 
+		foreach ($data as $key => $value) 
+		{
+			if($value=='')
+			{
+				$data[$key]=$tmp[0][$key];
+			}
+		}
+
+		$where=array('challenge_id'=>$id);
+
+		$result=$this->db->update('challenge_info',$data,$where);
+		return $result;
+	}
+
+	public function delete($id)
+	{
+		$where=array('challenge_id'=>$id);
+
+		$result=$this->db->delete('challenge_info',$where);
+		return $result;
+	}
 
 }
 
