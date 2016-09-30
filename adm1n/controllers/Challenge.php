@@ -77,12 +77,12 @@ class challenge extends CI_controller
 			if($bool==0)
 			{
 				echo "<script>alert('add failed!')</script>";
-				//echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
+				echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
 			}
 			else if($bool == 1)
 			{
 				echo "<script>alert('add succeed!')</script>";
-				//echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";	
+				echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";	
 			}
 		}
 
