@@ -137,4 +137,42 @@ $(function() {
     $(this).addClass('active');
     event.preventDefault(); //防止url被打开
   });
+
+	var btnRegister   = document.getElementById('submit-register'),
+	    inputPassword = document.getElementById('passWord'),
+      inputConfirm  = document.getElementById('confirm-password');
+ 
+  function passwdCheck() {
+    var p1 = document.getElementById('passWord'),
+        p2 = document.getElementById('confirm-password');
+    
+    if ( p1 == '' || p1.value != p2.value ) {
+    //  judge classname
+        if (btnRegister.classList.contains('submit-wrong')) {
+        //  JS Hack 方法
+        // if (Array.prototype.indexOf.apply(btnRegister.classList, ['submit-wrong']) != -1) {
+          return null;
+        }
+        
+        btnRegister.value = 'Check your passwd!';
+        btnRegister.classList.remove('btn-primary');
+        btnRegister.classList.add('submit-wrong');
+        btnRegister.disabled = true;
+    }
+  }
+  
+  function passReduction() {
+    if (btnRegister.classList.contains('submit-wrong')) {
+      btnRegister.value = 'Register Now';
+      btnRegister.disabled = false;
+      btnRegister.classList.remove('submit-wrong');
+      btnRegister.classList.add('btn-primary');
+    }
+  }
+
+	inputPassword.addEventListener('blur', passwdCheck);
+	inputPassword.addEventListener('focus', passReduction);
+	inputConfirm.addEventListener('focus', passReduction);
+  inputConfirm.addEventListener('blur', passwdCheck);
+
 });

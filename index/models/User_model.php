@@ -3,13 +3,13 @@
 class	User_model extends CI_Model {
 	function __construct() {
 		parent::__construct();
-		$this -> load -> database();
+		$this ->load->database();
+		$this ->load->library('session');
 	}
 
-	function user_register ($teamname, $email, $password)
+	public function user_register ($teamname, $email, $school, $password)
 	{
-
-//		$token  team token 设置
+		$token = $this->token_generate();
 		$insert_data = array(
 			'team_name' => $teamname,
 			'team_email' => $email,
@@ -24,6 +24,12 @@ class	User_model extends CI_Model {
 		$this->db->insert('team_info', $insert_data);
 	}
 
+	public function token_generate() {
+		return md5(uniqid(rand()));
+	}
+	public function token_check() {
+		
+	}
 }
 
 ?>

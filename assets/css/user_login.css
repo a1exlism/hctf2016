@@ -58,13 +58,13 @@ canvas {
 /* --- particles.js container --- */
 
 #particles-js {
-	position: absolute;
+	position: fixed;
 	height: 100%;
 	width: 100%;
 	background-color: #111;
 	-webkit-background-size: cover; /*背景图覆盖*/
 	background-size: cover;
-	background-position: 50% 50%;
+	/*background-position: 50% 50%;*/
 }
 
 /* Navigation Bar */
@@ -84,6 +84,15 @@ canvas {
 #navbar .navbar-toggle {
 	padding: 7px 8px;
 	border-radius: 0;
+}
+
+#navbar .navbar-brand {
+	border-bottom: solid rgba(255, 255, 255, 0.7) 1px;
+}
+
+#navbar .navbar-brand:hover {
+	color: #ffa3a3;
+	border-bottom: 2px solid #ffa3a3;
 }
 
 #login-div {
@@ -121,6 +130,10 @@ canvas {
 
 .panel-login .panel-heading {
 	text-align: center;
+}
+
+.panel-login .panel-heading a:hover, .panel-login #form-login a:hover  {
+	color: #7a9afa;
 }
 
 .panel-login input {
@@ -187,10 +200,8 @@ canvas {
 	display: none;
 }
 
-#submit-register {
-
-}
-
-.btn-register {
-
+.submit-wrong {
+	border-color: #fa7a7a !important;
+	background-color: #ff7979 !important;
+	color : #fff !important;
 }
