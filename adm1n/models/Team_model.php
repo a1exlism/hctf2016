@@ -13,22 +13,26 @@ class Team_model extends CI_model
 	{
 		if(empty($id) && empty($token))
 		{
+			//echo 1;
 			$sql='select * from team_info';
 			$result=$this->db->query($sql);
 			$result=$result->result_array();
 		}
 		else if(empty($id) && !empty($token))
 		{
+			//echo 2;
 			$result=$this->db->where('team_token',$token)->get('team_info');
 			$result=$result->result_array();
 		}
 		else if(!empty($id) && empty($token))
 		{
+			//echo 3;
 			$result=$this->db->where('team_name',$id)->get('team_info');
 			$result=$result->result_array();
 		}
 		else
 		{
+			//echo 4;
 			$where=array(
 				'team_name'=>$id,
 				'team_token'=>$token
@@ -50,7 +54,9 @@ class Team_model extends CI_model
 	public function add($method,$value,$score)
 	{
 		$where=array($method=>$value);
+		//var_dump($where);
 		$tmp=$this->db->where($where)->get('team_info');
+		//var_dump($tmp);
 		$tmp=$tmp->result_array();
 		$a=$tmp[0]['total_score']+$score;
 		$data=array('total_score'=>$a);
@@ -68,25 +74,30 @@ class Team_model extends CI_model
 
 	public function open($id)
 	{
-		$tmp=$this->db->where('is_cheat'=>0)->get('team_info');
+		$tmp=$this->db->where('is_cheat', 0)->get('team_info');
 		$tmp=$tmp->result_array();
+
 		$level=$this->db->where('challenge_id',$id)->select('challenge_level')->get('challenge_info');
 		$level=$level->result_array();
 		$level=$level[0]['challenge_level'];
 		$result=1;
-
+		//var_dump($tmp);
 		foreach ($tmp as $team) 
 		{
 			if($team['compet_level']<$level)
 			{
-				$data=array(
-				'team_token'=>$team['team_token'],
-				'challenge_id'=>$id,
-				'challenge_open_time'=>time(),
-				'challenge_flag'=>'flag'#获取flag方式未定
-				);
-				$res=$this->db->insert('dynamic_notify',$data);
-				$result=$result&$res;
+				$token=$team['team_token'];
+				$where=array('team_token'=>$token,'challenge_id'=>$id);
+				$check=$this->db->where($where)->get('dynamic_notify');
+				if(empty($check)){
+					$data=array(
+						'team_token'=>$token,
+						'challenge_id'=>$id,
+						'challenge_open_time'=>time(),
+						'challenge_flag'=>'flag'#获取flag方式未定
+						);
+					$res=$this->db->insert('dynamic_notify',$data);
+					$result=$result&$res;}
 			}
 		}
 		return $result;
@@ -94,13 +105,13 @@ class Team_model extends CI_model
 
 	public function card($method,$value,$id)
 	{
-		if($method=='name')
+		if($method=='team_name')
 		{
 			$tmp=$this->db->where('team_name',$value)->select('team_token')->get('team_info');
 			$tmp=$tmp->result_array();
-			$token=$tmp['team_token'];
+			$token=$tmp[0]['team_token'];
 		}
-		else if($method=='token')
+		else if($method=='team_token')
 		{
 			$token=$value;
 		}

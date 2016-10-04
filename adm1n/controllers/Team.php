@@ -44,16 +44,19 @@ class Team extends CI_controller
 
 	public function search()
 	{
-		$id=$this->input->post('team_id');
+		$id=$this->input->post('team_name');
 		$id=$this->security->xss_clean($id);
 
-		$token=$this->input->post('token');
+		$token=$this->input->post('team_token');
 		$token=$this->security->xss_clean($token);
+
 
 		$result=$this->team_model->search($id,$token);
 
+		$data=array('result'=>$result);
+
 		$this->load->view('adm1n/team_view');
-		$this->load->view('adm1n/show_team');
+		$this->load->view('adm1n/show_team',$data);
 	}
 
 	public function score()
@@ -65,7 +68,7 @@ class Team extends CI_controller
 		$value=$this->security->xss_clean($value);
 
 		$score=$this->input->post('score');
-		$score=$this->xss_clean($score);
+		$score=$this->security->xss_clean($score);
 
 		$bool=$this->team_model->add($method,$value,$score);
 
@@ -109,7 +112,7 @@ class Team extends CI_controller
 		$value=$this->security->xss_clean($value);
 
 		$id=$this->input->post('id');
-		$id=$this->xss_clean($id);
+		$id=$this->security->xss_clean($id);
 
 		$bool=$this->team_model->card($method,$value,$id);
 

@@ -51,7 +51,7 @@ CREATE TABLE hctf2016.bulletin (
 
 /* -- Card Info 道具卡 -- */
 CREATE TABLE hctf2016.card_info (
-  card_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  card_id INT NOT NULL AUTO_INCREMENT ,
   team_token VARCHAR(40)
 );
 
