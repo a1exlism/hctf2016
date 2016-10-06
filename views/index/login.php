@@ -42,13 +42,13 @@
 					<div class="row">
 						<div class="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3 col-lg-8 col-lg-offset-2">
 							<!-- Login -->
-							<form id="form-login" action="/login" method="post" role="form">
+							<form id="form-login" action="login" method="post" role="form">
 								<div class="form-group">
-									<input type="text" class="form-control" name="teamname" id="teamname" placeholder="Teamname"
+									<input type="text" class="form-control" name="teamname" id="user-login" placeholder="Teamname"
 									       tabindex="1">
 								</div>
 								<div class="form-group">
-									<input type="password" class="form-control" name="password" id="password" placeholder="Password"
+									<input type="password" class="form-control" name="password" id="pass-login" placeholder="Password"
 									       tabindex="2">
 								</div>
 								<div class="form-group text-center">
@@ -74,9 +74,9 @@
 								</div>
 							</form>
 							<!-- Register -->
-							<form id="form-register" action="/register" method="post" role="form">
+							<form id="form-register" action="#register" method="post" role="form">
 								<div class="form-group">
-									<input type="text" name="teamname" id="teamname" tabindex="1" class="form-control"
+									<input type="text" name="teamname" id="user-register" tabindex="1" class="form-control"
 									       placeholder="Team Name" value=""/></div>
 								<div class="form-group">
 									<input type="text" name="school" id="school" tabindex="2" class="form-control"
@@ -85,10 +85,10 @@
 									<input type="email" name="email" id="email" tabindex="3" class="form-control"
 									       placeholder="Email Address" value=""/></div>
 								<div class="form-group">
-									<input type="password" name="password" id="passWord" tabindex="4" class="form-control"
+									<input type="password" name="password" id="pass-register" tabindex="4" class="form-control"
 									       placeholder="Password"/></div>
 								<div class="form-group">
-									<input type="password" name="confirm-password" id="confirm-password" tabindex="5" class="form-control"
+									<input type="password" name="password-confirm" id="password-confirm" tabindex="5" class="form-control"
 									       placeholder="Confirm Password"/></div>
 								<div class="form-group">
 									<input type="text" name="phone" id="phone" tabindex="6" class="form-control"
@@ -101,6 +101,7 @@
 											       class="form-control btn btn-primary" value="Register Now"/></div>
 									</div>
 								</div>
+
 							</form>
 						</div>
 					</div>
@@ -109,12 +110,14 @@
 		</div>
 	</div>
 </div>
-
+<div id="mask"></div>
+<div id="popup-captcha"></div>
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<!-- 极验: 引入封装了failback的接口--initGeetest -->
+<script src="http://static.geetest.com/static/tools/gt.js"></script>
 <script src="<?php echo base_url('assets/js/particles.js') ?> "></script>
 <script src="<?php echo base_url('assets/js/user_login.js') ?> "></script>
 </body>
