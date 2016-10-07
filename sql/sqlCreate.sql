@@ -26,7 +26,8 @@ CREATE TABLE hctf2016.challenge_info (
   challenge_hit VARCHAR(100) ,
   challenge_level INT UNSIGNED NOT NULL ,
   -- 开题层数
-  challenge_api VARCHAR(40)
+  challenge_api VARCHAR(40),
+  challenge_threshold INT(12) UNSIGNED NOT NULL
   -- api 为多flag接口
 );
 
