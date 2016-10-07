@@ -176,23 +176,24 @@ $(function () {
 	inputConfirm.addEventListener('blur', passwdCheck);
 	
 	/* --- 极验验证 --- 套用的mobi端 --- */
-	// $("#mask").click(function () {
-	// 	$("#mask, #popup-captcha").hide();
-	// });
 	
-	// $("#submit-register").click(function () {
-	// 	$("#mask, #popup-captcha").show();
-	// });
-
-// $("#submit-login").click(function () {
-// 	$("#mask, #popup-captcha").show();
-// });
+	
 	$("#mask").click(function () {
-		$("#mask, #popup-captcha").hide();
+		$("#mask, #popup-captcha, #submit-login, #submit-register").hide();
+		$('#cover-submit-login, #cover-submit-register').show();
 	});
-	$("#submit-login").click(function () {
-		$("#mask, #popup-captcha").show();
+	
+	$("#cover-submit-login").click(function () {
+		$("#mask, #popup-captcha, #submit-login").show();
+		$("#cover-submit-login").hide();
 	});
+	
+	$("#cover-submit-register").click(function () {
+		$("#mask, #popup-captcha, #submit-register").show();
+		$("#cover-submit-register").hide();
+	});
+	
+	/* -- login -- */
 	var handlerPopupLogin = function (captchaObj) {
 		// 将验证码加到id为captcha的元素里
 		captchaObj.appendTo("#popup-captcha");
@@ -204,7 +205,7 @@ $(function () {
 				type: "post",
 				dataType: "json",
 				data: {
-					// 二次验证所需的三个值
+					// 二次验证
 					username: $('#user-login').val(),
 					password: $('#pass-login').val(),
 					geetest_challenge: validate.geetest_challenge,
@@ -215,17 +216,12 @@ $(function () {
 					if (data && (data.status === "success")) {
 						console.log(1);
 					} else {
-						conosle.log(0);
+						console.log(0);
 					}
-				},
-				error: function (XMLHttpRequest, textStatus, errorThrown) {
-					console.log(XMLHttpRequest.status);
-					console.log(XMLHttpRequest.readyState);
-					console.log(textStatus);
 				}
+				
 			});
 		});
-		// 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
 	};
 	$.ajax({
 		// 获取id，challenge，success（是否启用failback）
@@ -242,13 +238,75 @@ $(function () {
 				offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
 				// 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config
 			}, handlerPopupLogin);
-		},
-		error: function (XMLHttpRequest, textStatus, errorThrown) {
-			console.log(XMLHttpRequest.status);
-			console.log(XMLHttpRequest.readyState);
-			console.log(textStatus);
 		}
-		
 	});
 	
-});
+	$("#login-form-link").click(function () {
+		$('#popup-captcha').find('.gt_mobile_holder').first().remove();
+		$.ajax({
+			url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
+			type: "get",
+			dataType: "json",
+			success: function (data) {
+				initGeetest({
+					gt: data.gt,
+					challenge: data.challenge,
+					offline: !data.success
+				}, handlerPopupLogin);
+			}
+			
+		});
+	});
+	
+	/* -- register -- */
+	var handlerPopupRegister = function (captchaObj) {
+		captchaObj.appendTo("#popup-captcha");
+		captchaObj.onSuccess(function () {
+			var validate = captchaObj.getValidate();
+			$.ajax({
+				url: "Geetest/verifyLogin",
+				type: "post",
+				dataType: "json",
+				data: {
+					username: $('#user-register').val(),
+					password: $('#pass-register').val(),
+					geetest_challenge: validate.geetest_challenge,
+					geetest_validate: validate.geetest_validate,
+					geetest_seccode: validate.geetest_seccode
+				},
+				success: function (data) {
+					if (data && (data.status === "success")) {
+						console.log(1);
+					} else {
+						console.log(0);
+					}
+				}
+			});
+		});
+	};
+	$("#register-form-link").click(function () {
+		//  delete the previous one
+		$('#popup-captcha').find('.gt_mobile_holder').first().remove();
+		$.ajax({
+			url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
+			type: "get",
+			dataType: "json",
+			success: function (data) {
+				initGeetest({
+					gt: data.gt,
+					challenge: data.challenge,
+					offline: !data.success
+				}, handlerPopupRegister);
+			}
+			/*,
+			 error: function (XMLHttpRequest, textStatus, errorThrown) {
+			 console.log(XMLHttpRequest.status);
+			 console.log(XMLHttpRequest.readyState);
+			 console.log(textStatus);
+			 }*/
+			
+		});
+	});
+	
+})
+;

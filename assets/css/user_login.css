@@ -219,7 +219,7 @@ canvas {
 	font-size: 18px;
 }
 
-/* 以下遮罩层为demo.用户可自行设计实现 */
+/* --- MASK --- */
 #mask {
 	display: none;
 	position: fixed;
@@ -230,6 +230,7 @@ canvas {
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.5);
 	overflow: auto;
+	z-index: 100;
 }
 
 #popup-captcha {
@@ -240,4 +241,13 @@ canvas {
 	transform: translate(-50%, -50%);
 	-webkit-transform: translate(-50%, -50%);
 	z-index: 9999;
+}
+
+/* -- login/register -- */
+#submit-login {
+	display: none;
+}
+
+#submit-register {
+	display: none;
 }

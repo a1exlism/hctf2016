@@ -21,9 +21,16 @@ class Geetest extends CI_Controller {
 	public function __construct () {
 		parent::__construct();
 		
-		$this->captcha_id = "b46d1900d0a894591916ea94ea91bd2c";
-		$this->private_key = "36fc3fe98530eea08dfc6ce76e3d24c4";
-		$this->GtSdk = new GeetestLib($this->captcha_id, $this->private_key);
+	/*
+	  PC 端
+	  $this->captcha_id = "9461f13fdaf942af20e90509d9149c6d";
+	  $this->private_key = "aac091f5965f4f87d542f95e77b16398";
+	  $this->GtSdk = new GeetestLib($this->captcha_id, $this->private_key);
+	*/
+	
+		$this->mobile_captcha_id = "7c25da6fe21944cfe507d2f9876775a9";
+		$this->mobile_private_key = "f5883f4ee3bd4fa8caec67941de1b903";
+		$this->GtSdk = new GeetestLib($this->mobile_captcha_id, $this->mobile_private_key);
 	}
 
 	public function index () {
