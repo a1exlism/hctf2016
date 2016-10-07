@@ -33,6 +33,13 @@ class challenge extends CI_controller
 		$this->load->view('adm1n/show_challenge',$data);
 	}
 
+	public function detail($id)
+	{
+		$result=$this->challenge_model->show($id);
+		$data=array('result'=>$result);
+		$this->load->view('adm1n/challenge_detail',$data);
+	}
+
 	public function add()
 	{
 		//$this->load->model('challenge_model');
