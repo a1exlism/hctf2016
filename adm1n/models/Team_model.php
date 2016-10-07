@@ -105,21 +105,39 @@ class Team_model extends CI_model
 
 	public function card($method,$value,$id)
 	{
-		if($method=='team_name')
+		if($value==='allteamgetcard')
 		{
-			$tmp=$this->db->where('team_name',$value)->select('team_token')->get('team_info');
+			$result=1;
+			$tmp=$this->db->where('is_cheat', 0)->get('team_info');
 			$tmp=$tmp->result_array();
-			$token=$tmp[0]['team_token'];
+			foreach ($tmp as $team) 
+			{
+				$data=array(
+					'card_id'=>$id,
+					'team_token'=>$team['team_token']
+					);
+				$re=$this->db->insert('card_info',$data);
+				$result=$result&$re;
+			}
 		}
-		else if($method=='team_token')
+		else
 		{
-			$token=$value;
+			if($method=='team_name')
+			{
+				$tmp=$this->db->where('team_name',$value)->select('team_token')->get('team_info');
+				$tmp=$tmp->result_array();
+				$token=$tmp[0]['team_token'];
+			}
+			else if($method=='team_token')
+			{
+				$token=$value;
+			}
+			$data=array(
+				'card_id'=>$id,
+				'team_token'=>$token
+			);
+			$result=$this->db->insert('card_info',$data);
 		}
-		$data=array(
-			'card_id'=>$id,
-			'team_token'=>$token
-		);
-		$result=$this->db->insert('card_info',$data);
 		return $result;
 	}
 
