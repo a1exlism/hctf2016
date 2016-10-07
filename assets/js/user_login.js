@@ -179,18 +179,16 @@ $(function () {
 	
 	
 	$("#mask").click(function () {
-		$("#mask, #popup-captcha, #submit-login, #submit-register").hide();
+		$("#mask, #popup-captcha").hide();
 		$('#cover-submit-login, #cover-submit-register').show();
 	});
 	
 	$("#cover-submit-login").click(function () {
-		$("#mask, #popup-captcha, #submit-login").show();
-		$("#cover-submit-login").hide();
+		$("#mask, #popup-captcha").show();
 	});
 	
 	$("#cover-submit-register").click(function () {
-		$("#mask, #popup-captcha, #submit-register").show();
-		$("#cover-submit-register").hide();
+		$("#mask, #popup-captcha").show();
 	});
 	
 	/* -- login -- */
@@ -214,15 +212,16 @@ $(function () {
 				},
 				success: function (data) {
 					if (data && (data.status === "success")) {
-						console.log(1);
+						$('#form-login').submit();
 					} else {
-						console.log(0);
+						
 					}
 				}
 				
 			});
 		});
 	};
+	//  默认ajax状态
 	$.ajax({
 		// 获取id，challenge，success（是否启用failback）
 		url: "Geetest/startCaptcha/t/" + (new Date()).getTime(), // 加随机数防止缓存
@@ -276,7 +275,7 @@ $(function () {
 				},
 				success: function (data) {
 					if (data && (data.status === "success")) {
-						console.log(1);
+						$('#form-register').submit();
 					} else {
 						console.log(0);
 					}
@@ -284,6 +283,7 @@ $(function () {
 			});
 		});
 	};
+	
 	$("#register-form-link").click(function () {
 		//  delete the previous one
 		$('#popup-captcha').find('.gt_mobile_holder').first().remove();

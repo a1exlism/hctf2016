@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b10b52a1-b3b6-42f5-a51a-e10ae6cd400c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/user_login.css" afterPath="$PROJECT_DIR$/assets/css/user_login.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/user_login.js" afterPath="$PROJECT_DIR$/assets/js/user_login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index/controllers/Geetest.php" afterPath="$PROJECT_DIR$/index/controllers/Geetest.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/index/login.php" afterPath="$PROJECT_DIR$/views/index/login.php" />
     </list>
     <ignored path="hctf2016.iws" />
@@ -38,7 +36,7 @@
       <file leaf-file-name="Geetest.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index/controllers/Geetest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
+            <state relative-caret-position="735">
               <caret line="32" column="30" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="30" />
               <folding />
             </state>
@@ -48,8 +46,8 @@
       <file leaf-file-name="login.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/index/login.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="105" column="25" selection-start-line="105" selection-start-column="25" selection-end-line="105" selection-end-column="25" />
+            <state relative-caret-position="551">
+              <caret line="104" column="41" selection-start-line="104" selection-start-column="41" selection-end-line="104" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -58,10 +56,10 @@
       <file leaf-file-name="user_login.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/js/user_login.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="216" column="12" selection-start-line="216" selection-start-column="12" selection-end-line="216" selection-end-column="12" />
+            <state relative-caret-position="-184">
+              <caret line="241" column="1" selection-start-line="241" selection-start-column="0" selection-end-line="241" selection-end-column="0" />
               <folding>
-                <marker date="1475820080550" expanded="true" signature="14:2765" ph="{...}" />
+                <marker date="1475821396820" expanded="true" signature="14:2765" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -410,12 +408,12 @@
       <workItem from="1475232250330" duration="5608000" />
       <workItem from="1475560377292" duration="36555000" />
       <workItem from="1475742431041" duration="5876000" />
-      <workItem from="1475815954749" duration="4125000" />
+      <workItem from="1475815954749" duration="5539000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="149388000" />
+    <option name="totallyTimeSpent" value="150802000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -751,7 +749,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index/controllers/Geetest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
+        <state relative-caret-position="735">
           <caret line="32" column="30" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="30" />
           <folding />
         </state>
@@ -759,18 +757,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/index/login.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="105" column="25" selection-start-line="105" selection-start-column="25" selection-end-line="105" selection-end-column="25" />
+        <state relative-caret-position="551">
+          <caret line="104" column="41" selection-start-line="104" selection-start-column="41" selection-end-line="104" selection-end-column="41" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/user_login.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="216" column="12" selection-start-line="216" selection-start-column="12" selection-end-line="216" selection-end-column="12" />
+        <state relative-caret-position="-184">
+          <caret line="241" column="1" selection-start-line="241" selection-start-column="0" selection-end-line="241" selection-end-column="0" />
           <folding>
-            <marker date="1475820080550" expanded="true" signature="14:2765" ph="{...}" />
+            <marker date="1475821396820" expanded="true" signature="14:2765" ph="{...}" />
           </folding>
         </state>
       </provider>
