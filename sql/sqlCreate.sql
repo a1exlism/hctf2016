@@ -5,7 +5,9 @@ CREATE DATABASE hctf2016;
 /* -- Team Info -- */
 CREATE TABLE hctf2016.team_info (
 	team_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-  team_name VARCHAR(40) NOT NULL,
+  team_name VARCHAR(40) NOT NULL ,
+  team_mail VARCHAR (40) NOT NULL ,
+  team_pass VARCHAR(40) NOT NULL,
 	team_school VARCHAR(20) NOT NULL ,
 	team_phone INT(12) UNSIGNED NOT NULL ,
 	team_token VARCHAR(40) NOT NULL ,
@@ -14,8 +16,7 @@ CREATE TABLE hctf2016.team_info (
   total_score INT NOT NULL ,
   compet_level INT UNSIGNED NOT NULL ,
   -- 可挑战层数
-  is_cheat BOOL NOT NULL,
-  team_pass VARCHAR(40) NOT NULL
+  is_cheat BOOL NOT NULL
 );
 
 /* -- Challenge Info -- */
