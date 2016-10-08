@@ -57,3 +57,9 @@ RewriteRule ^/(.*) http://www.xxx.com/ [L]
 [小胡子哥](http://www.barretlee.com/blog/2014/04/28/git-roll-back/)
 
 8. 多入口按照需求重新改了, refer: https://segmentfault.com/q/1010000002491453
+
+9. 极验验证 http://csser.work/10/07/2016/php-ci-verification/
+
+10. controller 的load->model() 括号内名字可以小写, 不过model名字必须大写开头
+
+11.

@@ -141,6 +141,14 @@ canvas {
 	color: rgba(255, 255, 255, 0.7);
 }
 
+.panel-login input:-webkit-autofill,
+.panel-login input:-webkit-autofill:hover,
+.panel-login input:-webkit-autofill:focus,
+.panel-login input:-webkit-autofill:active {
+	-webkit-text-fill-color: rgba(255, 255, 255, 0.7) !important;
+	-webkit-box-shadow: 0 0 0px 1000px #333 inset !important;
+}
+
 /* 自定义check box */
 .panel-login input[type='checkbox'] {
 	display: none;

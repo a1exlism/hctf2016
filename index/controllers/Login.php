@@ -24,6 +24,16 @@ class Login extends CI_Controller {
 	}
 
 	function register () {
-		$this->load->model('User_model');
+	//  调用model
+		$this->load->model('user_model');
+		$arr_reg = array(
+			'team_name' => $_POST['teamname'],
+			'team_school' => $_POST['school'],
+			'team_email' => $_POST['email'],
+			'team_pass' => $_POST['password'],
+			'team_phone' => $_POST['phone']
+		);
+		$this->user_model->user_register($arr_reg);
 	}
+	
 }

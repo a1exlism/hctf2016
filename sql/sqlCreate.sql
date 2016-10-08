@@ -5,8 +5,8 @@ CREATE DATABASE hctf2016;
 /* -- Team Info -- */
 CREATE TABLE hctf2016.team_info (
 	team_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  team_email VARCHAR (40) NOT NULL ,
   team_name VARCHAR(40) NOT NULL ,
-  team_mail VARCHAR (40) NOT NULL ,
   team_pass VARCHAR(40) NOT NULL,
 	team_school VARCHAR(20) NOT NULL ,
 	team_phone INT(12) UNSIGNED NOT NULL ,

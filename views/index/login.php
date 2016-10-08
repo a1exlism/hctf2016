@@ -42,7 +42,7 @@
 					<div class="row">
 						<div class="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3 col-lg-8 col-lg-offset-2">
 							<!-- Login -->
-							<form id="form-login" action="login" method="post" role="form">
+							<form id="form-login" action="login/login" method="post" role="form">
 								<div class="form-group">
 									<input type="text" class="form-control" name="teamname" id="user-login" placeholder="Teamname"
 									       tabindex="1">
@@ -52,7 +52,7 @@
 									       tabindex="2">
 								</div>
 								<div class="form-group text-center">
-									<input type="checkbox" tabindex="3" name="remember" id="remember">
+									<input type="checkbox" tabindex="3" name="remember" id="remember" style="display:none">
 									<label for="remember" onselectstart="return false;">Remember Me</label>
 								</div>
 								<div class="form-group">
@@ -76,7 +76,7 @@
 								</div>
 							</form>
 							<!-- Register -->
-							<form id="form-register" action="#register" method="post" role="form">
+							<form id="form-register" action="login/register" method="post" role="form">
 								<div class="form-group">
 									<input type="text" name="teamname" id="user-register" tabindex="1" class="form-control"
 									       placeholder="Team Name" value=""/></div>
