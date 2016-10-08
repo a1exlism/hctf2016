@@ -140,9 +140,9 @@ $(function () {
 	
 	/*--- password confirm ---*/
 	
-	var btnRegister = document.getElementById('submit-register'),
-		inputPassword = document.getElementById('pass-register'),
-		inputConfirm = document.getElementById('password-confirm');
+	var btnRegister   = document.getElementById('cover-submit-register'),
+			inputPassword = document.getElementById('pass-register'),
+			inputConfirm  = document.getElementById('password-confirm');
 	
 	function passwdCheck() {
 		
