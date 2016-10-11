@@ -140,9 +140,9 @@ $(function () {
 	
 	/*--- password confirm ---*/
 	
-	var btnRegister   = document.getElementById('cover-submit-register'),
-			inputPassword = document.getElementById('pass-register'),
-			inputConfirm  = document.getElementById('password-confirm');
+	var btnRegister = document.getElementById('cover-submit-register'),
+		inputPassword = document.getElementById('pass-register'),
+		inputConfirm = document.getElementById('password-confirm');
 	
 	function passwdCheck() {
 		
@@ -177,12 +177,36 @@ $(function () {
 
 
 	/*
-	*
-	*   --  ajax异步提交表单  --
-	*
-  * */
+	 *
+	 *   --  ajax异步提交表单  --
+	 *
+	 * */
 
-	var postRegister = function() {
+	var postLogin = function () {
+		$.ajax({
+			url: 'Login/register',
+			type: 'post',
+			dataType: 'json',
+			data: {
+				teamname: $('#user-login').val(),
+				password: $('#pass-login').val()
+			},
+			success: function () {
+				$('.msgtip-success-login').show();
+				setTimeout(function () {
+					window.location.href = 'index/team';
+				}, 1000);
+			},
+			error: function () {
+				$('.msgtip-fail-login').show();
+				setTimeout(function () {
+					$('.msgtip-fail-login').hide();
+				}, 500);
+			}
+		});
+	};
+
+	var postRegister = function () {
 		$.ajax({
 			url: 'Login/login',
 			type: 'post',
@@ -195,11 +219,21 @@ $(function () {
 				phone: $('#phone').val()
 			},
 			success: function () {
-				
+				$('.msgtip-success-register').show();
+				setTimeout(function () {
+					$('#login-form-link').click();
+				}, 300);
+			},
+			error: function () {
+				$('.msgtip-fail-register').show();
+				setTimeout(function () {
+					$('.msgtip-fail-register').hide();
+				}, 1000);
 			}
-
 		})
-	}
+	};
+
+
 	/* --- 极验验证 --- 套用的mobi端 --- */
 	
 	
@@ -238,8 +272,9 @@ $(function () {
 				success: function (data) {
 					if (data && (data.status === "success")) {
 						$('#form-login').submit();
+						// postLogin();
 					} else {
-						
+						console.log(0);
 					}
 				}
 				
@@ -264,7 +299,8 @@ $(function () {
 			}, handlerPopupLogin);
 		}
 	});
-	
+
+	/* -- regenerate Geetest captcha --*/
 	$("#login-form-link").click(function () {
 		$('#popup-captcha').find('.gt_mobile_holder').first().remove();
 		$.ajax({
@@ -301,6 +337,7 @@ $(function () {
 				success: function (data) {
 					if (data && (data.status === "success")) {
 						$('#form-register').submit();
+						// postRegister();
 					} else {
 						console.log(0);
 					}

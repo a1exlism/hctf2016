@@ -32,7 +32,7 @@ class Login extends CI_Controller
 		$this->load->view('index/login');
 	}
 
-	function register()
+	public function register()
 	{
 		//  调用model
 		$team_name = $this->security->xss_clean($_POST['teamname']);
@@ -57,6 +57,45 @@ class Login extends CI_Controller
 		);
 
 		$this->user_model->user_register($arr_reg);
+
+		return 1;
+	}
+
+	public function login() {
+		$team_name = $this->security->xss_clean($_POST['teamname']);
+		$team_pass = $this->security->xss_clean($_POST['password']);
+		
+		$user_data = $this->user_model->user_select($team_name);
+
+		if ($user_data) {
+			//  如果用户存在
+			if ($user_data[0]->team_pass == $team_pass) {
+				$session_arr = array(
+					'team_token' => $user_data[0]->team_token
+				);
+				$this->session->set_userdata($session_arr);
+			} else {
+				echo "Wrong passwd";
+				return 0;
+			}
+		} else {
+			echo "No user.";
+			return 0;
+		}
+	}
+
+	public function is_login() {
+		if ($this->session->userdata('team_token')) {
+			//  logined in
+			return 1;
+		} else {
+			//  not login
+			return 0;  
+		}
+	}
+
+	public function logout () {
+		$this->session->unset_userdata('team_token');
 	}
 
 }
