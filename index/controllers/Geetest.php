@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-require_once dirname(dirname(__FILE__)).'/libraries/Geetestlib.php';
+require_once dirname(dirname(__FILE__)) . '/libraries/Geetestlib.php';
 //  暂时不会用library方法调用, 直接require_once 了
 /**
  * Created by PhpStorm.
@@ -8,9 +8,8 @@ require_once dirname(dirname(__FILE__)).'/libraries/Geetestlib.php';
  * Date: 16-10-6
  * Time: 下午1:27
  */
-
-
-class Geetest extends CI_Controller {
+class Geetest extends CI_Controller
+{
 	/* 
 	* 私有变量
 	*/
@@ -18,26 +17,29 @@ class Geetest extends CI_Controller {
 	private $private_key;
 	private $GtSdk;
 
-	public function __construct () {
+	public function __construct()
+	{
 		parent::__construct();
-		
-	/*
-	  PC 端
-	  $this->captcha_id = "9461f13fdaf942af20e90509d9149c6d";
-	  $this->private_key = "aac091f5965f4f87d542f95e77b16398";
-	  $this->GtSdk = new GeetestLib($this->captcha_id, $this->private_key);
-	*/
-	
+
+		/*
+			PC 端
+			$this->captcha_id = "9461f13fdaf942af20e90509d9149c6d";
+			$this->private_key = "aac091f5965f4f87d542f95e77b16398";
+			$this->GtSdk = new GeetestLib($this->captcha_id, $this->private_key);
+		*/
+
 		$this->mobile_captcha_id = "7c25da6fe21944cfe507d2f9876775a9";
 		$this->mobile_private_key = "f5883f4ee3bd4fa8caec67941de1b903";
 		$this->GtSdk = new GeetestLib($this->mobile_captcha_id, $this->mobile_private_key);
 	}
 
-	public function index () {
+	public function index()
+	{
 		//	codes?
 	}
-	
-	public function startCaptcha () {
+
+	public function startCaptcha()
+	{
 
 		session_start();
 		$user_id = "test";
@@ -46,8 +48,9 @@ class Geetest extends CI_Controller {
 		$_SESSION['user_id'] = $user_id;
 		echo $this->GtSdk->get_response_str();
 	}
-	
-	public function verifyLogin () {
+
+	public function verifyLogin()
+	{
 		/**
 		 * 输出二次验证结果
 		 */
@@ -59,10 +62,10 @@ class Geetest extends CI_Controller {
 			$result = $this->GtSdk->success_validate($_POST['geetest_challenge'], $_POST['geetest_validate'], $_POST['geetest_seccode'], $user_id);
 			if ($result) {
 				echo '{"status":"success"}';
-			} else{
+			} else {
 				echo '{"status":"fail"}';
 			}
-		}else {  //服务器宕机,走failback模式
+		} else {  //服务器宕机,走failback模式
 			if ($this->GtSdk->fail_validate($_POST['geetest_challenge'], $_POST['geetest_validate'], $_POST['geetest_seccode'])) {
 				echo '{"status":"success"}';
 			} else {

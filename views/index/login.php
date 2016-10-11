@@ -60,8 +60,16 @@
 										<div class="col-xs-8 col-xs-offset-2 col-lg-10 col-lg-offset-1">
 											<input type="button" value="Login In" id="cover-submit-login"
 											       class="btn btn-success form-control">
-<!--											<input type="submit" value="Login In" id="submit-login" name="submit-login"-->
-<!--											       class="btn btn-success form-control" tabindex="4">-->
+										</div>
+										<!-- msgtip Login -->
+										<div class="msgtip ">
+											<div class="msgtip-success-login">
+												Login success
+											</div>
+											<div class="msgtip-fail-login">
+												Login failed.<br>
+												Wrong username || password
+											</div>
 										</div>
 									</div>
 								</div>
@@ -101,8 +109,16 @@
 										<div class="col-xs-8 col-xs-offset-2 col-md-8 col-md-offset-2">
 											<input type="button" id="cover-submit-register" tabindex="7"
 											       class="form-control btn btn-primary" value="Register Now"/>
-<!--											<input type="submit" name="submit-register" id="submit-register"-->
-<!--											       class="form-control btn btn-primary" value="Register Now"/>-->
+										</div>
+										<!-- msgtip Login -->
+										<div class="msgtip">
+											<div class="msgtip-success-register">
+												Register success
+											</div>
+											<div class="msgtip-fail-register">
+												Register failed.<br>
+												The username had already been taken.
+											</div>
 										</div>
 									</div>
 								</div>

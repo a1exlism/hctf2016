@@ -174,7 +174,32 @@ $(function () {
 	inputPassword.addEventListener('focus', passReduction);
 	inputConfirm.addEventListener('focus', passReduction);
 	inputConfirm.addEventListener('blur', passwdCheck);
-	
+
+
+	/*
+	*
+	*   --  ajax异步提交表单  --
+	*
+  * */
+
+	var postRegister = function() {
+		$.ajax({
+			url: 'Login/login',
+			type: 'post',
+			dataType: 'json',
+			data: {
+				teamname: $('#user-register').val(),
+				school: $('#school').val(),
+				email: $('#email').val(),
+				password: $('#pass-register').val(),
+				phone: $('#phone').val()
+			},
+			success: function () {
+				
+			}
+
+		})
+	}
 	/* --- 极验验证 --- 套用的mobi端 --- */
 	
 	

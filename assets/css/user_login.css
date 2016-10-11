@@ -241,12 +241,58 @@ canvas {
 	z-index: 100;
 }
 
+/* 提示信息 msgtip */
+div[id^='message-']{
+	position: fixed;
+	display: none;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+.msgtip {
+	position: relative;
+	display: inline-block;
+	margin: 5px 10px;
+	opacity: 1;
+	padding: 5px 0;
+	z-index: 100;
+	text-align: center;
+	vertical-align: middle;
+
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+
+div[class^='msgtip-'] {
+	display: none;
+}
+
+div[class^='msgtip-success-'] {
+	color: #449d44;
+}
+
+div[class^='msgtip-fail-'] {
+	color: #fa7a7a;
+}
+
 #popup-captcha {
 	position: fixed;
 	display: none;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
 	-webkit-transform: translate(-50%, -50%);
 	z-index: 9999;
 }
