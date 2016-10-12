@@ -123,6 +123,7 @@ $(function () {
 	});
 	
 	/* Login/Register panel switch */
+	
 	$('#login-form-link').click(function (event) {
 		$('#form-login').delay(150).fadeIn(150);
 		$('#form-register').fadeOut(150);
@@ -174,41 +175,42 @@ $(function () {
 	inputPassword.addEventListener('focus', passReduction);
 	inputConfirm.addEventListener('focus', passReduction);
 	inputConfirm.addEventListener('blur', passwdCheck);
-
-
+	
+	
 	/*
 	 *
 	 *   --  ajax异步提交表单  --
 	 *
 	 * */
-
+	
 	var postLogin = function () {
 		$.ajax({
-			url: 'Login/register',
+			url: 'Login/login',
 			type: 'post',
 			dataType: 'json',
 			data: {
 				teamname: $('#user-login').val(),
 				password: $('#pass-login').val()
 			},
-			success: function () {
-				$('.msgtip-success-login').show();
-				setTimeout(function () {
-					window.location.href = 'index/team';
-				}, 1000);
-			},
-			error: function () {
-				$('.msgtip-fail-login').show();
-				setTimeout(function () {
-					$('.msgtip-fail-login').hide();
-				}, 500);
+			success: function (data) {
+				if (data && (data.status === "success")) {
+					$('.msgtip-success-login').show();
+					setTimeout(function () {
+						window.location.href = '/index/team';
+					}, 500);
+				} else {
+					$('.msgtip-fail-login').show();
+					setTimeout(function () {
+						$('.msgtip-fail-login').hide();
+					}, 2500);
+				}
 			}
 		});
 	};
-
+	
 	var postRegister = function () {
 		$.ajax({
-			url: 'Login/login',
+			url: 'Login/register',
 			type: 'post',
 			dataType: 'json',
 			data: {
@@ -218,24 +220,32 @@ $(function () {
 				password: $('#pass-register').val(),
 				phone: $('#phone').val()
 			},
-			success: function () {
-				$('.msgtip-success-register').show();
-				setTimeout(function () {
-					$('#login-form-link').click();
-				}, 300);
-			},
-			error: function () {
-				$('.msgtip-fail-register').show();
-				setTimeout(function () {
-					$('.msgtip-fail-register').hide();
-				}, 1000);
+			success: function (data) {
+				// $('.msgtip-success-register').show();
+				// setTimeout(function () {
+				// 	$('#login-form-link').click();
+				// }, 300);
+				if (data && (data.status === "success")) {
+					$('.msgtip-success-register').show();
+					setTimeout(function () {
+						$('#login-form-link').click();
+						$('.msgtip-success-register').hide();
+					}, 500);
+				} else {
+					$('.msgtip-fail-register').show();
+					setTimeout(function () {
+						$('.msgtip-fail-register').hide();
+					}, 2500);
+				}
 			}
 		})
 	};
-
-
-	/* --- 极验验证 --- 套用的mobi端 --- */
 	
+	
+	/* --- 极验验证 --- 套用的mobi端 --- */
+	function captchaHide() {
+		$("#mask, #popup-captcha").hide();
+	}
 	
 	$("#mask").click(function () {
 		$("#mask, #popup-captcha").hide();
@@ -251,11 +261,14 @@ $(function () {
 	});
 	
 	/* -- login -- */
+	
 	var handlerPopupLogin = function (captchaObj) {
 		// 将验证码加到id为captcha的元素里
 		captchaObj.appendTo("#popup-captcha");
 		//拖动验证成功后两秒(可自行设置时间)自动发生跳转等行为
 		captchaObj.onSuccess(function () {
+			captchaHide();
+			//  mask 隐藏
 			var validate = captchaObj.getValidate();
 			$.ajax({
 				url: "Geetest/verifyLogin", // 进行二次验证
@@ -271,8 +284,8 @@ $(function () {
 				},
 				success: function (data) {
 					if (data && (data.status === "success")) {
-						$('#form-login').submit();
-						// postLogin();
+						// $('#form-login').submit();
+						postLogin();
 					} else {
 						console.log(0);
 					}
@@ -281,47 +294,14 @@ $(function () {
 			});
 		});
 	};
-	//  默认ajax状态
-	$.ajax({
-		// 获取id，challenge，success（是否启用failback）
-		url: "Geetest/startCaptcha/t/" + (new Date()).getTime(), // 加随机数防止缓存
-		type: "get",
-		dataType: "json",
-		success: function (data) {
-			// 使用initGeetest接口
-			// 参数1：配置参数
-			// 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
-			initGeetest({
-				gt: data.gt,
-				challenge: data.challenge,
-				offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
-				// 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config
-			}, handlerPopupLogin);
-		}
-	});
-
-	/* -- regenerate Geetest captcha --*/
-	$("#login-form-link").click(function () {
-		$('#popup-captcha').find('.gt_mobile_holder').first().remove();
-		$.ajax({
-			url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
-			type: "get",
-			dataType: "json",
-			success: function (data) {
-				initGeetest({
-					gt: data.gt,
-					challenge: data.challenge,
-					offline: !data.success
-				}, handlerPopupLogin);
-			}
-			
-		});
-	});
 	
 	/* -- register -- */
+	
 	var handlerPopupRegister = function (captchaObj) {
 		captchaObj.appendTo("#popup-captcha");
 		captchaObj.onSuccess(function () {
+			//  隐藏 MASK
+			captchaHide();
 			var validate = captchaObj.getValidate();
 			$.ajax({
 				url: "Geetest/verifyLogin",
@@ -335,19 +315,35 @@ $(function () {
 					geetest_seccode: validate.geetest_seccode
 				},
 				success: function (data) {
-					if (data && (data.status === "success")) {
-						$('#form-register').submit();
-						// postRegister();
-					} else {
+					if (data && (data.hasOwnProperty('error'))) {
 						console.log(0);
+					} else {
+						// $('#form-register').submit();
+						postRegister();
 					}
 				}
 			});
 		});
-	};
+	}
 	
-	$("#register-form-link").click(function () {
-		//  delete the previous one
+	/* -- regenerate Geetest captcha --*/
+	$("#cover-submit-login").click(function () {
+		$('#popup-captcha').find('.gt_mobile_holder').first().remove();
+		$.ajax({
+			url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
+			type: "get",
+			dataType: "json",
+			success: function (data) {
+				initGeetest({
+					gt: data.gt,
+					challenge: data.challenge,
+					offline: !data.success
+				}, handlerPopupLogin);
+			}
+		});
+	});
+	
+	$("#cover-submit-register").click(function () {
 		$('#popup-captcha').find('.gt_mobile_holder').first().remove();
 		$.ajax({
 			url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
@@ -360,15 +356,7 @@ $(function () {
 					offline: !data.success
 				}, handlerPopupRegister);
 			}
-			/*,
-			 error: function (XMLHttpRequest, textStatus, errorThrown) {
-			 console.log(XMLHttpRequest.status);
-			 console.log(XMLHttpRequest.readyState);
-			 console.log(textStatus);
-			 }*/
-			
 		});
 	});
 	
-})
-;
+});

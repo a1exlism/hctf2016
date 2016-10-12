@@ -44,8 +44,13 @@ class Login extends CI_Controller
 		$user_data = $this->user_model->user_select($team_name);
 		
 		if ($user_data) { //  如果用户存在
-			echo "Username has been taken.";
-			return 0;
+			echo '{"status": "Error: Username has been taken."}';
+			return NULL;
+		} else {
+			if (empty($team_school) || empty($team_email) || empty($team_phone)) {
+				echo '{"status": "Error: All info required."}';
+				return NULL;
+			}
 		}
 
 		$arr_reg = array(
@@ -57,8 +62,9 @@ class Login extends CI_Controller
 		);
 
 		$this->user_model->user_register($arr_reg);
-
-		return 1;
+		
+		echo '{"status": "success"}';
+		return NULL;
 	}
 
 	public function login() {
@@ -69,23 +75,24 @@ class Login extends CI_Controller
 
 		if ($user_data) {
 			//  如果用户存在
-			if ($user_data[0]->team_pass == $team_pass) {
+			if ($user_data[0]->team_pass === $team_pass) {
 				$session_arr = array(
-					'team_token' => $user_data[0]->team_token
+					'team_token' => $user_data[0]->team_token,
+					'is_login' => 1
 				);
 				$this->session->set_userdata($session_arr);
+				echo '{"status": "success"}';
 			} else {
-				echo "Wrong passwd";
-				return 0;
+				echo '{"status": "fail_1"}';
 			}
 		} else {
-			echo "No user.";
-			return 0;
+			echo '{"status": "fail_2"}';
 		}
 	}
 
 	public function is_login() {
-		if ($this->session->userdata('team_token')) {
+		$login_status = $this->session->userdata('is_login');
+		if ( $login_status && $login_status == 1) {
 			//  logined in
 			return 1;
 		} else {
