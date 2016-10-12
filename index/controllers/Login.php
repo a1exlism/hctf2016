@@ -24,12 +24,17 @@ class Login extends CI_Controller
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->model('user_model');
-
+		$this->load->model('session_check');
 	}
 
 	public function index()
 	{
-		$this->load->view('index/login');
+		if ($this->session_check->check() === 1) {
+			//  登录状态  以后会更改的
+			redirect('index/team', 'location');
+		} else {
+			$this->load->view('index/login');
+		}
 	}
 
 	public function register()
@@ -42,7 +47,7 @@ class Login extends CI_Controller
 		$team_phone = $this->security->xss_clean($_POST['phone']);
 
 		$user_data = $this->user_model->user_select($team_name);
-		
+
 		if ($user_data) { //  如果用户存在
 			echo '{"status": "Error: Username has been taken."}';
 			return NULL;
@@ -62,15 +67,16 @@ class Login extends CI_Controller
 		);
 
 		$this->user_model->user_register($arr_reg);
-		
+
 		echo '{"status": "success"}';
 		return NULL;
 	}
 
-	public function login() {
+	public function login()
+	{
+
 		$team_name = $this->security->xss_clean($_POST['teamname']);
 		$team_pass = $this->security->xss_clean($_POST['password']);
-		
 		$user_data = $this->user_model->user_select($team_name);
 
 		if ($user_data) {
@@ -90,18 +96,9 @@ class Login extends CI_Controller
 		}
 	}
 
-	public function is_login() {
-		$login_status = $this->session->userdata('is_login');
-		if ( $login_status && $login_status == 1) {
-			//  logined in
-			return 1;
-		} else {
-			//  not login
-			return 0;  
-		}
-	}
-
-	public function logout () {
+	public function logout()
+	{
+		$this->session->unset_userdata('is_login');
 		$this->session->unset_userdata('team_token');
 	}
 

@@ -196,7 +196,7 @@ $(function () {
 				if (data && (data.status === "success")) {
 					$('.msgtip-success-login').show();
 					setTimeout(function () {
-						window.location.href = '/index/team';
+						window.location.href = 'team';
 					}, 500);
 				} else {
 					$('.msgtip-fail-login').show();
