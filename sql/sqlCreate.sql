@@ -11,12 +11,12 @@ CREATE TABLE hctf2016.team_info (
 	team_school VARCHAR(20) NOT NULL ,
 	team_phone INT(12) UNSIGNED NOT NULL ,
 	team_token VARCHAR(40) NOT NULL ,
-  is_expand BOOL NOT NULL ,
+  is_expand BOOL NOT NULL DEFAULT 0,
   -- 是否可以开题
-  total_score INT NOT NULL ,
-  compet_level INT UNSIGNED NOT NULL ,
+  total_score INT NOT NULL DEFAULT 0,
+  compet_level INT UNSIGNED NOT NULL DEFAULT 1,
   -- 可挑战层数
-  is_cheat BOOL NOT NULL
+  is_cheat BOOL NOT NULL DEFAULT 0
 );
 
 /* -- Challenge Info -- */
@@ -27,6 +27,7 @@ CREATE TABLE hctf2016.challenge_info (
   challenge_hit VARCHAR(100) ,
   challenge_level INT UNSIGNED NOT NULL ,
   -- 开题层数
+  challenge_solves INT UNSIGNED DEFAULT 0,
   challenge_api VARCHAR(40),
   challenge_threshold INT(12) UNSIGNED NOT NULL
   -- api 为多flag接口
