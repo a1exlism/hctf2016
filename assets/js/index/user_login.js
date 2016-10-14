@@ -139,14 +139,50 @@ $(function () {
 		event.preventDefault(); //防止url被打开
 	});
 	
-	/*--- password confirm ---*/
-	
+	/*--- Register input check ---*/
 	var btnRegister = document.getElementById('cover-submit-register'),
+		inputTeamName = document.getElementById('user-register'),
+		inputSchool = document.getElementById('school'),
 		inputPassword = document.getElementById('pass-register'),
-		inputConfirm = document.getElementById('password-confirm');
+		inputConfirm = document.getElementById('password-confirm'),
+		inputPhoneNum = document.getElementById('phone');
+	
+	//  Warning Infomation 警告信息
+	function warningAdd() {
+		btnRegister.classList.remove('btn-primary');
+		btnRegister.classList.add('submit-wrong');
+		btnRegister.disabled = true;
+	}
+	
+	function warningRemove() {
+		if (btnRegister.classList.contains('submit-wrong')) {
+			btnRegister.value = 'Register Now';
+			btnRegister.disabled = false;
+			btnRegister.classList.remove('submit-wrong');
+			btnRegister.classList.add('btn-primary');
+		}
+	}
+	
+	function emptyCheck(ele) {
+		if (ele.value == '') {
+			warningAdd();
+			ele.addEventListener('blur', function () {
+				warningAdd();
+				btnRegister.value = 'Empty Input!';
+			});
+			ele.addEventListener('focus', warningRemove);
+		}
+	}
+	
+	//  email
+	function emailCheck() {
+		
+	}
+	
+	//  password confirm
 	
 	function passwdCheck() {
-		
+
 		if (inputPassword.value != inputConfirm.value) {
 			//  judge classname
 			if (btnRegister.classList.contains('submit-wrong')) {
@@ -156,33 +192,23 @@ $(function () {
 			}
 			
 			btnRegister.value = 'Check your passwd!';
-			btnRegister.classList.remove('btn-primary');
-			btnRegister.classList.add('submit-wrong');
-			btnRegister.disabled = true;
+			warningAdd()
 		}
 	}
 	
-	function passReduction() {
-		if (btnRegister.classList.contains('submit-wrong')) {
-			btnRegister.value = 'Register Now';
-			btnRegister.disabled = false;
-			btnRegister.classList.remove('submit-wrong');
-			btnRegister.classList.add('btn-primary');
-		}
-	}
-	
+
 	inputPassword.addEventListener('blur', passwdCheck);
-	inputPassword.addEventListener('focus', passReduction);
-	inputConfirm.addEventListener('focus', passReduction);
+	inputPassword.addEventListener('focus', warningRemove);
+	inputConfirm.addEventListener('focus', warningRemove);
 	inputConfirm.addEventListener('blur', passwdCheck);
-	
-	
+
+
 	/*
 	 *
 	 *   --  ajax异步提交表单  --
 	 *
 	 * */
-	
+
 	var postLogin = function () {
 		$.ajax({
 			url: 'Login/login',
@@ -207,7 +233,7 @@ $(function () {
 			}
 		});
 	};
-	
+
 	var postRegister = function () {
 		$.ajax({
 			url: 'Login/register',
@@ -240,28 +266,28 @@ $(function () {
 			}
 		})
 	};
-	
-	
+
+
 	/* --- 极验验证 --- 套用的mobi端 --- */
 	function captchaHide() {
 		$("#mask, #popup-captcha").hide();
 	}
-	
+
 	$("#mask").click(function () {
 		$("#mask, #popup-captcha").hide();
 		$('#cover-submit-login, #cover-submit-register').show();
 	});
-	
+
 	$("#cover-submit-login").click(function () {
 		$("#mask, #popup-captcha").show();
 	});
-	
+
 	$("#cover-submit-register").click(function () {
 		$("#mask, #popup-captcha").show();
 	});
-	
+
 	/* -- login -- */
-	
+
 	var handlerPopupLogin = function (captchaObj) {
 		// 将验证码加到id为captcha的元素里
 		captchaObj.appendTo("#popup-captcha");
@@ -290,13 +316,13 @@ $(function () {
 						console.log(0);
 					}
 				}
-				
+
 			});
 		});
 	};
-	
+
 	/* -- register -- */
-	
+
 	var handlerPopupRegister = function (captchaObj) {
 		captchaObj.appendTo("#popup-captcha");
 		captchaObj.onSuccess(function () {
@@ -325,7 +351,7 @@ $(function () {
 			});
 		});
 	}
-	
+
 	/* -- regenerate Geetest captcha --*/
 	$("#cover-submit-login").click(function () {
 		$('#popup-captcha').find('.gt_mobile_holder').first().remove();
@@ -342,7 +368,7 @@ $(function () {
 			}
 		});
 	});
-	
+
 	$("#cover-submit-register").click(function () {
 		$('#popup-captcha').find('.gt_mobile_holder').first().remove();
 		$.ajax({
