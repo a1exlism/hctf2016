@@ -211,7 +211,7 @@ $(function () {
 
 	var postLogin = function () {
 		$.ajax({
-			url: 'Login/login',
+			url: 'User_ajax/login_check',
 			type: 'post',
 			dataType: 'json',
 			data: {
@@ -236,7 +236,7 @@ $(function () {
 
 	var postRegister = function () {
 		$.ajax({
-			url: 'Login/register',
+			url: 'User_ajax/register_check',
 			type: 'post',
 			dataType: 'json',
 			data: {
@@ -247,17 +247,23 @@ $(function () {
 				phone: $('#phone').val()
 			},
 			success: function (data) {
-				// $('.msgtip-success-register').show();
-				// setTimeout(function () {
-				// 	$('#login-form-link').click();
-				// }, 300);
+
 				if (data && (data.status === "success")) {
 					$('.msgtip-success-register').show();
 					setTimeout(function () {
 						$('#login-form-link').click();
 						$('.msgtip-success-register').hide();
 					}, 500);
-				} else {
+				} else if (data && (data.status === "error")) {
+					//  json 数据处理
+					//  清空所有子元素
+					$('.msgtip-fail-register').empty();
+					for (var i in data) {
+						if (i == 'status') {
+							continue;
+						}
+						$('.msgtip-fail-register').append('<p>' + data[i] + '</p>');
+					}
 					$('.msgtip-fail-register').show();
 					setTimeout(function () {
 						$('.msgtip-fail-register').hide();

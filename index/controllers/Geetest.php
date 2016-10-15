@@ -22,14 +22,15 @@ class Geetest extends CI_Controller
 		parent::__construct();
 
 		/*
-			PC 端
+			PC Client
 			$this->captcha_id = "9461f13fdaf942af20e90509d9149c6d";
 			$this->private_key = "aac091f5965f4f87d542f95e77b16398";
 			$this->GtSdk = new GeetestLib($this->captcha_id, $this->private_key);
 		*/
 
-		$this->mobile_captcha_id = "7c25da6fe21944cfe507d2f9876775a9";
-		$this->mobile_private_key = "f5883f4ee3bd4fa8caec67941de1b903";
+		/* Mobile Client */
+		$this->mobile_captcha_id = "32bbbde17a1a19c1fa06121f437ff2c8";
+		$this->mobile_private_key = "aa9621efff0aa0cb09a0f85b00341b8f";
 		$this->GtSdk = new GeetestLib($this->mobile_captcha_id, $this->mobile_private_key);
 	}
 

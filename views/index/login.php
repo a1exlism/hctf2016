@@ -5,8 +5,8 @@
 	<title>Login/Register | HCTF 2016</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Bootstrap core CSS -->
-	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<?php echo base_url('assets/css/user_login.css') ?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap/bootstrap.min.css') ?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/css/index/user_login.css') ?>">
 </head>
 <body class="container-fluid" style="padding:0;">
 <div id="particles-js"></div>
@@ -113,14 +113,12 @@
 											<input type="button" id="cover-submit-register" tabindex="7"
 											       class="form-control btn btn-primary" value="Register Now"/>
 										</div>
-										<!-- msgtip Login -->
+										<!-- msgtip register -->
 										<div class="msgtip">
 											<div class="msgtip-success-register">
-												Register success
+												<p>Register success</p>
 											</div>
 											<div class="msgtip-fail-register">
-												Register failed.<br>
-												The username had already been taken.
 											</div>
 										</div>
 									</div>
@@ -136,12 +134,17 @@
 <div id="mask"></div>
 <div id="popup-captcha"></div>
 
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="http://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
-<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<!-- bootstrap & jquery -->
+<script src="<?php echo base_url('assets/js/bootstrap/jquery.min.js') ?>"></script>
+<script src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js') ?>"></script>
+
+<script src="<?php echo base_url('assets/js/index/particles.js') ?> "></script>
+
 <!-- 极验: 引入封装了failback的接口--initGeetest -->
-<script src="http://static.geetest.com/static/tools/gt.js"></script>
-<script src="<?php echo base_url('assets/js/particles.js') ?> "></script>
-<script src="<?php echo base_url('assets/js/user_login.js') ?> "></script>
+<script src="<?php echo base_url('assets/js/geetest/gt.js') ?>"></script>
+
+<!-- background & self_config -->
+<script src="<?php echo base_url('assets/js/index/particles.js') ?> "></script>
+<script src="<?php echo base_url('assets/js/index/user_login.js') ?> "></script>
 </body>
 </html>

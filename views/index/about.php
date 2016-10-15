@@ -13,7 +13,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>About | HCTF 2016</title>
-	<link rel="stylesheet" href="<?php echo base_url('assets/css/index_about.css') ?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/css/index/about.css') ?>">
 </head>
 <body>
 	<div class="topbar"><a href="javascript:void(0)" onclick="history.back()">Back</a></div>
