@@ -1,26 +1,26 @@
 /* ---  fonts  --- */
 /* latin */
 @font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Roboto Light'), local('Roboto-Light'), url(../fonts/Hgo13k-tfSpn0qi1SFdUfVtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Roboto'), local('Roboto-Regular'), url(../fonts/CWB0XYA8bzo0kSThX0UTuA.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 300;
+	src: local('Roboto Light'), local('Roboto-Light'), url(/assets/fonts/Hgo13k-tfSpn0qi1SFdUfVtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Roboto'), local('Roboto-Regular'), url(../../fonts/CWB0XYA8bzo0kSThX0UTuA.woff2) format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
 
 /* ---  reset  ---*/
 * {
 	margin: 0;
 	padding: 0;
-	font-family: Roboto,sans-serif;
+	font-family: Roboto, sans-serif;
 	color: rgba(255, 255, 255, 0.7);
 }
 
@@ -29,11 +29,11 @@ body {
 }
 
 /* placeholder IE10+ */
-input::-webkit-input-placeholder{
+input::-webkit-input-placeholder {
 	text-align: center;
 }
 
-input::-moz-placeholder{
+input::-moz-placeholder {
 	text-align: center;
 }
 
@@ -42,8 +42,8 @@ input::input-placeholder {
 }
 
 /* 去除选中的虚线框 */
-a,input,button,select,textarea{
-	outline:none
+a, input, button, select, textarea {
+	outline: none
 }
 
 a:focus {
@@ -68,16 +68,16 @@ canvas {
 }
 
 /* Navigation Bar */
-#navbar a{
+#navbar a {
 	color: rgba(255, 255, 255, 0.7);
 	position: fixed;
 }
 
-#navbar .navbar-toggle, #navbar .navbar-toggle .icon-bar{
+#navbar .navbar-toggle, #navbar .navbar-toggle .icon-bar {
 	background-color: rgba(255, 255, 255, 0.15);
 }
 
-#navbar .nav>li>a:hover, #navbar .nav>li>a:focus {
+#navbar .nav > li > a:hover, #navbar .nav > li > a:focus {
 	background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -103,16 +103,17 @@ canvas {
 	width: 100%;
 }
 
-.panel-body .form-group{
+.panel-body .form-group {
 	margin-bottom: 10px;
 }
+
 /* Login Container */
 
 .panel-login {
 	background-color: rgba(255, 255, 255, 0.15);
 }
 
-.panel-login .panel-body,.panel-login .panel-heading {
+.panel-login .panel-body, .panel-login .panel-heading {
 	padding: 10px;
 }
 
@@ -122,17 +123,17 @@ canvas {
 	clear: both;
 	border: 0;
 	height: 1px;
-	background-image: -webkit-linear-gradient(left,rgba(255,255,255, 0.35),rgba(255,255,255, 0.35),rgba(255,255,255, 0.35));
-	background-image: -moz-linear-gradient(left,rgba(255,255,255,0.35),rgba(255,255,255,0.35),rgba(255,255,255,0.35));
-	background-image: -ms-linear-gradient(left,rgba(255,255,255,0.35),rgba(255,255,255,0.35),rgba(255,255,255,0.35));
-	background-image: -o-linear-gradient(left,rgba(255,255,255,0.35),rgba(255,255,255,0.35),rgba(255,255,255,0.35));
+	background-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35));
+	background-image: -moz-linear-gradient(left, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35));
+	background-image: -ms-linear-gradient(left, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35));
+	background-image: -o-linear-gradient(left, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35));
 }
 
 .panel-login .panel-heading {
 	text-align: center;
 }
 
-.panel-login .panel-heading a:hover, .panel-login #form-login a:hover  {
+.panel-login .panel-heading a:hover, .panel-login #form-login a:hover {
 	color: #7a9afa;
 }
 
@@ -169,23 +170,22 @@ canvas {
 	margin-right: 5px;
 }
 
-.panel-login input[type='checkbox']:checked+label[for='remember']::before {
+.panel-login input[type='checkbox']:checked + label[for='remember']::before {
 	background-color: rgba(181, 255, 147, 0.76);
 }
 
-.panel-heading .col-xs-6{
+.panel-heading .col-xs-6 {
 	height: 25px;
 	vertical-align: middle;
 }
 
-.panel-login a:link,a:hover,a:visited{
+.panel-login a:link, a:hover, a:visited {
 	font-family: "Roboto";
 	font-weight: 400;
 	line-height: 25px;
 	color: rgba(255, 255, 255, 0.89);
-	text-decoration:none;
+	text-decoration: none;
 }
-
 
 #form-login {
 	display: block;
@@ -211,7 +211,7 @@ canvas {
 .submit-wrong {
 	border-color: #fa7a7a !important;
 	background-color: #ff7979 !important;
-	color : #fff !important;
+	color: #fff !important;
 }
 
 /* -- 极验 - captcha -- */
@@ -241,14 +241,62 @@ canvas {
 	z-index: 100;
 }
 
+/* 提示信息 msgtip */
+.msgtip {
+	position: relative;
+	margin: 5px 1px;
+	opacity: 1;
+	padding: 5px 0;
+	text-align: center;
+	vertical-align: middle;
+
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
+	transform: translateX(-50%);
+
+	display: inline-block;
+}
+
+div[class^='msgtip-'] {
+	display: none;
+}
+
+div[class^='msgtip-fail-register'] > p {
+	margin: 0;
+	color: inherit;
+}
+
+div[class^='msgtip-success-'] {
+	color: #449d44;
+}
+
+div[class^='msgtip-fail-'] {
+	color: #fa7a7a;
+}
+
 #popup-captcha {
 	position: fixed;
 	display: none;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
 	-webkit-transform: translate(-50%, -50%);
 	z-index: 9999;
+
+	-moz-user-select: -moz-none;
+	-webkit-user-select: none;
+	/*
+		Introduced in IE 10.
+		See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+	*/
+	-ms-user-select: none;
+	user-select: none;
 }
 
 /* -- login/register -- */

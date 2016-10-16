@@ -62,4 +62,9 @@ RewriteRule ^/(.*) http://www.xxx.com/ [L]
 
 10. controller 的load->model() 括号内名字可以小写, 不过model名字必须大写开头
 
-11.
+11. 表单验证 [docs](http://codeigniter.org.cn/user_guide/libraries/form_validation.html#setting-validation-rules)
+[第三方例子](http://www.zixuephp.com/html/ci/2015042238822.html)
+不过并不是很动, 这边xss_clean在认证的rules中被绕过的问题
+关于表单验证配置的错误写法: https://gist.github.com/a1exlism/1a3fe37aeddfa686a5cd6c4d6a4bfd35
+
+12.

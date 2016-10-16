@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Login/Register</title>
+	<title>Login/Register | HCTF 2016</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Bootstrap core CSS -->
-	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<?php echo base_url('assets/css/user_login.css') ?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap/bootstrap.min.css') ?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/css/index/user_login.css') ?>">
 </head>
 <body class="container-fluid" style="padding:0;">
 <div id="particles-js"></div>
@@ -40,7 +40,7 @@
 				<!-- panel body -->
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3 col-lg-8 col-lg-offset-2">
+						<div class="col-xs-8 col-xs-offset-2 col-md-8 col-md-offset-2">
 							<!-- Login -->
 							<form id="form-login" action="login/login" method="post" role="form">
 								<div class="form-group">
@@ -51,18 +51,19 @@
 									<input type="password" class="form-control" name="password" id="pass-login" placeholder="Password"
 									       tabindex="2">
 								</div>
+						<!--	
 								<div class="form-group text-center">
 									<input type="checkbox" tabindex="3" name="remember" id="remember" style="display:none">
 									<label for="remember" onselectstart="return false;">Remember Me</label>
 								</div>
+						-->
 								<div class="form-group">
 									<div class="row">
 										<div class="col-xs-8 col-xs-offset-2 col-lg-10 col-lg-offset-1">
 											<input type="button" value="Login In" id="cover-submit-login"
 											       class="btn btn-success form-control">
-<!--											<input type="submit" value="Login In" id="submit-login" name="submit-login"-->
-<!--											       class="btn btn-success form-control" tabindex="4">-->
 										</div>
+										
 									</div>
 								</div>
 								<div class="form-group">
@@ -73,6 +74,16 @@
 											</div>
 										</div>
 									</div>
+									<!-- msgtip Login -->
+										<div class="msgtip">
+											<div class="msgtip-success-login">
+												Login success
+											</div>
+											<div class="msgtip-fail-login">
+												Login failed.<br>
+												Wrong username || password
+											</div>
+										</div>
 								</div>
 							</form>
 							<!-- Register -->
@@ -101,12 +112,17 @@
 										<div class="col-xs-8 col-xs-offset-2 col-md-8 col-md-offset-2">
 											<input type="button" id="cover-submit-register" tabindex="7"
 											       class="form-control btn btn-primary" value="Register Now"/>
-<!--											<input type="submit" name="submit-register" id="submit-register"-->
-<!--											       class="form-control btn btn-primary" value="Register Now"/>-->
+										</div>
+										<!-- msgtip register -->
+										<div class="msgtip">
+											<div class="msgtip-success-register">
+												<p>Register success</p>
+											</div>
+											<div class="msgtip-fail-register">
+											</div>
 										</div>
 									</div>
 								</div>
-
 							</form>
 						</div>
 					</div>
@@ -118,12 +134,17 @@
 <div id="mask"></div>
 <div id="popup-captcha"></div>
 
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="http://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
-<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<!-- bootstrap & jquery -->
+<script src="<?php echo base_url('assets/js/bootstrap/jquery.min.js') ?>"></script>
+<script src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js') ?>"></script>
+
+<script src="<?php echo base_url('assets/js/index/particles.js') ?> "></script>
+
 <!-- 极验: 引入封装了failback的接口--initGeetest -->
-<script src="http://static.geetest.com/static/tools/gt.js"></script>
-<script src="<?php echo base_url('assets/js/particles.js') ?> "></script>
-<script src="<?php echo base_url('assets/js/user_login.js') ?> "></script>
+<script src="<?php echo base_url('assets/js/geetest/gt.js') ?>"></script>
+
+<!-- background & self_config -->
+<script src="<?php echo base_url('assets/js/index/particles.js') ?> "></script>
+<script src="<?php echo base_url('assets/js/index/user_login.js') ?> "></script>
 </body>
 </html>

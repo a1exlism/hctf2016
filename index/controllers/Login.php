@@ -1,16 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Login extends CI_Controller {
+class Login extends CI_Controller
+{
 
 	/**
 	 * index Page for this controller.
 	 *
 	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
+	 *    http://example.com/index.php/welcome
+	 *  - or -
+	 *    http://example.com/index.php/welcome/index
+	 *  - or -
 	 * Since this controller is set as the default controller in
 	 * config/routes.php, it's displayed at http://example.com/
 	 *
@@ -18,22 +19,34 @@ class Login extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
+	public function __construct()
 	{
-		$this->load->view('index/login');
+		parent::__construct();
+		$this->load->library('session');
+		$this->load->model('user_model');
+		$this->load->model('session_check');
+
+		$this->load->helper('form');
+		$this->load->library('form_validation');  //表单验证类
+
+		//  session check
+		if ($this->session_check->check() === 1) {
+			//  登录状态  以后会更改的
+			redirect('index/team', 'location');
+		} else {
+			$this->load->view('index/login');
+		}
 	}
 
-	function register () {
-	//  调用model
-		$this->load->model('user_model');
-		$arr_reg = array(
-			'team_name' => $_POST['teamname'],
-			'team_school' => $_POST['school'],
-			'team_email' => $_POST['email'],
-			'team_pass' => $_POST['password'],
-			'team_phone' => $_POST['phone']
-		);
-		$this->user_model->user_register($arr_reg);
+	public function index()
+	{
+
 	}
-	
+
+	public function logout()
+	{
+		$this->session->unset_userdata('is_login');
+		$this->session->unset_userdata('team_token');
+	}
+
 }

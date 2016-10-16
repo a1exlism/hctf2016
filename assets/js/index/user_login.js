@@ -123,6 +123,7 @@ $(function () {
 	});
 	
 	/* Login/Register panel switch */
+	
 	$('#login-form-link').click(function (event) {
 		$('#form-login').delay(150).fadeIn(150);
 		$('#form-register').fadeOut(150);
@@ -138,14 +139,50 @@ $(function () {
 		event.preventDefault(); //防止url被打开
 	});
 	
-	/*--- password confirm ---*/
+	/*--- Register input check ---*/
+	var btnRegister = document.getElementById('cover-submit-register'),
+		inputTeamName = document.getElementById('user-register'),
+		inputSchool = document.getElementById('school'),
+		inputPassword = document.getElementById('pass-register'),
+		inputConfirm = document.getElementById('password-confirm'),
+		inputPhoneNum = document.getElementById('phone');
 	
-	var btnRegister   = document.getElementById('cover-submit-register'),
-			inputPassword = document.getElementById('pass-register'),
-			inputConfirm  = document.getElementById('password-confirm');
+	//  Warning Infomation 警告信息
+	function warningAdd() {
+		btnRegister.classList.remove('btn-primary');
+		btnRegister.classList.add('submit-wrong');
+		btnRegister.disabled = true;
+	}
+	
+	function warningRemove() {
+		if (btnRegister.classList.contains('submit-wrong')) {
+			btnRegister.value = 'Register Now';
+			btnRegister.disabled = false;
+			btnRegister.classList.remove('submit-wrong');
+			btnRegister.classList.add('btn-primary');
+		}
+	}
+	
+	function emptyCheck(ele) {
+		if (ele.value == '') {
+			warningAdd();
+			ele.addEventListener('blur', function () {
+				warningAdd();
+				btnRegister.value = 'Empty Input!';
+			});
+			ele.addEventListener('focus', warningRemove);
+		}
+	}
+	
+	//  email
+	function emailCheck() {
+		
+	}
+	
+	//  password confirm
 	
 	function passwdCheck() {
-		
+
 		if (inputPassword.value != inputConfirm.value) {
 			//  judge classname
 			if (btnRegister.classList.contains('submit-wrong')) {
@@ -155,48 +192,115 @@ $(function () {
 			}
 			
 			btnRegister.value = 'Check your passwd!';
-			btnRegister.classList.remove('btn-primary');
-			btnRegister.classList.add('submit-wrong');
-			btnRegister.disabled = true;
+			warningAdd()
 		}
 	}
 	
-	function passReduction() {
-		if (btnRegister.classList.contains('submit-wrong')) {
-			btnRegister.value = 'Register Now';
-			btnRegister.disabled = false;
-			btnRegister.classList.remove('submit-wrong');
-			btnRegister.classList.add('btn-primary');
-		}
-	}
-	
+
 	inputPassword.addEventListener('blur', passwdCheck);
-	inputPassword.addEventListener('focus', passReduction);
-	inputConfirm.addEventListener('focus', passReduction);
+	inputPassword.addEventListener('focus', warningRemove);
+	inputConfirm.addEventListener('focus', warningRemove);
 	inputConfirm.addEventListener('blur', passwdCheck);
-	
+
+
+	/*
+	 *
+	 *   --  ajax异步提交表单  --
+	 *
+	 * */
+
+	var postLogin = function () {
+		$.ajax({
+			url: 'User_ajax/login_check',
+			type: 'post',
+			dataType: 'json',
+			data: {
+				teamname: $('#user-login').val(),
+				password: $('#pass-login').val()
+			},
+			success: function (data) {
+				if (data && (data.status === "success")) {
+					$('.msgtip-success-login').show();
+					setTimeout(function () {
+						window.location.href = 'team';
+					}, 500);
+				} else {
+					$('.msgtip-fail-login').show();
+					setTimeout(function () {
+						$('.msgtip-fail-login').hide();
+					}, 2500);
+				}
+			}
+		});
+	};
+
+	var postRegister = function () {
+		$.ajax({
+			url: 'User_ajax/register_check',
+			type: 'post',
+			dataType: 'json',
+			data: {
+				teamname: $('#user-register').val(),
+				school: $('#school').val(),
+				email: $('#email').val(),
+				password: $('#pass-register').val(),
+				phone: $('#phone').val()
+			},
+			success: function (data) {
+
+				if (data && (data.status === "success")) {
+					$('.msgtip-success-register').show();
+					setTimeout(function () {
+						$('#login-form-link').click();
+						$('.msgtip-success-register').hide();
+					}, 500);
+				} else if (data && (data.status === "error")) {
+					//  json 数据处理
+					//  清空所有子元素
+					$('.msgtip-fail-register').empty();
+					for (var i in data) {
+						if (i == 'status') {
+							continue;
+						}
+						$('.msgtip-fail-register').append('<p>' + data[i] + '</p>');
+					}
+					$('.msgtip-fail-register').show();
+					setTimeout(function () {
+						$('.msgtip-fail-register').hide();
+					}, 2500);
+				}
+			}
+		})
+	};
+
+
 	/* --- 极验验证 --- 套用的mobi端 --- */
-	
-	
+	function captchaHide() {
+		$("#mask, #popup-captcha").hide();
+	}
+
 	$("#mask").click(function () {
 		$("#mask, #popup-captcha").hide();
 		$('#cover-submit-login, #cover-submit-register').show();
 	});
-	
+
 	$("#cover-submit-login").click(function () {
 		$("#mask, #popup-captcha").show();
 	});
-	
+
 	$("#cover-submit-register").click(function () {
 		$("#mask, #popup-captcha").show();
 	});
-	
+
 	/* -- login -- */
+
 	var handlerPopupLogin = function (captchaObj) {
 		// 将验证码加到id为captcha的元素里
 		captchaObj.appendTo("#popup-captcha");
 		//拖动验证成功后两秒(可自行设置时间)自动发生跳转等行为
 		captchaObj.onSuccess(function () {
+			captchaHide();
+			//  mask 隐藏
 			var validate = captchaObj.getValidate();
 			$.ajax({
 				url: "Geetest/verifyLogin", // 进行二次验证
@@ -212,55 +316,24 @@ $(function () {
 				},
 				success: function (data) {
 					if (data && (data.status === "success")) {
-						$('#form-login').submit();
+						// $('#form-login').submit();
+						postLogin();
 					} else {
-						
+						console.log(0);
 					}
 				}
-				
+
 			});
 		});
 	};
-	//  默认ajax状态
-	$.ajax({
-		// 获取id，challenge，success（是否启用failback）
-		url: "Geetest/startCaptcha/t/" + (new Date()).getTime(), // 加随机数防止缓存
-		type: "get",
-		dataType: "json",
-		success: function (data) {
-			// 使用initGeetest接口
-			// 参数1：配置参数
-			// 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
-			initGeetest({
-				gt: data.gt,
-				challenge: data.challenge,
-				offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
-				// 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config
-			}, handlerPopupLogin);
-		}
-	});
-	
-	$("#login-form-link").click(function () {
-		$('#popup-captcha').find('.gt_mobile_holder').first().remove();
-		$.ajax({
-			url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
-			type: "get",
-			dataType: "json",
-			success: function (data) {
-				initGeetest({
-					gt: data.gt,
-					challenge: data.challenge,
-					offline: !data.success
-				}, handlerPopupLogin);
-			}
-			
-		});
-	});
-	
+
 	/* -- register -- */
+
 	var handlerPopupRegister = function (captchaObj) {
 		captchaObj.appendTo("#popup-captcha");
 		captchaObj.onSuccess(function () {
+			//  隐藏 MASK
+			captchaHide();
 			var validate = captchaObj.getValidate();
 			$.ajax({
 				url: "Geetest/verifyLogin",
@@ -274,18 +347,35 @@ $(function () {
 					geetest_seccode: validate.geetest_seccode
 				},
 				success: function (data) {
-					if (data && (data.status === "success")) {
-						$('#form-register').submit();
-					} else {
+					if (data && (data.hasOwnProperty('error'))) {
 						console.log(0);
+					} else {
+						// $('#form-register').submit();
+						postRegister();
 					}
 				}
 			});
 		});
-	};
-	
-	$("#register-form-link").click(function () {
-		//  delete the previous one
+	}
+
+	/* -- regenerate Geetest captcha --*/
+	$("#cover-submit-login").click(function () {
+		$('#popup-captcha').find('.gt_mobile_holder').first().remove();
+		$.ajax({
+			url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
+			type: "get",
+			dataType: "json",
+			success: function (data) {
+				initGeetest({
+					gt: data.gt,
+					challenge: data.challenge,
+					offline: !data.success
+				}, handlerPopupLogin);
+			}
+		});
+	});
+
+	$("#cover-submit-register").click(function () {
 		$('#popup-captcha').find('.gt_mobile_holder').first().remove();
 		$.ajax({
 			url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
@@ -298,15 +388,7 @@ $(function () {
 					offline: !data.success
 				}, handlerPopupRegister);
 			}
-			/*,
-			 error: function (XMLHttpRequest, textStatus, errorThrown) {
-			 console.log(XMLHttpRequest.status);
-			 console.log(XMLHttpRequest.readyState);
-			 console.log(textStatus);
-			 }*/
-			
 		});
 	});
 	
-})
-;
+});
