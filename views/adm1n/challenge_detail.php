@@ -31,6 +31,8 @@ document.form.submit();
 	<br>
 	<input type="text" name="api" value=<?php echo '"'.$result[0]['challenge_api'].'"';?>>
 	<br>
+	<input type="text" name="api" value=<?php echo '"'.$result[0]['challenge_tres'].'"';?>>
+	<br>
 	<input type="button" value="UPDATE" onclick=_update()>
 	<input type="button" value="DELETE" onclick=_delete()>
 </form>
