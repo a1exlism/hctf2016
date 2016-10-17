@@ -67,4 +67,8 @@ RewriteRule ^/(.*) http://www.xxx.com/ [L]
 不过并不是很动, 这边xss_clean在认证的rules中被绕过的问题
 关于表单验证配置的错误写法: https://gist.github.com/a1exlism/1a3fe37aeddfa686a5cd6c4d6a4bfd35
 
-12.
+12. git add后未commit的撤销
+>[廖雪峰](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001374831943254ee90db11b13d4ba9a73b9047f4fb968d000)
+git reset HEAD .
+
+13. 
