@@ -1,0 +1,82 @@
+body {
+	color: #eee;
+	background-color: #333;
+}
+
+h1 {
+	text-align: center;
+}
+
+/* -- NavBar Start -- */
+.navbar {
+	border-radius: 0;
+	border-color: #333;
+}
+
+.navbar .navbar-brand {
+	color: #eee;
+	background-color: #5899EE;
+}
+
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
+	color: #5899EE;
+	background-color: #222;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	color: #eee;
+}
+
+/* 添加伪类 */
+.navbar .navbar-brand:hover {
+	-webkit-animation-duration: 0.6s;
+	-moz-animation-duration: 0.6s;
+	-o-animation-duration: 0.6s;
+	animation-duration: 0.6s;
+	-webkit-animation-name: slidein;
+	-moz-animation-name: slidein;
+	-o-animation-name: slidein;
+	animation-name: slidein;
+}
+
+/* 关键帧 */
+@keyframes slidein {
+	from {
+		background-color: #5899EE;
+		color: #eee;
+	}
+
+	to {
+		color: #5899EE;
+		background-color: #222;
+	}
+}
+
+.navbar .navbar-nav > li > a:hover {
+	color: #5899EE;
+	border-bottom: solid #5899EE 1px;
+}
+
+.navbar > .container-fluid {
+	padding-right: 0;
+}
+
+.navbar .dropdown-menu {
+	border-radius: 0;
+	background-color: #222;
+}
+
+.navbar .dropdown-menu a {
+	color: #eee;
+}
+
+.navbar .dropdown-menu a:hover {
+	border-left: solid #5899EE 2px;
+	color: #5899EE;
+	background-color: inherit;
+	margin-left: -2px;
+}
+
+/* -- NavBar End -- */
+
+/* -- Main Body Start -- */
