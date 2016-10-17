@@ -61,7 +61,7 @@
 									<div class="row">
 										<div class="col-xs-8 col-xs-offset-2 col-lg-10 col-lg-offset-1">
 											<input type="button" value="Login In" id="cover-submit-login"
-											       class="btn btn-success form-control">
+											       tabindex="3" class="btn btn-success form-control">
 										</div>
 										
 									</div>
