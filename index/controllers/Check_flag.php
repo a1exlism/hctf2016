@@ -25,7 +25,10 @@ class Check_flag extends CI_Controller
 		$flag=$this->input->post('flag');
 		$flag=$this->security->xss_clean($flag);
 
-		$bool=$this->flag_model->check($id,$flag,$token);
+		$bool=$this->flag_model->check($id,$flag,$this->token);
+
+		#bool 0 校验错误 1 作弊 2 校验正确 
+
 	}
 }
 
