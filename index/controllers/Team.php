@@ -17,15 +17,46 @@ class Team extends CI_Controller
 		$this->load->model('session_check');
 
 		//  session check
-		if ($this->session_check->check() === 1) {
-			$this->load->view('index/team');
-		} else {
-			redirect('index/login',  'location');
+		if ($this->session_check->check() !== 1) {
+			redirect('index/login', 'location');
 		}
+
 	}
 
-	public function index() {
-	
+
+	public function logout()
+	{
+		$this->session->sess_destroy(); //CI封装
+		redirect('index/login', 'location');
 	}
 
+	public function index()
+	{
+		$this->load->view('index/team');
+	}
+
+	public function settings()
+	{
+		$this->load->view('index/team_settings');
+	}
+
+	public function bulletin()
+	{
+		$this->load->view('index/team_bulletin');
+	}
+
+	public function challenge()
+	{
+		$this->load->view('index/team_challenge');
+	}
+
+	public function rank()
+	{
+		$this->load->view('index/team_rank');
+	}
+
+	public function solved()
+	{
+		$this->load->view('index/team_solved');
+	}
 }

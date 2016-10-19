@@ -1,5 +1,5 @@
 $(function () {
-	/* -- Navbar -- */
+/* -- Navbar Load Controll -- */
 
 
 });

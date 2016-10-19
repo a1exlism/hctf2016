@@ -6,3 +6,10 @@
  * Time: 下午9:15
  */
  ?>
+ 
+ 
+<div class="container">
+  <div class="row">
+	  <h1>Solved</h1>
+  </div>
+</div>
