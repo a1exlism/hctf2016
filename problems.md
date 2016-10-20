@@ -72,3 +72,5 @@ RewriteRule ^/(.*) http://www.xxx.com/ [L]
 git reset HEAD .
 
 13. 导航页面切换问题
+
+14. team页面其他人无法查看特定信息 问题处理

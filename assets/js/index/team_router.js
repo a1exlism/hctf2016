@@ -13,32 +13,62 @@ $(function () {
 		}).appendTo('head');
 	}
 	
-	//  动态加载静态资源
+	function addJS(url) {
+		$('<script>').attr({
+			src: url
+		}).appendTo('body');
+	}
+	
+	function isExist(sname, stype) {
+		var typeReg = new RegExp(sname, 'gi');
+		var statusCode = 0;
+		if (stype === 'css') {
+			$('link').each(function () {
+				if (this.href.indexOf(sname) !== -1) {
+					// alert('CSS已存在');
+					statusCode = 1;
+					return true;  //中断当前循环
+				}
+			});
+		} else if (stype === 'js') {
+			$('script').each(function () {
+
+				if (this.src.indexOf(sname) !== -1) {
+					// alert('JS已存在');
+					statusCode = 1;
+					return true;
+				}
+				
+			});
+		}
+		return statusCode;
+	}
+	
+	//  动态加载静态资源 css/js
 	function getSource(sname, stype) {
 		stype = stype || 'js';  //默认以js加载
-		$.ajax({
-			url: 'Team_ajax/get_source',
-			method: 'POST',
-			dataType: 'json',
-			data: {
-				name: sname,
-				type: stype
-			},
-			//  成功就把数据加载进来
-			success: function (data) {
-				var resultUrl = data.url.replace(/[\\]/g,'');
-				console.log(data);
-				if (data.type == 'js') {
-					$.ajax({
-						url: resultUrl,
-						method: 'GET',
-						dataType: 'script'
-					});
-				} else {
-					addCSS(resultUrl);
+		
+		if (isExist(sname, stype) == 1) {
+			return false;
+		} else {
+			$.ajax({
+				url: 'Team_ajax/get_source',
+				method: 'POST',
+				dataType: 'json',
+				data: {
+					name: sname,
+					type: stype
+				},
+				success: function (data) {
+					var resultUrl = data.url.replace(/[\\]/g, '');
+					if (data.type === 'js') {
+						addJS(resultUrl);
+					} else {
+						addCSS(resultUrl);
+					}
 				}
-			}
-		})
+			});
+		}
 	}
 	
 	var getBulletin = function () {
@@ -51,21 +81,29 @@ $(function () {
 	var getChanllenge = function () {
 		$('#main-container').empty();
 		$('#main-container').load('Team/challenge');
+		getSource('team_challenge', 'css');
+		getSource('team_challenge', 'js');
 	};
 	
 	var getRank = function () {
 		$('#main-container').empty();
 		$('#main-container').load('Team/rank');
+		getSource('team_rank', 'css');
+		getSource('team_rank', 'js');
 	};
 	
 	var getSolved = function () {
 		$('#main-container').empty();
 		$('#main-container').load('Team/solved');
+		getSource('team_solved', 'css');
+		getSource('team_solved', 'js');
 	};
 	
 	var getSettings = function () {
 		$('#main-container').empty();
 		$('#main-container').load('Team/settings');
+		getSource('team_settings', 'css');
+		getSource('team_settings', 'js');
 	};
 	
 	$('#toggle-bulletin').click(getBulletin);

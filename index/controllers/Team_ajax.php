@@ -8,7 +8,7 @@ class Team_ajax extends CI_Controller
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->library('session');
-		//$this->load->model('team_model');
+		$this->load->model('user_model');
 		$this->load->model('session_check');
 
 		$this->load->helper('form');
@@ -27,11 +27,18 @@ class Team_ajax extends CI_Controller
 			'name' => $this->input->post('name', TRUE),
 			'type' => $this->input->post('type', TRUE)
 		);
-		$url = base_url('assets/'.$source['type'].'/index/'.$source['name'].'.'.$source['type']);
+		$url = base_url('assets/' . $source['type'] . '/index/' . $source['name'] . '.' . $source['type']);
 		$arr = array(
 			'type' => $source['type'],
-			'url'  => $url
+			'url' => $url
 		);
 		echo json_encode($arr);
+	}
+
+	public function get_teamname()
+	{
+		$team_token = $this->session->userdata('team_token');
+		$team_name_arr = $this->user_model->user_get_name($team_token);
+		echo $team_name_arr[0]->team_name;
 	}
 }

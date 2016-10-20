@@ -10,7 +10,7 @@
 
 <div class="container">
   <div class="row">
-	  <h1>Challenge</h1>
+	  <h1>Team Info</h1>
   </div>
 </div>
 

@@ -17,7 +17,7 @@ class  User_model extends CI_Model
 	/*
 	 * --- 基础方法 ---
 	 * */
-	
+
 	public function user_select($teamname)
 	{
 		//  组装sql查询语句
@@ -28,24 +28,36 @@ class  User_model extends CI_Model
 	}
 
 
-	public function user_insert($arr) {
+	public function user_insert($arr)
+	{
 		//  插入
 		$this->db->insert('team_info', $arr);
 	}
-	
-	public function user_update($token, $arr) {
+
+	public function user_update($token, $arr)
+	{
 		//  更新
 		$this->db->where('team_token', $token);
 		$this->db->update('team_info', $arr);
 	}
 
-	public function user_delete($token) {
+	public function user_delete($token)
+	{
 		//  删除
 		$this->db->where('team_token');
 		$this->db->delete('team_info');
 	}
-	
+
 //	Login logic
+
+	public function user_get_name($teamtoken)
+	{
+		$this->db->select('team_name');
+		$this->db->from('team_info');
+		$this->db->where('team_token', $teamtoken);
+		$query = $this->db->get();
+		return $query->result();
+	}
 
 	public function user_register($arr)
 	{

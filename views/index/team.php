@@ -39,7 +39,7 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">队伍名<span class="caret"></span></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="team-name">Name</span><span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a id="toggle-settings" href="javascript:0;">Settings</a></li>
 						<li><a href="team/logout">Logout</a></li>
@@ -57,6 +57,6 @@
 <script src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js') ?>"></script>
 
 <script src="<?php echo base_url('assets/js/index/team_router.js') ?>"></script>
-<script src="<?php echo base_url('assets/js/index/team.js') ?>"></script>
+<script src="<?php echo base_url('assets/js/index/team_settings.js') ?>"></script>
 </body>
 </html>
