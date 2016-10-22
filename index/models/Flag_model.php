@@ -38,7 +38,7 @@ class Flag_model extends CI_model
 		{
 			for($j=0;$j<$i;$j++)
 			{
-				if($number<$level_table[$j])
+				if($number<$this->level_table[$j])
 				{
 					break;
 				}
@@ -46,6 +46,49 @@ class Flag_model extends CI_model
 			$level=$j+1;
 		}
 		return $level;
+	}
+
+	public function level_check($token)
+	{
+		$sql="SELECT * FROM dynamic_notify WHERE team_token = ? AND challenge_solved_time LIKE '%' ";
+		$change=$this->db->query($sql,$token);
+		$change=$change->result_array();
+		$number=count($change);
+		$level=$this->get_level($number);
+		$team=$this->db->where('team_token',$token)->get('team_info');
+		$team=$team->result_array();
+		if($team[0]['compet_level']<$level)#level提升
+		{
+			$team[0]['compet_level']=$level;
+			$this->db->where('team_token',$token)->update('team_info',$team[0]);
+			#开题
+			$challenge=$this->db->where('challenge_level',$level)->get('challenge_info');
+			$challenge=$challenge->result_array();
+			$time=time();
+			foreach ($challenge as $value) 
+			{
+				$challenge_id=$value['challenge_id'];
+				#检查是否开过该题 
+				$tmp_where=array('team_token'=>$token,'challenge_id'=>$challenge_id);
+				$tmp_challenge=$this->db->where($tmp_where)->get('dynamic_notify');
+				$tmp_challenge=$tmp_challenge->result_array();
+				if(empty($tmp_challenge[0]))#未开题时开题
+				{
+					#api待开发
+					//require_once($value['api']);
+					//$flag=get_flag($token);
+					$flag=time();
+					$new_challenge_data=array(
+						'team_token'=>$token,
+						'challenge_id'=>$value['challenge_id'],
+						'challenge_open_time'=>$time,
+						'challenge_flag'=>$flag
+						);
+					$this->db->insert('dynamic_notify',$new_challenge_data);
+				}
+			}
+
+		}
 	}
 
 	public function check($id,$flag,$token)
@@ -57,7 +100,7 @@ class Flag_model extends CI_model
 			);
 		$result=$this->db->where($where)->get('dynamic_notify');
 		$result=$result->result_array();
-		if($result[0]['challenge_flag']===$flag)#正确flag
+		if($result[0]['challenge_flag']==$flag && empty($result[0]['challenge_solved_time']))#正确flag
 		{
 			$tmp=$this->db->where('challenge_id',$id)->get('challenge_info');
 			$tmp=$tmp->result_array();
@@ -76,55 +119,13 @@ class Flag_model extends CI_model
 				$challenge=$this->db->where('challenge_id',$id)->get('challenge_info');
 				$challenge=$challenge->result_array();
 				$num=$challenge[0]['challenge_solves']+1;
-				$score=get_score($num);
+				$score=$this->get_score($num);
 				$challenge[0]['challenge_solves']=$num;
 				$challenge[0]['challenge_score']=$score;
-				$this->db->update('challenge_info',$challenge[0])->where('challenge_id',$id);#题目分值修改
+				$this->db->where('challenge_id',$id)->update('challenge_info',$challenge[0]);#题目分值修改
 
 				#队伍level提升
-				$c_where=array('team_token'=>$token,'challenge_solved_time'=>'%');
-				$change=$this->db->where($c_where)->get('dynamic_notify');
-				$change=$change->result_array();
-				$number=count($change);
-				$level=get_level($number);
-				$team=$this->db->where('team_token',$token)->get('team_info');
-				$team=$team->result_array();
-				if($team[0]['compet_level']<$level)#level提升
-				{
-					$team[0]['compet_level']=$level;
-					$this->db->update('team_info',$team[0])->where('team_token',$token);
-					#开题
-					$challenge=$this->db->where('challenge_level',$level)->get('challenge_info');
-					$challenge=$challenge->result_array();
-					$time=time();
-					foreach ($challenge as $value) 
-					{
-						$challenge_id=$value['challenge_id'];
-						#检查是否开过该题 
-						$tmp_where=array('team_token'=>$token,'challenge_id'=>$challenge_id);
-						$tmp_challenge=$this->db->where($tmp_challenge)->get('dynamic_notify');
-						$tmp_challenge=$tmp_challenge->result_array();
-						if(empty($tmp_challenge[0]))
-						{
-							continue;
-						}
-						else#非空时开题
-						{
-							#api待开发
-							//require_once($value['api']);
-							//$flag=get_flag($token);
-							$flag=time();
-							$new_challenge_data=array(
-								'team_token'=>$token;
-								'challenge_id'=>$value['challenge_id'];
-								'challenge_open_time'=>$time;
-								'challenge_flag'=>$flag;
-								);
-							$this->db->insert('dynamic_notify',$new_challenge_data);
-						}
-					}
-
-				}
+				$this->level_check($token);
 				#修改各个队伍分数
 				$ready_team=$this->db->where('challenge_id',$id)->select('team_token')->get('dynamic_notify');
 				$ready_team=$ready_team->result_array();
@@ -132,14 +133,14 @@ class Flag_model extends CI_model
 				{
 					$team_token=$value['team_token'];
 					#查询每队解出题目
-					$tc_where=array('team_token'=>$team_token,'challenge_solved_time'=>'%');
-					$team_challenge=$this->db->where($tc_where)->select('challenge_id')->get('dynamic_notify');
+					$sql="SELECT challenge_id FROM dynamic_notify WHERE team_token = ? AND challenge_solved_time LIKE '%' ";
+					$team_challenge=$this->db->query($sql,$team_token);
 					$team_challenge=$team_challenge->result_array();
 					#查询每队解题分数并相加
 					$sum=0;
 					foreach ($team_challenge as $tc) 
 					{
-						$ready_challenge=$this->db->where('challenge_id',$tc['challenge_id']);
+						$ready_challenge=$this->db->where('challenge_id',$tc['challenge_id'])->get('challenge_info');
 						$ready_challenge=$ready_challenge->result_array();
 						$sum=$sum+$ready_challenge[0]['challenge_score'];
 					}
@@ -149,7 +150,11 @@ class Flag_model extends CI_model
 				
 			}
 		}
-		else#flag错误
+		else if(!empty($result[0]['challenge_solved_time']))#flag已经提交
+		{
+			$bool=3;
+		}
+		else if($result[0]['challenge_flag']!==$flag)#flag错误
 		{
 			$where=array(
 				'challenge_id'=>$id,
