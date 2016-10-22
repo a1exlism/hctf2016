@@ -18,11 +18,11 @@ class User_ajax extends CI_Controller
 	public function register_check()
 	{
 		//  调用model
-		$team_name = $this->security->xss_clean($_POST['teamname']);
-		$team_school = $this->security->xss_clean($_POST['school']);
-		$team_email = $this->security->xss_clean($_POST['email']);
-		$team_pass = $this->security->xss_clean($_POST['password']);
-		$team_phone = $this->security->xss_clean($_POST['phone']);
+		$team_name = $this->input->post('teamname', TRUE);
+		$team_school = $this->input->post('school', TRUE);
+		$team_email = $this->input->post('email', TRUE);
+		$team_pass = $this->input->post('password', TRUE);
+		$team_phone = $this->input->post('phone', TRUE);
 
 		//  form-validation
 		$config = array(
@@ -110,9 +110,9 @@ class User_ajax extends CI_Controller
 
 	public function login_check()
 	{
-
-		$team_name = $this->security->xss_clean($_POST['teamname']);
-		$team_pass = $this->security->xss_clean($_POST['password']);
+		//  CI封装
+		$team_name = $this->input->post('teamname', TRUE);
+		$team_pass = $this->input->post('password', TRUE);
 		$user_data = $this->user_model->user_select($team_name);
 
 		if ($user_data) {
