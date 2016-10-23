@@ -24,6 +24,7 @@ class Team_ajax extends CI_Controller
 	public function get_source()
 	{
 		$source = array(
+			//  TRUE : xss 过滤
 			'name' => $this->input->post('name', TRUE),
 			'type' => $this->input->post('type', TRUE)
 		);
@@ -39,6 +40,22 @@ class Team_ajax extends CI_Controller
 	{
 		$team_token = $this->session->userdata('team_token');
 		$team_name_arr = $this->user_model->user_get_name($team_token);
-		echo $team_name_arr[0]->team_name;
+		echo $team_name_arr;
+	}
+
+	public function pass_change() {
+		$session_token = $this->session->userdata('team_token');
+		$post_data = array(
+			'origin_pass' => $this->input->post('ori_pass', TRUE),
+			'new_pass'    => $this->input->post('new-pass', TRUE)
+		);
+		
+		$db_data = $this->user_model->user_select_token($session_token)->row();
+		if ($db_data->team_pass === $post_data->origin_pass) {
+			
+		} else {
+			$err = array('status' => 'error');
+			echo json_encode($err);
+		}
 	}
 }

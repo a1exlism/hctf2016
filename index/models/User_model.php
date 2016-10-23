@@ -24,9 +24,18 @@ class  User_model extends CI_Model
 		$this->db->where('team_name', $teamname);
 		$this->db->select('*');
 		$query = $this->db->get('team_info');  //获取表数据
-		return $query->result();  //返回查询数据(return array)
+		return $query;
+		//  返回查询对象 result() 所有 row(x) 第x行
 	}
 
+	public function user_select_token($teamtoken)
+	{
+		$this->db->select('*');
+		$this->db->from('team_info');
+		$this->db->where('team_token', $teamtoken);
+		$query = $this->db->get();
+		return $query;
+	}
 
 	public function user_insert($arr)
 	{
@@ -48,21 +57,13 @@ class  User_model extends CI_Model
 		$this->db->delete('team_info');
 	}
 
-//	Login logic
+	//	Login logic
 
-	public function user_get_name($teamtoken)
-	{
-		$this->db->select('team_name');
-		$this->db->from('team_info');
-		$this->db->where('team_token', $teamtoken);
-		$query = $this->db->get();
-		return $query->result();
-	}
 
 	public function user_register($arr)
 	{
 		//	$teamname, $email, $school, $password, $phone
-		$token = $this->token_generate();
+		$token = $this->str_encode();
 		$insert_data = array(
 			'compet_level' => 1,
 			'is_cheat' => 0,
@@ -72,18 +73,33 @@ class  User_model extends CI_Model
 			'team_school' => $arr['team_school'],
 			'team_phone' => $arr['team_phone'],
 			'team_token' => $token,
-			'team_pass' => $arr['team_pass'],
+			'team_pass' => $this->str_encode($arr['team_pass']),
 			'team_email' => $arr['team_email']
 		);
 		$this->db->insert('team_info', $insert_data);
 	}
 
-	public function token_generate()
+	public function str_encode($str = null)
 	{
-		return md5(uniqid(rand() + $this->salt));
+		if ($str) {
+			//  pass encode
+			return md5($str . $this->salt);
+		} else {
+			//  token generate
+			return md5(uniqid(rand() . $this->salt));
+		}
 	}
 
+	public function user_get_name($teamtoken)
+	{
+		return $this->user_select_token($teamtoken)->row()->team_name;
+	}
 
+	public function user_pass_update($arr)
+	{
+		//  用户信息验证
+
+	}
 }
 
 ?>

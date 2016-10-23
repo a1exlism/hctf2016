@@ -14,7 +14,7 @@ class User_ajax extends CI_Controller
 		$this->load->library('form_validation');  //表单验证类
 
 	}
-	
+
 	public function register_check()
 	{
 		//  调用model
@@ -31,7 +31,7 @@ class User_ajax extends CI_Controller
 				'label' => 'team_name',
 				'rules' => 'required|is_unique[team_info.team_name]',
 				'errors' => array(
-					'required'  => 'Team name required.',
+					'required' => 'Team name required.',
 					'is_unique' => 'The user name has been taken.'
 				)
 			),
@@ -48,9 +48,9 @@ class User_ajax extends CI_Controller
 				'label' => 'email',
 				'rules' => 'required|valid_email|is_unique[team_info.team_email]',
 				'errors' => array(
-					'required'    => 'Email required.',
+					'required' => 'Email required.',
 					'valid_email' => 'Invalid email',
-					'is_unique'   => 'The email has been taken.'
+					'is_unique' => 'The email has been taken.'
 				)
 			),
 			array(
@@ -68,8 +68,8 @@ class User_ajax extends CI_Controller
 				'errors' => array(
 					'min_length' => 'Wrong number length!',
 					'max_length' => 'Wrong number length!',
-					'numeric'    => 'Phone number should be numeric!',
-					'required'   => 'Phone number is required.'
+					'numeric' => 'Phone number should be numeric!',
+					'required' => 'Phone number is required.'
 				)
 			)
 		);
@@ -80,13 +80,13 @@ class User_ajax extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 
 			//  创建error_json
-			$err_obj = array( 
+			$err_obj = array(
 				'status' => 'error',
-				'name'   => form_error('teamname'),
+				'name' => form_error('teamname'),
 				'school' => form_error('school'),
-				'email'  => form_error('email'),
-				'pass'   => form_error('password'),
-				'phone'  => form_error('phone')
+				'email' => form_error('email'),
+				'pass' => form_error('password'),
+				'phone' => form_error('phone')
 			);
 			echo json_encode($err_obj);
 			return NULL;
@@ -113,13 +113,14 @@ class User_ajax extends CI_Controller
 		//  CI封装
 		$team_name = $this->input->post('teamname', TRUE);
 		$team_pass = $this->input->post('password', TRUE);
-		$user_data = $this->user_model->user_select($team_name);
-
+		$user_data = $this->user_model->user_select($team_name)->row();
+	
 		if ($user_data) {
 			//  如果用户存在
-			if ($user_data[0]->team_pass === $team_pass) {
+			$team_pass = $this->user_model->str_encode($team_pass);
+			if ($user_data->team_pass === $team_pass) {
 				$session_arr = array(
-					'team_token' => $user_data[0]->team_token,
+					'team_token' => $user_data->team_token,
 					'is_login' => 1
 				);
 				$this->session->set_userdata($session_arr);
