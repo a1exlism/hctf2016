@@ -64,13 +64,13 @@ class Geetest extends CI_Controller
 			if ($result) {
 				echo '{"status":"success"}';
 			} else {
-				echo '{"status":"fail"}';
+				echo '{"status":"fail_1"}';
 			}
 		} else {  //服务器宕机,走failback模式
 			if ($this->GtSdk->fail_validate($_POST['geetest_challenge'], $_POST['geetest_validate'], $_POST['geetest_seccode'])) {
 				echo '{"status":"success"}';
 			} else {
-				echo '{"status":"fail"}';
+				echo '{"status":"fail_2"}';
 			}
 		}
 	}

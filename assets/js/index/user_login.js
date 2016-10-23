@@ -318,8 +318,11 @@ $(function () {
 					if (data && (data.status === "success")) {
 						// $('#form-login').submit();
 						postLogin();
-					} else {
-						console.log(0);
+					} else if (data && (data.status === "fail_2")) {
+						$('.geetest-fail').show();
+						setTimeout(function () {
+							$('.geetest-fail').hide();
+						}, 2500);
 					}
 				}
 

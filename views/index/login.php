@@ -77,11 +77,15 @@
 									<!-- msgtip Login -->
 										<div class="msgtip">
 											<div class="msgtip-success-login">
-												Login success
+												<p>Login success</p>
 											</div>
 											<div class="msgtip-fail-login">
-												Login failed.<br>
-												Wrong username || password
+												<p>Login failed.</p><br>
+												<p>Wrong username || password</p>
+											</div>
+											<div class="msgtip-fail-login .geetest-fail">
+												<p>Login failed.</p><br>
+												<p>极验HTTP500,请重试.</p>
 											</div>
 										</div>
 								</div>
