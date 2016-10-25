@@ -37,6 +37,7 @@ class Team_ajax extends CI_Controller
 		echo json_encode($arr);
 	}
 
+	/* -- Main -- */
 	public function get_teamname()
 	{
 		$team_token = $this->session->userdata('team_token');
@@ -48,17 +49,24 @@ class Team_ajax extends CI_Controller
 	{
 		$session_token = $this->session->userdata('team_token');
 		$post_data = array(
-			'origin_pass' => $this->input->post('ori-pass', TRUE),
-			'new_pass' => $this->input->post('new-pass', TRUE)
+			'ori_pass' => $this->user_model->str_encode($this->input->post('ori_pass', TRUE)),
+			'new_pass' => $this->user_model->str_encode($this->input->post('new_pass', TRUE))
 		);
-
 		$db_data = $this->user_model->user_select_token($session_token)->row();
-		if ($db_data->team_pass === $post_data->origin_pass) {
-
+		if ($db_data->team_pass === $post_data['ori_pass']) {
+			$query = array(
+				'team_pass' => $post_data['new_pass']
+			);
+			$this->user_model->user_update($session_token, $query);
+			$res = array(
+				'status' => 'success'
+			);
 		} else {
-			$err = array('status' => 'error');
-			echo json_encode($err);
+			$res = array(
+				'status' => 'fail'
+			);
 		}
+		echo json_encode($res);
 	}
 
 

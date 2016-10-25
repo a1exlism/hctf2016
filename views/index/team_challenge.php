@@ -13,10 +13,16 @@
 		<h1>Challenges</h1>
 		<div class="col-md-8 main-content">
 			<div id="challenge" class="row">
-				<div>
-					<a>Challenges Solved</a>
+				<div id="solved-info" class="col-xs-12">
+					<a>Challenges Solved Info</a>
+					<ul>
+						<li>xxx 解出了 xxx</li>
+						<li>xxx 解出了 xxx</li>
+						<li>xxx 解出了 xxx</li>
+						<li>xxx 解出了 xxx</li>
+						<li>xxx 解出了 xxx</li>
+					</ul>
 				</div>
-
 				<div class="col-xs-6 col-md-3 prob-card">
 					<div class="card-bar">
 						<div class="card-bar-left">

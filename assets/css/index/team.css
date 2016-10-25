@@ -1,5 +1,6 @@
-/* ---  fonts  --- */
-/* latin */
+/*
+ * ---  global  ---
+ */
 @font-face {
 	font-family: 'Roboto';
 	font-style: normal;
@@ -20,7 +21,7 @@
 	font-family: Roboto, sans-serif;
 }
 
-/* for chrome autofill */
+/* chrome autofill */
 input:-webkit-autofill {
 	-webkit-box-shadow: 0 0 0 100px #464646 inset !important;
 	-webkit-text-fill-color: rgba(255, 255, 255, 0.9) !important;
@@ -44,7 +45,10 @@ input::-webkit-input-placeholder {
 	text-align: center;
 }
 
-/* -- NavBar Start -- */
+/*
+ * -- NavBar Start --
+ */
+
 .navbar {
 	border-radius: 0;
 	border-color: #333;
@@ -74,7 +78,6 @@ input::-webkit-input-placeholder {
 
 }
 
-/* 添加伪类 */
 .navbar .navbar-brand:hover {
 	-webkit-animation-duration: 0.6s;
 	-moz-animation-duration: 0.6s;
@@ -86,7 +89,6 @@ input::-webkit-input-placeholder {
 	animation-name: slidein;
 }
 
-/* 关键帧 */
 @keyframes slidein {
 	from {
 		background-color: #5899EE;
@@ -144,7 +146,6 @@ input::-webkit-input-placeholder {
 	margin-left: -2px;
 }
 
-/* fixed height better user experience Start */
 @media screen and (min-width: 768px) {
 	#navbar-collapse .navbar-nav {
 		height: 50px !important;
@@ -165,7 +166,10 @@ input::-webkit-input-placeholder {
 	border-radius: 0;
 }
 
-/* -- NavBar-Responsive Start  -- */
+/*
+ * -- NavBar-Responsive Start  --
+ */
+
 .navbar .container-fluid {
 	padding-left: 0 !important;
 	padding-right: 0 !important;
@@ -176,20 +180,51 @@ input::-webkit-input-placeholder {
 	margin-right: 0;
 }
 
-/* Main content Start */
+/*
+ * -- Main content Start --
+ */
+
 #team-settings .main-content {
 	padding: 25px;
 	color: #fff;
 	background-color: #464646;
 }
 
-/* Sidebar Start */
+#team-settings #team-solved {
+	margin: 0;
+	padding: 0 2em;
+}
+
+#team-settings #team-solved .solved-title {
+	margin: 0 0 2em;
+}
+
+#team-settings #team-solved > .solved-title > a {
+	color: #fff;
+	text-decoration: none;
+	line-height: 25px;
+	text-align: center;
+	padding-left: 5px;
+	border-left: solid #34a853 5px;
+	font-size: 1.3em;
+}
+
+#team-settings #team-solved .solved-body dl>dd {
+	margin-bottom: 1em;
+}
+
+
+/*
+ * -- Sidebar Start --
+ */
+
 #team-settings .sidebar {
 	text-align: left;
 	padding: 1em 2em;
 	color: #fff;
 	background-color: #464646;
 }
+
 
 /* words */
 
@@ -200,10 +235,15 @@ input::-webkit-input-placeholder {
 	text-align: center;
 	padding-left: 5px;
 	border-left: solid #5eacd2 5px;
+	font-size: 1.3em;
 }
 
 #team-ranking > div {
 	padding: 0 10px;
+}
+
+#team-ranking > div {
+	font-size: 1.2em;
 }
 
 #team-ranking p {
@@ -250,7 +290,7 @@ input::-webkit-input-placeholder {
 	background-color: transparent;
 	color: rgba(255, 255, 255, 0.7);
 	margin: 0 auto;
-	width: 75%;
+	width: 80%;
 }
 
 #pass-change input[type="button"] {
@@ -263,3 +303,7 @@ input::-webkit-input-placeholder {
 	background-color: rgba(255, 255, 255, 0.8);
 }
 
+#pass-change .msg-show {
+	display: none;
+	margin: 10px 0 0 0;
+}

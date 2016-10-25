@@ -92,7 +92,20 @@ $(function () {
 	
 	var getSettings = function () {
 		$('#main-container').empty();
-		$('#main-container').load('Team/settings');
+		$('#main-container').load('Team/settings', function () {
+			
+			$('#team-ranking .msg-btn').click(function () {
+				var sForm = $('#pass-change form');
+				if (sForm.css('display') == 'none') {
+					sForm.css('display', 'block');
+				} else {
+					sForm.css('display', 'none');
+				}
+			});
+			
+			$('#pass-change').find('.submit-btn').click(passChange);
+			
+		});
 	};
 	
 	getSettings();  //默认在Settings界面
@@ -100,8 +113,11 @@ $(function () {
 	$('#toggle-bulletin').click(getBulletin);
 	$('#toggle-challenge').click(getChanllenge);
 	$('#toggle-rank').click(getRank);
-	$('#toggle-settings').click(getSettings, getName);
-
+	$('#toggle-settings').click(function () {
+		getSettings();
+		getName();
+	});
+	
 	/* -- Team Settings -- */
 	//  Get Name
 	function getName() {
@@ -129,24 +145,41 @@ $(function () {
 			}
 		}
 		
-		var deadline = new Date('2016-11-10 10:00:00');
-		var leftTime = (deadline - new Date()) / 1000;
-		var timeSpan = $('#toggle-time span')[0];
-		var d, h, m;
-		if (leftTime >= 0) {
+		function getTime(deadline) {
+			var leftTime = (deadline - new Date()) / 1000;
+			var d, h, m, s;
+			d = parseInt(leftTime / 3600 / 24);
+			h = prefixZero('' + parseInt((leftTime - d * 24 * 3600) / 3600));
+			m = prefixZero('' + parseInt((leftTime - d * 24 * 3600 - h * 3600) / 60));
+			s = prefixZero('' + parseInt((leftTime - d * 24 * 3600 - h * 3600 - m * 60)));
 			
-			if (parseInt((leftTime - d * 24 * 3600) / 3600) < 8) {
-				
+			return {
+				'leftTime': leftTime,
+				'd': d,
+				'h': h,
+				'm': m,
+				's': s
+			};
+		}
+		
+		
+		var deadline = new Date('2016-11-15 10:00:00');
+		var timeSpan = $('#toggle-time span')[0];
+		var timeObj = getTime(deadline);
+		if (timeObj.leftTime >= 0) {
+			
+			if (timeObj.d === 0 && timeObj.h < 8) {
+				timeSpan.style.color = '#ea4435';
 			}
 			setInterval(function () {
-				leftTime = (deadline - new Date()) / 1000;
-				d = parseInt(leftTime / 3600 / 24);
-				h = prefixZero('' + parseInt((leftTime - d * 24 * 3600) / 3600));
-				m = prefixZero('' + parseInt((leftTime - d * 24 * 3600 - h * 3600) / 60));
-				s = prefixZero('' + parseInt((leftTime - d * 24 * 3600 - h * 3600 - m * 60)));
-				timeSpan.innerText = d + 'D ' + h + ':' + m + ':' + s;
+				if (timeObj.leftTime < 0) {
+					$('#toggle-time').text('Game Over');
+				}
+				timeObj = getTime(deadline);
+				timeSpan.innerText = timeObj.d + 'D ' + timeObj.h + ':' + timeObj.m + ':' + timeObj.s;
 			}, 1000);
 		} else {
+			$('#toggle-time').text('Game Over');
 			return true;
 			//  退出当前循环
 		}
@@ -162,22 +195,59 @@ $(function () {
 				console.log(data);
 			}
 		})
+	};
+	
+	
+	var submitBtn = $('#pass-change').find('.submit-btn');
+	
+	function msgShow(e, msg, status) {
+		if (status === 1) {
+			e.css('color', '#34a853');
+		} else {
+			e.css('color', '#ff7f70');
+		}
+		e.show();
+		e.html(msg);
+		setTimeout(function () {
+			e.hide();
+		}, 2000);
+}
+
+function passChange() {
+	var oriPass = $('#ori-pass').val();
+	var newPass = $('#new-pass').val();
+	var msgE = $('#pass-change').find('.msg-show');
+	if (oriPass == '' || newPass == '') {
+		msgShow(msgE, 'Empty Input', 2);
+		return false;
 	}
-	
-	//  延迟等待ajax调用完毕
-	setTimeout(function () {
-		$('#team-ranking .msg-btn').click(function () {
-			var sForm = $('#pass-change form');
-			if (sForm.css('display') == 'none') {
-				sForm.css('display', 'block');
-			} else {
-				sForm.css('display', 'none');
+	// console.log('ori-pass' + oriPass);
+	// console.log('new-pass' + newPass);
+	$.ajax({
+		url: 'Team_ajax/pass_change',
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			"ori_pass": oriPass,
+			"new_pass": newPass
+		},
+		success: function (data) {
+			if (data) {
+			console.log(data);
+				if (data.status === 'success') {
+					msgShow(msgE, 'Success, Redirecting...', 1);
+					setTimeout(function () {
+						window.location.replace('team/logout');
+					}, 200);
+				} else {
+					msgShow(msgE, 'Validation failed', 2);
+				}
 			}
-		});
-	}, 50);
-	
-	var passChange = $.ajax({
-		url: 'Team_ajax/'
+		}
 	})
-	
-});
+}
+
+
+// submitBtn.bind('click', passChange);
+})
+;

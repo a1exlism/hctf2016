@@ -83,7 +83,7 @@
 												<p>Login failed.</p><br>
 												<p>Wrong username || password</p>
 											</div>
-											<div class="msgtip-fail-login .geetest-fail">
+											<div class="geetest-fail">
 												<p>Login failed.</p><br>
 												<p>极验HTTP500,请重试.</p>
 											</div>
