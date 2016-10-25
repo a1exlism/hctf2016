@@ -1,5 +1,6 @@
 /* -- Create DataBase -- */
-CREATE DATABASE hctf2016;
+-- CREATE DATABASE hctf2016;
+SET NAMES "utf8";
 -- USE hctf2016;
 
 /* -- Team Info -- */
@@ -54,7 +55,7 @@ CREATE TABLE hctf2016.bulletin (
 
 /* -- Card Info 道具卡 -- */
 CREATE TABLE hctf2016.card_info (
-  card_id INT NOT NULL AUTO_INCREMENT ,
+  card_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
   team_token VARCHAR(40) NOT NULL
 );
 
@@ -64,3 +65,7 @@ CREATE TABLE hctf2016.admin_qwe(
   pass VARCHAR(40) NOT NULL,
   `key`  VARCHAR(40) NOT NULL
 );
+
+
+/* 测试数据 */
+

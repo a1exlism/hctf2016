@@ -1,0 +1,90 @@
+#team-challenge {
+	margin-left: 7em;
+	margin-right: 7em;
+}
+
+#challenge {
+	padding: 25px;
+	color: #fff;
+	background-color: #464646;
+}
+
+
+#challenge > div > a {
+	color: #fff;
+	text-decoration: none;
+	line-height: 25px;
+	text-align: center;
+	padding-left: 5px;
+	border-left: solid #34a853 5px;
+}
+
+#challenge .prob-card {
+	background-color: #222;
+	height: 11em;
+	border: solid #464646 .5em;
+	padding: 0;
+	text-align: center;
+}
+
+#challenge .card-bar {
+	height: 25%;
+	display: block;
+}
+
+#challenge .card-body {
+	height: 75%;
+	display: block;
+}
+
+#challenge .card-body .card-body-top {
+	height: 60%;
+}
+
+#challenge .card-body .card-body-bottom {
+	height: 40%;
+}
+
+#challenge .prob-card .card-bar-left {
+	width: 60%;
+	border-bottom: solid #fff974 1px;
+}
+
+#challenge .prob-card .card-bar-right {
+	width: 40%;
+	float: right;
+	color: #000;
+	background-color: #fff974;
+}
+
+#challenge .prob-card div[class^='card-bar-'] {
+	height: 100%;
+	display: table;
+	float: left;
+}
+
+#challenge .prob-card div[class^='card-bar-'] p {
+	height: 100%;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#challenge .prob-card div[class^='card-body-'] {
+	width: 100%;
+	display: table;
+}
+
+#challenge .prob-card div[class^='card-body-'] p {
+	width: 100%;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#challenge .prob-card .card-body-top p {
+	font-size: 2em;
+}
+
+#challenge .prob-card .card-body-bottom p {
+	font-size: 1.1em;
+}

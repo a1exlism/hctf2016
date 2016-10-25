@@ -100,6 +100,7 @@ class  User_model extends CI_Model
 		//  用户信息验证
 
 	}
+
 }
 
 ?>

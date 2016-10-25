@@ -9,6 +9,7 @@ class Team_ajax extends CI_Controller
 		$this->load->helper('url');
 		$this->load->library('session');
 		$this->load->model('user_model');
+		$this->load->model('challenge_model');
 		$this->load->model('session_check');
 
 		$this->load->helper('form');
@@ -43,19 +44,63 @@ class Team_ajax extends CI_Controller
 		echo $team_name_arr;
 	}
 
-	public function pass_change() {
+	public function pass_change()
+	{
 		$session_token = $this->session->userdata('team_token');
 		$post_data = array(
-			'origin_pass' => $this->input->post('ori_pass', TRUE),
-			'new_pass'    => $this->input->post('new-pass', TRUE)
+			'origin_pass' => $this->input->post('ori-pass', TRUE),
+			'new_pass' => $this->input->post('new-pass', TRUE)
 		);
-		
+
 		$db_data = $this->user_model->user_select_token($session_token)->row();
 		if ($db_data->team_pass === $post_data->origin_pass) {
-			
+
 		} else {
 			$err = array('status' => 'error');
 			echo json_encode($err);
 		}
 	}
+
+
+	/*-- Ranking --*/
+	public function get_rank()
+	{
+		$number = $this->input->post('number', TRUE); //  查询人数
+		if ($number === 1) {
+			$session_token = $this->session->userdata('team_token');
+			$arr = array(
+				"total_score" => $this->team_info->user_select_token($session_token)->total_score,
+				"ranking" => $this->team_info->ranking($session_token)
+			);
+		} else if ($number === 15) {
+			//  返回15条最上数据
+			$arr = array(
+				array(
+					"total_score" => "team's score",
+					"ranking" => "team's ranking"
+					//  修改
+				)
+			);
+		} else {
+			//  返回所有数据
+			$arr = array(
+				array(
+					"total_score" => "team's score",
+					"ranking" => "team's ranking"
+				)
+			);
+		};
+		echo $arr;
+		return NULL;
+	}
+
+	public function get_solved()
+	{
+		//  解题情况
+		$session_token = $this->session->userdata('team_token');
+		$results = $this->challenge_model->select($session_token);
+		echo $results;
+		//  需要json序列化
+	}
+
 }

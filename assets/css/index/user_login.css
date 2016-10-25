@@ -270,11 +270,11 @@ div[class^='msgtip-fail-register'] > p {
 	color: inherit;
 }
 
-div[class^='msgtip-success-'] {
+div[class^='msgtip-success-'] p{
 	color: #449d44;
 }
 
-div[class^='msgtip-fail-'] {
+div[class^='msgtip-fail-'] p{
 	color: #fa7a7a;
 }
 

@@ -17,6 +17,7 @@
 </head>
 <body>
 <!--	Navigation Bar  -->
+
 <nav class="navbar navbar-inverse" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -32,31 +33,32 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="navbar-collapse">
 			<ul class="nav navbar-nav">
+				<li><a id="toggle-settings" href="javascript:0;">Dashboard</a></li>
 				<li><a id="toggle-bulletin" href="javascript:0;">Bulletin</a></li>
 				<li><a id="toggle-challenge" href="javascript:0;">Challenge</a></li>
-				<li><a id="toggle-rank" href="javascript:0;">Rank</a></li>
-				<li><a id="toggle-solved" href="javascript:0;">Solved</a></li>
+				<li><a id="toggle-rank" href="javascript:0;">Ranking</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
+				<li><a id="toggle-time">Countdown: <span>Timing</span></a></li>
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="team-name">Name</span><span class="caret"></span></a>
+					<a href="javascript:0" class="dropdown-toggle" data-toggle="dropdown"><span
+							id="team-name">TeamName</span><span
+							class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a id="toggle-settings" href="javascript:0;">Settings</a></li>
 						<li><a href="team/logout">Logout</a></li>
 					</ul>
 				</li>
 			</ul>
 		</div>
 	</div>
-</nav>
-<div id="main-container">
-</div>
 
-<!-- bootstrap & jquery -->
-<script src="<?php echo base_url('assets/js/bootstrap/jquery.min.js') ?>"></script>
-<script src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js') ?>"></script>
+	<div id="main-container">
+	</div>
 
-<script src="<?php echo base_url('assets/js/index/team_router.js') ?>"></script>
-<script src="<?php echo base_url('assets/js/index/team_settings.js') ?>"></script>
+	<!-- bootstrap & jquery -->
+	<script src="<?php echo base_url('assets/js/bootstrap/jquery.min.js') ?>"></script>
+	<script src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js') ?>"></script>
+
+	<script src="<?php echo base_url('assets/js/index/team_main.js') ?>"></script>
 </body>
 </html>
