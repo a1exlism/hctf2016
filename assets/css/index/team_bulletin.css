@@ -1,3 +1,6 @@
+/*
+ * -- bulletin status bar --
+ */
 #bulletin .console {
 	color: #fff;
 	font-family: Roboto, sans-serif;
@@ -8,16 +11,6 @@
 	background: #f9f9f3;
 	height: 3vm;
 	border-radius: .5em .5em 0 0;
-}
-
-#bulletin .console .bulletin-content {
-	display: block;
-	height: 30em;
-	background-color: #222;
-	padding: 3.5em 2em 2em;
-	box-sizing: border-box;
-	box-shadow: 0 0 2em rgba(0, 0, 0, .2);
-	border-radius: .5em .5em  0 0;
 }
 
 #bulletin .console .status-bar {
@@ -46,3 +39,44 @@
 #bulletin .console .status-bar .btn-max {
 	background-color: #34c84a;
 }
+
+/*
+ * -- bulletin content --
+ */
+
+#bulletin .console .bulletin-content {
+	display: block;
+	height: auto;
+	background-color: #222;
+	padding: 3.5em 2em 2em;
+	box-sizing: border-box;
+	box-shadow: 0 0 2em rgba(0, 0, 0, .2);
+	border-radius: .5em .5em 0 0;
+}
+
+#bulletin .bulletin-content .bulletin-row {
+	color: #34c84a;
+	border-left: solid #f9f9f3 3px;
+}
+
+#bulletin .bulletin-content .bulletin-row td {
+	display: block;
+	border: 0;
+}
+
+#bulletin .bulletin-content .bulletin-row .time:before {
+	display: inline;
+	content: 'bulletin@time$: ';
+}
+
+#bulletin .bulletin-content .bulletin-row .content {
+	/* 换行 */
+	word-break: break-all;
+	border-bottom: solid #f9f9f3 1px;
+}
+
+#bulletin .bulletin-content .bulletin-row .content:before {
+	display: inline;
+	content: 'bulletin@content$: ';
+}
+

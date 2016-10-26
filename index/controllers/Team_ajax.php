@@ -10,6 +10,7 @@ class Team_ajax extends CI_Controller
 		$this->load->library('session');
 		$this->load->model('user_model');
 		$this->load->model('challenge_model');
+		$this->load->model('public_model');
 		$this->load->model('session_check');
 
 		$this->load->helper('form');
@@ -110,5 +111,10 @@ class Team_ajax extends CI_Controller
 		echo $results;
 		//  需要json序列化
 	}
-
+	
+	public function get_bulletin() {
+		$number = $this->input->post('number', TRUE); //  返回字段数
+		$results = $this->public_model->bulletin_select($number)->result();
+		echo json_encode($results);
+	}
 }

@@ -19,9 +19,14 @@
 					<span class="btn-max"></span>
 				</div>
 				<div class="bulletin-content col-xs-12">
-					<span>$id-1: $Bulletin Content-1.</span>
-					<span>$id-2: $Bulletin Content-2.</span>
-					<span>$id-3: $Bulletin Content-3.</span>
+					<div class="table-responsive">
+						<table class="table">
+							<tbody>
+							
+
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>

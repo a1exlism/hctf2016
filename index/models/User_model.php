@@ -10,7 +10,6 @@ class  User_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->library('session');
 		$this->salt = "HC7F";
 	}
 
@@ -39,20 +38,17 @@ class  User_model extends CI_Model
 
 	public function user_insert($arr)
 	{
-		//  插入
 		$this->db->insert('team_info', $arr);
 	}
 
 	public function user_update($token, $arr)
 	{
-		//  更新
 		$this->db->where('team_token', $token);
 		$this->db->update('team_info', $arr);
 	}
 
 	public function user_delete($token)
 	{
-		//  删除
 		$this->db->where('team_token');
 		$this->db->delete('team_info');
 	}
@@ -95,11 +91,7 @@ class  User_model extends CI_Model
 		return $this->user_select_token($teamtoken)->row()->team_name;
 	}
 
-	public function user_pass_update($arr)
-	{
-		//  用户信息验证
 
-	}
 
 }
 

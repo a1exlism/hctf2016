@@ -49,7 +49,9 @@ CREATE TABLE hctf2016.dynamic_notify (
 /* -- Bulletin 公告 -- */
 CREATE TABLE hctf2016.bulletin (
   bulletin_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-  bulletin_message VARCHAR(200) NOT NULL
+  bulletin_message VARCHAR(200) NOT NULL ,
+  create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  update_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 
