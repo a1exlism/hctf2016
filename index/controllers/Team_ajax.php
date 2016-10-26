@@ -114,6 +114,7 @@ class Team_ajax extends CI_Controller
 	
 	public function get_bulletin() {
 		$number = $this->input->post('number', TRUE); //  返回字段数
+		echo $number;
 		$results = $this->public_model->bulletin_select($number)->result();
 		echo json_encode($results);
 	}
