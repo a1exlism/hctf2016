@@ -116,10 +116,20 @@ $(function () {
 	$('#toggle-settings').click(function () {
 		getSettings();
 		getName();
+		$('#team-solved .solved-body dl').empty();
+		getSolved();
 	});
 	
+	mainInit();
 	/* -- Team Settings -- */
-	//  Get Name
+	
+	function mainInit() {
+		countdown();
+		getName();
+		getSolved();
+		// getTeamInfo();
+	}
+	
 	function getName() {
 		$.ajax({
 			url: 'Team_ajax/get_teamname',
@@ -132,11 +142,7 @@ $(function () {
 		});
 	}
 	
-	getName();
-	
-	
-	//  countdown
-	(function countdown() {
+	function countdown() {
 		function prefixZero(x) {
 			if (x.length == 1) {
 				return '0' + x;
@@ -183,10 +189,32 @@ $(function () {
 			return true;
 			//  退出当前循环
 		}
-	}());
+	}
+	
+	function getSolved() {
+		$.ajax({
+			url: 'Team_ajax/get_solved',
+			method: 'get',
+			dataType: 'json',
+			success: function (data) {
+				if (data) {
+					$.each(data, function (index, value) {
+						$('#team-solved .solved-body dl').append($('<dt>' +
+							'<span class="cha-name">' + value.chaName + '</span>' +
+							' | <span class="cha-type">' + value.chaType + '</span></dt>'));
+						$('#team-solved .solved-body dl').append($('<dd>' +
+							'Score: <span class="cha-score">' + value.chaScore + '</span>' +
+							' | Solved at <span class="cha-solved-time">' + value.solvedTime + '</span>' +
+							' | Sovled number: <span class="cha-solved-num">' + value.solvedNum + '</span></dd>'));
+					});
+				}
+			}
+		});
+	}
+	
 	
 	function getTeamInfo() {
-		//  team_info page load
+		//  待开发 team_info page load
 		$.ajax({
 			url: 'Team_ajax/get_teaminfo',
 			method: 'get',
@@ -211,43 +239,42 @@ $(function () {
 		setTimeout(function () {
 			e.hide();
 		}, 2000);
-}
-
-function passChange() {
-	var oriPass = $('#ori-pass').val();
-	var newPass = $('#new-pass').val();
-	var msgE = $('#pass-change').find('.msg-show');
-	if (oriPass == '' || newPass == '') {
-		msgShow(msgE, 'Empty Input', 2);
-		return false;
 	}
-	// console.log('ori-pass' + oriPass);
-	// console.log('new-pass' + newPass);
-	$.ajax({
-		url: 'Team_ajax/pass_change',
-		type: 'POST',
-		dataType: 'json',
-		data: {
-			"ori_pass": oriPass,
-			"new_pass": newPass
-		},
-		success: function (data) {
-			if (data) {
-			console.log(data);
-				if (data.status === 'success') {
-					msgShow(msgE, 'Success, Redirecting...', 1);
-					setTimeout(function () {
-						window.location.replace('team/logout');
-					}, 200);
-				} else {
-					msgShow(msgE, 'Validation failed', 2);
+	
+	function passChange() {
+		var oriPass = $('#ori-pass').val();
+		var newPass = $('#new-pass').val();
+		var msgE = $('#pass-change').find('.msg-show');
+		if (oriPass == '' || newPass == '') {
+			msgShow(msgE, 'Empty Input', 2);
+			return false;
+		}
+		// console.log('ori-pass' + oriPass);
+		// console.log('new-pass' + newPass);
+		$.ajax({
+			url: 'Team_ajax/pass_change',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				"ori_pass": oriPass,
+				"new_pass": newPass
+			},
+			success: function (data) {
+				if (data) {
+					console.log(data);
+					if (data.status === 'success') {
+						msgShow(msgE, 'Success, Redirecting...', 1);
+						setTimeout(function () {
+							window.location.replace('team/logout');
+						}, 200);
+					} else {
+						msgShow(msgE, 'Validation failed', 2);
+					}
 				}
 			}
-		}
-	})
-}
-
-
-// submitBtn.bind('click', passChange);
+		})
+	}
+	
+	
 })
 ;

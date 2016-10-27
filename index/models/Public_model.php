@@ -27,5 +27,14 @@ class Public_model extends CI_Model
 		return $query;
 	}
 	
+	//  notify query
+	public function notify_select($token) {
+		$this->db->select('*');
+		$this->db->from('dynamic_notify');
+		$this->db->where("team_token = '$token' AND challenge_solved_time IS NOT NULL");
+		$query = $this->db->get();
+		return $query;
+	}
 	
+//	public function
 }

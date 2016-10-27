@@ -11,25 +11,19 @@ class  Challenge_model extends CI_Model
 		$this->salt = "HC7F";
 	}
 
-	public function info_get($team_token = null)
+	public function select($id)
 	{
 		$this->db->select('*');
-		$this->db->form('challenge_info');
+		$this->db->from('challenge_info');
 
-		if (empty($team_token)) {
-			$query = $this->db->result();
-			echo $query;
+		if (empty($id)) {
+			return false;
 		} else {
-			$this->db->where('team_token', $team_token);
+			$this->db->where('challenge_id', $id);
 			$query = $this->db->get();
-			echo $query;
+			return $query->row();
 		}
 	}
-
-	public function ranking($token)
-	{
-		echo "aaa";
-	}
-
+	
 
 }

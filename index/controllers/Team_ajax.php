@@ -38,13 +38,57 @@ class Team_ajax extends CI_Controller
 		echo json_encode($arr);
 	}
 
-	/* -- Main -- */
+	/*
+	 *  -- Dashboard -- 
+	 */
+
 	public function get_teamname()
 	{
 		$team_token = $this->session->userdata('team_token');
 		$team_name_arr = $this->user_model->user_get_name($team_token);
 		echo $team_name_arr;
 	}
+
+	public function get_solved()
+	{
+		//  solved
+		$session_token = $this->session->userdata('team_token');
+		$notifies = $this->public_model->notify_select($session_token)->result();
+		$solved = array();
+		for ($i = 0; $i < count($notifies); $i++) {
+			foreach ($notifies[$i] as $key => $value) {
+				if ($key == 'challenge_solved_time') {
+					$solved[$i]['solvedTime'] = date('H:i:s m-d-Y', $value);
+				} else if ($key == 'challenge_id') {
+					$cha = $this->get_challenge($value);
+					$solved[$i]['chaName'] = $cha->challenge_name;
+					$solved[$i]['chaType'] = $cha->challenge_type;
+					$solved[$i]['chaScore'] = $cha->challenge_score;
+					$solved[$i]['chaLevel'] = $cha->challenge_level;
+					$solved[$i]['solvedNum'] = $cha->challenge_solves;
+				}
+			}
+		}
+		echo json_encode($solved);
+	}
+
+	public function get_challenge($id)
+	{
+		$cha = $this->challenge_model->select($id);
+		return $cha;
+	}
+
+	public function get_teamInfo()
+	{
+		//  sidebar
+
+		//  level
+
+		//  total score
+
+		//  ranking
+	}
+
 
 	public function pass_change()
 	{
@@ -70,8 +114,30 @@ class Team_ajax extends CI_Controller
 		echo json_encode($res);
 	}
 
+	/*
+	 *  -- Bulletin -- 
+	 */
 
-	/*-- Ranking --*/
+	public function get_bulletin()
+	{
+		$number = $this->input->post('number', TRUE); //  返回字段数
+		echo $number;
+		$results = $this->public_model->bulletin_select($number)->result();
+		echo json_encode($results);
+	}
+
+	/*
+	 *  -- Challenge -- 
+	 */
+
+	public function a()
+	{
+
+	}
+
+	/*
+	 *  -- Ranking -- 
+	 */
 	public function get_rank()
 	{
 		$number = $this->input->post('number', TRUE); //  查询人数
@@ -103,19 +169,4 @@ class Team_ajax extends CI_Controller
 		return NULL;
 	}
 
-	public function get_solved()
-	{
-		//  解题情况
-		$session_token = $this->session->userdata('team_token');
-		$results = $this->challenge_model->select($session_token);
-		echo $results;
-		//  需要json序列化
-	}
-	
-	public function get_bulletin() {
-		$number = $this->input->post('number', TRUE); //  返回字段数
-		echo $number;
-		$results = $this->public_model->bulletin_select($number)->result();
-		echo json_encode($results);
-	}
 }
