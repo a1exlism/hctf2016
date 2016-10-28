@@ -1,8 +1,3 @@
-#team-challenge {
-	margin-left: 7em;
-	margin-right: 7em;
-}
-
 #challenge {
 	padding: 25px;
 	color: #fff;
@@ -18,7 +13,37 @@
 	padding-left: 5px;
 	border-left: solid #34a853 5px;
 }
+/*  solved info public  */
+#solved-info > ul {
+	height: 8em;
+	overflow-y: scroll;
+}
 
+#solved-info > ul::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #808080;
+}
+
+#solved-info > ul::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+#solved-info > ul::-webkit-scrollbar-thumb
+{
+	background-color: #000000;
+	border: 2px solid #555555;
+}
+#solved-info > ul > li {
+	line-height: 1.8em;
+}
+#solved-info .teamName {
+	font-weight: bold;
+}
+
+/*  prob-card  */
 #challenge .prob-card {
 	background-color: #222;
 	height: 11em;

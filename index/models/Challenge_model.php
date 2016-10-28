@@ -25,5 +25,11 @@ class  Challenge_model extends CI_Model
 		}
 	}
 	
-
+	public function select_level($level) {
+		$this->db->select('*');
+		$this->db->from('challenge_info');
+		$this->db->where('challenge_level <=', $level);
+		$query = $this->db->get();
+		return $query;
+	}
 }

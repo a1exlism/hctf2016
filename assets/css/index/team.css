@@ -221,7 +221,7 @@ input::-webkit-input-placeholder {
  * -- Sidebar Start --
  */
 
-#team-settings .sidebar {
+#team-settings .sidebar, #team-challenge .sidebar{
 	text-align: left;
 	padding: 1em 2em;
 	color: #fff;

@@ -125,7 +125,6 @@ class Team_ajax extends CI_Controller
 	public function get_bulletin()
 	{
 		$number = $this->input->post('number', TRUE); //  返回字段数
-		echo $number;
 		$results = $this->public_model->bulletin_select($number)->result();
 		echo json_encode($results);
 	}
@@ -134,9 +133,36 @@ class Team_ajax extends CI_Controller
 	 *  -- Challenge -- 
 	 */
 
-	public function a()
+	public function get_solved_public()
 	{
+		$notifies = $this->public_model->notify_select()->result();
+		$results = array();
+		for ($i = 0; $i < count($notifies); $i++) {
+			foreach ($notifies[$i] as $key => $value) {
+				switch ($key) {
+					case 'challenge_solved_time':
+						$results[$i]['solvedTime'] = date('H:i:s m-d-Y', $value);
+						break;
+					case 'team_name':
+						$results[$i]['teamName'] = $value;
+						break;
+					case 'challenge_id':
+						$cha = $this->get_challenge($value);
+						$results[$i]['chaName'] = $cha->challenge_name;
+						break;
+				}
+			}
+		}
+		echo json_encode($results);
+	}
 
+	public function get_challenges()
+	{
+		//  根据$level显示
+		$session_token = $this->session->userdata('team_token');
+		$level = $this->user_model->user_select_token($session_token)->row()->compet_level;
+		$result = $this->challenge_model->select_level($level)->result();
+		var_dump($result);
 	}
 
 	/*
@@ -172,5 +198,5 @@ class Team_ajax extends CI_Controller
 		echo $arr;
 		return NULL;
 	}
-	
+
 }
