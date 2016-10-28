@@ -17,10 +17,12 @@ class  User_model extends CI_Model
 	 * --- 基础方法 ---
 	 * */
 
-	public function user_select($teamname)
+	public function user_select($teamname = null)
 	{
 		//  组装sql查询语句
-		$this->db->where('team_name', $teamname);
+		if (!empty($teamname)) {
+			$this->db->where('team_name', $teamname);
+		}
 		$this->db->select('*');
 		$query = $this->db->get('team_info');  //获取表数据
 		return $query;
@@ -91,7 +93,22 @@ class  User_model extends CI_Model
 		return $this->user_select_token($teamtoken)->row()->team_name;
 	}
 
+	public function user_get_rank($token, $num = null)
+	{
+		if (empty($num) && !empty($token)) {
+			$score = $this->user_select_token($token)->row()->total_score;
+			$this->db->select('*');
+			$this->db->where('total_score >', $score);
+			//  return int , include table
+			return $this->db->count_all_results('team_info') + 1;
+		} else if(empty($token) && !empty($num)) {
+			//  todo: 所有排名 
+			$this->db->select('*');
+			$query = $this->db->get();
+			return $query;
+		}
 
+	}
 
 }
 

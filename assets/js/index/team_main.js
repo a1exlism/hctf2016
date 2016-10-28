@@ -108,26 +108,25 @@ $(function () {
 		});
 	};
 	
-	getSettings();  //默认在Settings界面
+	mainInit();
 	
 	$('#toggle-bulletin').click(getBulletin);
 	$('#toggle-challenge').click(getChanllenge);
 	$('#toggle-rank').click(getRank);
 	$('#toggle-settings').click(function () {
-		getSettings();
-		getName();
+
 		$('#team-solved .solved-body dl').empty();
-		getSolved();
+		mainInit();
 	});
 	
-	mainInit();
 	/* -- Team Settings -- */
 	
 	function mainInit() {
+		getSettings();  //默认在Settings界面
 		countdown();
 		getName();
 		getSolved();
-		// getTeamInfo();
+		getTeamInfo();
 	}
 	
 	function getName() {
@@ -214,13 +213,14 @@ $(function () {
 	
 	
 	function getTeamInfo() {
-		//  待开发 team_info page load
 		$.ajax({
-			url: 'Team_ajax/get_teaminfo',
+			url: 'Team_ajax/get_team_info',
 			method: 'get',
 			dataType: 'json',
 			success: function (data) {
-				console.log(data);
+				$('#team-ranking .team-level').find('span').html(data.level);
+				$('#team-ranking .team-ranking').find('span').html(data.ranking);
+				$('#team-ranking .team-score').find('span').html(data.score);
 			}
 		})
 	};

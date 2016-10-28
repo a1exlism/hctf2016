@@ -18,45 +18,8 @@
 				</div>
 				<div class="solved-body">
 					<dl>
-						<dt>
-							<span class="cha-name">Welcome </span>
-							|<span class="cha-type">reverse</span>
-						</dt>
-						<dd>
-							Score:<span class="cha-score">100</span>
-							| Solved at <span class="cha-solved-time">Oct 25 19:06:40</span>
-							| Solved num:<span class="cha-solved-num">200</span>
-						</dd>
-						<dt>
-							<span class="cha-name">Welcome </span>
-							|<span class="cha-type">reverse</span>
-						</dt>
-						<dd>
-							Score:<span class="cha-score">100</span>
-							| Solved at <span class="cha-solved-time">Oct 25 19:06:40</span>
-							| Solved num:<span class="cha-solved-num">200</span>
-						</dd>
-						<dt>
-							<span class="cha-name">Welcome </span>
-							|<span class="cha-type">reverse</span>
-						</dt>
-						<dd>
-							Score:<span class="cha-score">100</span>
-							| Solved at <span class="cha-solved-time">Oct 25 19:06:40</span>
-							| Solved num:<span class="cha-solved-num">200</span>
-						</dd>
-						<dt>
-							<span class="cha-name">Welcome </span>
-							|<span class="cha-type">reverse</span>
-						</dt>
-						<dd>
-							Score:<span class="cha-score">100</span>
-							| Solved at <span class="cha-solved-time">Oct 25 19:06:40</span>
-							| Solved num:<span class="cha-solved-num">200</span>
-						</dd>
 					</dl>
 
-					<!-- todo: Load More -->
 				</div>
 			</div>
 		</div>
@@ -65,9 +28,9 @@
 				<div id="team-ranking" class="col-md-offset-1 col-md-10">
 					<a>Team Ranking</a>
 					<div>
-						<p class="team-level">Level: <span>10</span></p>
-						<p class="team-score">Total Score: <span>1800</span></p>
-						<p class="team-ranking">Ranking: <span>1</span></p>
+						<p class="team-level">Level: <span></span></p>
+						<p class="team-score">Total Score: <span></span></p>
+						<p class="team-ranking">Ranking: <span></span></p>
 					</div>
 					<a href="javascript:0;" class="msg-btn">Change Passwd</a>
 				</div>

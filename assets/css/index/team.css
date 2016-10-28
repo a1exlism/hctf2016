@@ -190,16 +190,16 @@ input::-webkit-input-placeholder {
 	background-color: #464646;
 }
 
-#team-settings #team-solved {
+#team-solved {
 	margin: 0;
 	padding: 0 2em;
 }
 
-#team-settings #team-solved .solved-title {
+#team-solved .solved-title {
 	margin: 0 0 2em;
 }
 
-#team-settings #team-solved > .solved-title > a {
+#team-solved > .solved-title > a {
 	color: #fff;
 	text-decoration: none;
 	line-height: 25px;
@@ -209,7 +209,10 @@ input::-webkit-input-placeholder {
 	font-size: 1.3em;
 }
 
-#team-settings #team-solved .solved-body dl>dd {
+#team-solved .solved-body dl>dt {
+	font-size: 1.3em;
+}
+#team-solved .solved-body dl>dd {
 	margin-bottom: 1em;
 }
 

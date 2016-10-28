@@ -78,15 +78,19 @@ class Team_ajax extends CI_Controller
 		return $cha;
 	}
 
-	public function get_teamInfo()
+	public function get_team_info()
 	{
 		//  sidebar
-
+		$session_token = $this->session->userdata('team_token');
+		$data = $this->user_model->user_select_token($session_token)->row();
 		//  level
-
+		$result = array();
+		$result['level'] = $data->compet_level;
 		//  total score
-
+		$result['score'] = $data->total_score;
 		//  ranking
+		$result['ranking'] = $this->user_model->user_get_rank($session_token);
+		echo json_encode($result);
 	}
 
 
@@ -138,7 +142,7 @@ class Team_ajax extends CI_Controller
 	/*
 	 *  -- Ranking -- 
 	 */
-	public function get_rank()
+	public function get_ranks()
 	{
 		$number = $this->input->post('number', TRUE); //  查询人数
 		if ($number === 1) {
@@ -168,5 +172,5 @@ class Team_ajax extends CI_Controller
 		echo $arr;
 		return NULL;
 	}
-
+	
 }
