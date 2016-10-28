@@ -21,6 +21,10 @@ document.form.submit();
 <form name="form" method="post">
 	<input type="text" name="id" value=<?php echo '"'.$result[0]['challenge_id'].'"';?>>
 	<br>
+	<input type="text" name="name" value=<?php echo '"'.$result[0]['challenge_name'].'"';?>>
+	<br>
+	<input type="text" name="type" value=<?php echo '"'.$result[0]['challenge_type'].'"';?>>
+	<br>
 	<input type="text" name="score" value=<?php echo '"'.$result[0]['challenge_score'].'"';?>>
 	<br>
 	<input type="text" name="description" value=<?php echo '"'.$result[0]['challenge_description'].'"';?>>

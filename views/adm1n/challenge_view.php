@@ -12,6 +12,8 @@
 <br />
 
 <form action="/hctf2016/adm1n/challenge/add" method="post">
+	<input type="text" name="name" placeholder="name">
+	<input type="text" name="type" placeholder="type">
 	<input type="text" name="score" placeholder="score">
 	<input type="text" name="description" placeholder="description">
 	<input type="text" name="level" placeholder="level">
