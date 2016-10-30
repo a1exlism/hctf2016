@@ -165,6 +165,22 @@ class Team_ajax extends CI_Controller
 		echo json_encode($result);
 	}
 
+	public function get_done_names()
+	{
+		$session_token = $this->session->userdata('team_token');
+		$result = $this->public_model->notify_select($session_token)->result();
+		$cha_names = array();
+		for ($i = 0; $i < count($result); $i++) {
+			foreach ($result[$i] as $key => $val) {
+				if ($key == 'challenge_id') {
+					$cha_name = $this->challenge_model->select($val)->challenge_name;
+					array_push($cha_names, $cha_name);
+				}
+			}
+		}
+		echo json_encode($cha_names);
+	}
+
 	/*
 	 *  -- Ranking -- 
 	 */

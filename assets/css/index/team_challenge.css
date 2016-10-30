@@ -44,6 +44,10 @@
 
 /*  prob-card  */
 #challenge .prob-card {
+	text-transform: capitalize;
+}
+
+#challenge .prob-card {
 	background-color: #222;
 	height: 11em;
 	border: solid #464646 .5em;
@@ -72,13 +76,21 @@
 #challenge .prob-card .card-bar-left {
 	width: 60%;
 	border-bottom: solid #fff974 1px;
+	/* 默认没有做完 */
 }
 
 #challenge .prob-card .card-bar-right {
 	width: 40%;
 	float: right;
 	color: #000;
+}
+
+#challenge .prob-card .doing {
 	background-color: #fff974;
+}
+
+#challenge .prob-card .done {
+	background-color: #5DFF7A;
 }
 
 #challenge .prob-card div[class^='card-bar-'] {
@@ -111,6 +123,13 @@
 
 #challenge .prob-card .card-body-bottom p {
 	font-size: 1.1em;
+}
+
+#challenge .prob-card .card-body-bottom .cha-solves {
+	display: inline-block;
+	margin-right: .5em;
+	border-bottom: solid 1px #fff;
+	float: right;
 }
 
 /*
