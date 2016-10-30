@@ -28,6 +28,7 @@ function getCurrentChallenge() {
 		dataType: 'json',
 		success: function (data) {
 			if (data) {
+
 				$.each(data, function (index, value) {
 					var solves = value.challenge_solves || '0';
 					var probCard = $('<div class="col-xs-6 col-md-3 prob-card"></div>');
@@ -98,11 +99,11 @@ function getTop10() {
 function getChallenge() {
 	getSolvedPublic();
 	getTop10();
-	getCurrentChallenge();
 }
 
+getCurrentChallenge();  //获取题目
 getChallenge();
 
-setInterval(getChallenge, 30000); //update in every 30seconds
+setInterval(getChallenge, 40000); //update in every 30seconds
 
 $('#toggle-challenge').click(getChallenge);
