@@ -19,19 +19,23 @@ document.form.submit();
 <body>
 
 <form name="form" method="post">
-	<input type="text" name="id" value=<?php echo '"'.$result[0]['challenge_id'].'"';?>>
+	id:<input type="text" name="id" value=<?php echo '"'.$result[0]['challenge_id'].'"';?>>
 	<br>
-	<input type="text" name="score" value=<?php echo '"'.$result[0]['challenge_score'].'"';?>>
+	name:<input type="text" name="name" value=<?php echo '"'.$result[0]['challenge_name'].'"';?>>
 	<br>
-	<input type="text" name="description" value=<?php echo '"'.$result[0]['challenge_description'].'"';?>>
+	type:<input type="text" name="type" value=<?php echo '"'.$result[0]['challenge_type'].'"';?>>
 	<br>
-	<input type="text" name="level" value=<?php echo '"'.$result[0]['challenge_level'].'"';?>>
+	score:<input type="text" name="score" value=<?php echo '"'.$result[0]['challenge_score'].'"';?>>
 	<br>
-	<input type="text" name="hit" value=<?php echo '"'.$result[0]['challenge_hit'].'"';?>>
+	description:<input type="text" name="description" value=<?php echo '"'.$result[0]['challenge_description'].'"';?>>
 	<br>
-	<input type="text" name="api" value=<?php echo '"'.$result[0]['challenge_api'].'"';?>>
+	level:<input type="text" name="level" value=<?php echo '"'.$result[0]['challenge_level'].'"';?>>
 	<br>
-	<input type="text" name="api" value=<?php echo '"'.$result[0]['challenge_tres'].'"';?>>
+	hit:<input type="text" name="hit" value=<?php echo '"'.$result[0]['challenge_hit'].'"';?>>
+	<br>
+	api:<input type="text" name="api" value=<?php echo '"'.$result[0]['challenge_api'].'"';?>>
+	<br>
+	threshold:<input type="text" name="api" value=<?php echo '"'.$result[0]['challenge_threshold'].'"';?>>
 	<br>
 	<input type="button" value="UPDATE" onclick=_update()>
 	<input type="button" value="DELETE" onclick=_delete()>

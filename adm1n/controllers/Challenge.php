@@ -31,6 +31,7 @@ class challenge extends CI_controller
 		$this->load->view('adm1n/challenge_view');
 
 		$this->load->view('adm1n/show_challenge',$data);
+		var_dump($result);
 	}
 
 	public function detail($id)
@@ -43,6 +44,12 @@ class challenge extends CI_controller
 	public function add()
 	{
 		//$this->load->model('challenge_model');
+
+		$name=$this->input->post('name');
+		$name=$this->security->xss_clean($name);
+
+		$type=$this->input->post('type');
+		$type=$this->security->xss_clean($type);
 
 		$score=$this->input->post('score');
 		$score=$this->security->xss_clean($score);
@@ -61,7 +68,7 @@ class challenge extends CI_controller
 
 
 
-		if(!is_numeric($score) || empty($description) || is_numeric($level))
+		if(!is_numeric($score) || empty($description) || is_numeric($level) || empty($name) || empty($type))
 		{
 			echo "<script>alert('you have to input something!')</script>";
 			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
@@ -74,6 +81,8 @@ class challenge extends CI_controller
 		else
 		{
 			$data=array(
+					'challenge_name'=>$name,
+					'challenge_type'=>$type,
 					'challenge_score'=>$score,
 					'challenge_description'=>$description,
 					'challenge_level'=>$level,
