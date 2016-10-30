@@ -16,7 +16,7 @@
 				<div id="solved-info" class="col-xs-12">
 					<a>Challenges Solved Info</a>
 					<ul>
-						
+
 					</ul>
 				</div>
 				<div class="col-xs-6 col-md-3 prob-card">
@@ -96,9 +96,8 @@
 			</div>
 		</div>
 		<div class="col-md-offset-1 col-md-3 sidebar">
-			<div class="row">
-				aaaaa
-			</div>
+			<h3>Top 10</h3>
+				
 		</div>
 	</div>
 	

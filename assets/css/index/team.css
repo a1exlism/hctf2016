@@ -209,25 +209,24 @@ input::-webkit-input-placeholder {
 	font-size: 1.3em;
 }
 
-#team-solved .solved-body dl>dt {
+#team-solved .solved-body dl > dt {
 	font-size: 1.3em;
 }
-#team-solved .solved-body dl>dd {
+
+#team-solved .solved-body dl > dd {
 	margin-bottom: 1em;
 }
-
 
 /*
  * -- Sidebar Start --
  */
 
-#team-settings .sidebar, #team-challenge .sidebar{
+#team-settings .sidebar, #team-challenge .sidebar {
 	text-align: left;
 	padding: 1em 2em;
 	color: #fff;
 	background-color: #464646;
 }
-
 
 /* words */
 
@@ -254,7 +253,10 @@ input::-webkit-input-placeholder {
 	text-align: left;
 }
 
-#team-ranking .team-score span, #team-ranking .team-ranking span {
+
+#team-ranking .team-score span,
+#team-ranking .team-level span,
+#team-ranking .team-ranking span {
 	padding-left: 2px;
 	color: rgb(225, 149, 255);
 }

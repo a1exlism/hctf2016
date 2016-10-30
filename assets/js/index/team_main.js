@@ -22,6 +22,11 @@ $(function () {
 		var statusCode = 0;
 		if (stype === 'css') {
 			$('link').each(function () {
+				if (this.href.indexOf('font') !== -1) {
+					statusCode = 1;
+					return true;
+					//  这个宏有问题, 单页面只能动态加载一个font内容!!!!
+				}
 				if (this.href.indexOf(sname) !== -1) {
 					// alert('CSS已存在');
 					statusCode = 1;
@@ -79,6 +84,7 @@ $(function () {
 	var getChanllenge = function () {
 		$('#main-container').empty();
 		$('#main-container').load('Team/challenge');
+		getSource('../../fonts/crown/iconfont', 'css');
 		getSource('team_challenge', 'css');
 		getSource('team_challenge', 'js');
 	};
@@ -114,7 +120,7 @@ $(function () {
 	$('#toggle-challenge').click(getChanllenge);
 	$('#toggle-rank').click(getRank);
 	$('#toggle-settings').click(function () {
-
+		
 		$('#team-solved .solved-body dl').empty();
 		mainInit();
 	});
@@ -128,6 +134,11 @@ $(function () {
 		getSolved();
 		getTeamInfo();
 	}
+	
+	setInterval(function () { //update in every 30seconds
+		getSolved();
+		getTeamInfo();
+	}, 30000);
 	
 	function getName() {
 		$.ajax({

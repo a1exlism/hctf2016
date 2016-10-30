@@ -162,7 +162,7 @@ class Team_ajax extends CI_Controller
 		$session_token = $this->session->userdata('team_token');
 		$level = $this->user_model->user_select_token($session_token)->row()->compet_level;
 		$result = $this->challenge_model->select_level($level)->result();
-		var_dump($result);
+		echo json_encode($result);
 	}
 
 	/*
@@ -171,32 +171,8 @@ class Team_ajax extends CI_Controller
 	public function get_ranks()
 	{
 		$number = $this->input->post('number', TRUE); //  查询人数
-		if ($number === 1) {
-			$session_token = $this->session->userdata('team_token');
-			$arr = array(
-				"total_score" => $this->team_info->user_select_token($session_token)->total_score,
-				"ranking" => $this->team_info->ranking($session_token)
-			);
-		} else if ($number === 15) {
-			//  返回15条最上数据
-			$arr = array(
-				array(
-					"total_score" => "team's score",
-					"ranking" => "team's ranking"
-					//  修改
-				)
-			);
-		} else {
-			//  返回所有数据
-			$arr = array(
-				array(
-					"total_score" => "team's score",
-					"ranking" => "team's ranking"
-				)
-			);
-		};
-		echo $arr;
-		return NULL;
+		$arr = $this->user_model->user_get_rank(null, $number)->result();
+		echo json_encode($arr);
 	}
 
 }

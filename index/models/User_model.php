@@ -93,21 +93,31 @@ class  User_model extends CI_Model
 		return $this->user_select_token($teamtoken)->row()->team_name;
 	}
 
-	public function user_get_rank($token, $num = null)
+	public function user_get_rank($token = null, $num = null)
 	{
 		if (empty($num) && !empty($token)) {
-			$score = $this->user_select_token($token)->row()->total_score;
+			//  Ranking 排位
+			$score = $this->user_select_token($token)->row()->total_score;  //这边已经定义了db
 			$this->db->select('*');
 			$this->db->where('total_score >', $score);
 			//  return int , include table
 			return $this->db->count_all_results('team_info') + 1;
-		} else if(empty($token) && !empty($num)) {
-			//  todo: 所有排名 
-			$this->db->select('*');
+		} else if (empty($token) && empty($num)) {
+			//  ranks
+			$this->db->select(array('team_name', 'total_score'));
+			$this->db->from('team_info');
+			$this->db->order_by('total_score', 'DESC');
+			$query = $this->db->get();
+			return $query;
+		} else if (empty($token) && !empty($num)) {
+			//  challenge_sidebar's ranks
+			$this->db->select(array('team_name', 'total_score'));
+			$this->db->from('team_info');
+			$this->db->order_by('total_score', 'DESC');
+			$this->db->limit($num);
 			$query = $this->db->get();
 			return $query;
 		}
-
 	}
 
 }
