@@ -27,7 +27,7 @@ CREATE TABLE hctf2016.challenge_info (
   challenge_name VARCHAR(40) NOT NULL ,
   challenge_type VARCHAR(20) NOT NULL ,
   challenge_score INT UNSIGNED NOT NULL ,
-  challenge_description VARCHAR(200) NOT NULL ,
+  challenge_description VARCHAR(300) NOT NULL ,
   challenge_hit VARCHAR(100) ,
   challenge_level INT UNSIGNED NOT NULL ,
   -- 开题层数

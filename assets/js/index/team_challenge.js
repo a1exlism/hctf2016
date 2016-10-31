@@ -28,7 +28,7 @@ function getCurrentChallenge() {
 		dataType: 'json',
 		success: function (data) {
 			if (data) {
-
+				
 				$.each(data, function (index, value) {
 					var solves = value.challenge_solves || '0';
 					var probCard = $('<div class="col-xs-6 col-md-3 prob-card"></div>');
@@ -69,6 +69,9 @@ function setDoneColor() {
 	})
 }
 
+function loadChaDetails() {
+	
+}
 
 function getTop10() {
 	$.ajax({
@@ -91,7 +94,6 @@ function getTop10() {
 					}
 				})
 			}
-			
 		}
 	});
 }
@@ -107,3 +109,21 @@ getChallenge();
 setInterval(getChallenge, 40000); //update in every 30seconds
 
 $('#toggle-challenge').click(getChallenge);
+
+function setClose() {
+	
+	// Single Card Info
+	$('#team-challenge .mask').bind('click', function () {
+		$(this).remove();
+	});
+	
+	$('#team-challenge .popup').bind('click', function () {
+		return false;
+	});
+	
+	$('#team-challenge .popup-close').bind('click', function (event) {
+		$('#team-challenge .mask').remove();
+	});  //  阻止事件捕获
+	
+}
+

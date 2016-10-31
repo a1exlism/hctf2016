@@ -55,6 +55,11 @@
 	text-align: center;
 }
 
+#challenge .prob-card:hover {
+	cursor: pointer;
+	/* change cursor's style */
+}
+
 #challenge .card-bar {
 	height: 25%;
 	display: block;
@@ -132,9 +137,57 @@
 	float: right;
 }
 
+/* fixed popup cha-info*/
+#team-challenge .mask {
+	position: fixed;
+	text-align: center;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.2);
+	overflow: auto;
+	z-index: 999;
+}
+
+#team-challenge .popup {
+	position: fixed;
+	/*display: none;*/
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	z-index: 9999;
+}
+
+#team-challenge .popup-close {
+	position: absolute;
+	right: .5em;
+	top: .5em;
+	font-size: 2em;
+	color: #fff;
+}
+
+#team-challenge .cha-info {
+	/* challenge details */
+	width: 60%;
+	height: 70%;
+	background: #333;
+	padding: 2em;
+	text-align: left;
+}
+
+.cha-info h1 {
+	margin-top: 0;
+}
+
 /*
  * -- sidebar --
  */
+
 #team-challenge .sidebar {
 	padding: 1em 2em;
 }

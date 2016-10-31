@@ -76,3 +76,5 @@ git reset HEAD .
 14. team页面其他人无法查看特定信息 问题处理
 
 15. !!!!!!!!!! `注册, 特殊字符怎么办? MySQL` !!!!!!!!!!
+
+16. 忘记在challenge这边写`链接`字段了, 所以describe需要规范化`xxx<a href="xxx">xxx</a>xxx`
