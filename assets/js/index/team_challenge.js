@@ -1,6 +1,12 @@
 /**
  * Created by a1exlism on 16-10-20.
  */
+var challenges;
+function saveChallenges(data) {
+	challenges = data;
+	//  保存题目数据 json's code
+}
+
 
 function getSolvedPublic() {
 	$.ajax({
@@ -28,10 +34,11 @@ function getCurrentChallenge() {
 		dataType: 'json',
 		success: function (data) {
 			if (data) {
-				
+				saveChallenges(data);
+				// console.log(challenges);
 				$.each(data, function (index, value) {
 					var solves = value.challenge_solves || '0';
-					var probCard = $('<div class="col-xs-6 col-md-3 prob-card"></div>');
+					var probCard = $('<div class="col-xs-4 col-md-3 prob-card"></div>');
 					var cardBar = $('<div class="card-bar">' +
 						'<div class="card-bar-left">' + '<p>level <span>' + value.challenge_level + '</span></div>' +
 						'<div class="card-bar-right doing"><p class="cha-score">' + value.challenge_score + '</p></div>' +
@@ -44,11 +51,11 @@ function getCurrentChallenge() {
 					$('#challenge').append(probCard);
 				});
 				setDoneColor();
+				loadChaDetails();
 			}
 		}
 	});
 }
-
 
 function setDoneColor() {
 	$.ajax({
@@ -71,7 +78,60 @@ function setDoneColor() {
 
 function loadChaDetails() {
 	
-}
+	function getChaObj(name) {
+		var challenges = window.challenges;
+		for (i in challenges) {
+			if (challenges[i].challenge_name == name) {
+				return challenges[i];
+			}
+		}
+		return true;
+	}
+	
+	function setClose(ele) {
+		
+		// Single Card Info Set close event
+		$(ele).bind('click', function () {
+			$(ele).remove();
+		});
+		
+		$(ele).find('.popup').bind('click', function () {
+			return false;
+		});
+		
+		$(ele).find('.popup-close').bind('click', function (event) {
+			$(ele).remove();
+		});  //  阻止事件捕获
+		
+	}
+	
+	$('#challenge .prob-card').each(function (index, element) {
+		$(element).bind('click', function () {
+			var chaName = $(this).find('.card-body-top p').text();
+			// alert(chaName);
+			var chaInfo = getChaObj(chaName);
+			// console.log(chaInfo);
+			var chaPopup = $(
+				'<div class="mask">' +
+				'<div class="popup cha-info">' +
+				'<h1>' + chaInfo.challenge_name + '</h1>' +
+				'<p class="cha-sovles"><span>' + chaInfo.challenge_solves + '</span> Teams solved.</p>' +
+				'<h3>description</h3>' +
+				'<p class="cha-description">' + chaInfo.challenge_description + '</p>' +
+				'<br>' +
+				'<h3>Hint</h3>' +
+				'<p class="cha-hit">' + chaInfo.challenge_hit + '</p>' +
+				'<a class="popup-close glyphicon glyphicon-remove" href="javascript:0"></a>' +
+				'</div>' +
+				'</div>');
+			$('#team-challenge').append($(chaPopup));
+			setClose($('#team-challenge .mask'));
+
+			return false;
+		})
+	});
+};
+
 
 function getTop10() {
 	$.ajax({
@@ -98,32 +158,16 @@ function getTop10() {
 	});
 }
 
+
 function getChallenge() {
 	getSolvedPublic();
+	getCurrentChallenge();
 	getTop10();
 }
 
 getCurrentChallenge();  //获取题目
-getChallenge();
 
 setInterval(getChallenge, 40000); //update in every 30seconds
 
 $('#toggle-challenge').click(getChallenge);
-
-function setClose() {
-	
-	// Single Card Info
-	$('#team-challenge .mask').bind('click', function () {
-		$(this).remove();
-	});
-	
-	$('#team-challenge .popup').bind('click', function () {
-		return false;
-	});
-	
-	$('#team-challenge .popup-close').bind('click', function (event) {
-		$('#team-challenge .mask').remove();
-	});  //  阻止事件捕获
-	
-}
 
