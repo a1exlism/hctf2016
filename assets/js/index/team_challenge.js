@@ -34,7 +34,7 @@ function getCurrentChallenge() {
 		dataType: 'json',
 		success: function (data) {
 			if (data) {
-				$('#team-challenge .prob-card').remove();
+				$('#challenge .prob-card').remove();
 				saveChallenges(data);
 				// console.log(challenges);
 				$.each(data, function (index, value) {
@@ -166,9 +166,9 @@ function getChallenge() {
 	getTop10();
 }
 
-getCurrentChallenge();  //获取题目
+getChallenge();
 
-setInterval(getChallenge, 40000); //update in every 30seconds
+setInterval(getChallenge, 40000); //update in every 40seconds
 
 $('#toggle-challenge').click(getChallenge);
 
