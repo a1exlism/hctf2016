@@ -34,6 +34,7 @@ function getCurrentChallenge() {
 		dataType: 'json',
 		success: function (data) {
 			if (data) {
+				$('#team-challenge .prob-card').remove();
 				saveChallenges(data);
 				// console.log(challenges);
 				$.each(data, function (index, value) {
