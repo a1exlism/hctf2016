@@ -19,7 +19,7 @@ class Check_flag extends CI_Controller
 
 	public function check()
 	{
-		$id=$this->input->post('id');
+		$id=$this->input->post('id'); //  challenge_id
 		$id=$this->security->xss_clean($id);
 
 		$flag=$this->input->post('flag');

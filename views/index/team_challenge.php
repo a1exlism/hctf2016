@@ -29,16 +29,5 @@
 
 		</div>
 	</div>
-<!--	<div class="mask">-->
-<!--		<div class="popup cha-info">-->
-<!--			<h1>Handcrafted pyc</h1>-->
-<!--			<p class="cha-solves"><span>238</span> Teams solved.</p>-->
-<!--			<h3>Description</h3>-->
-<!--			<p class="cha-description">Can your brain be a Python VM? (Please use Python 2.7) <a href="#"> crackme.py </a></p>-->
-<!--			<br>-->
-<!--			<h3>Hint</h3>-->
-<!--			<p class="cha-hit">None</p>-->
-<!--			<a class="popup-close glyphicon glyphicon-remove" href="javascript:0"></a>-->
-<!--		</div>-->
-<!--	</div>-->
+
 </div>

@@ -87,6 +87,7 @@ $(function () {
 		getSource('../../fonts/crown/iconfont', 'css');
 		getSource('team_challenge', 'css');
 		getSource('team_challenge', 'js');
+		getSource('../geetest/gt', 'js');
 	};
 	
 	var getRank = function () {

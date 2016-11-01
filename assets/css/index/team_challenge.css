@@ -184,6 +184,41 @@
 	margin-top: 0;
 }
 
+#team-challenge .cha-info .flags .form-control {
+	border-radius: 0;
+	color: #fff;
+	background-color: #333;
+}
+
+#team-challenge .cha-info .flags .btn {
+	border-radius: 0;
+	color: #333;
+	background-color: #fff;
+
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+}
+
+#team-challenge .cha-info .flags .btn:hover {
+	color: #fff;
+	background-color: #333;
+	border: solid #eee 1px;
+}
+
 /*
  * -- sidebar --
  */

@@ -118,11 +118,21 @@ function loadChaDetails() {
 				'<h1>' + chaInfo.challenge_name + '</h1>' +
 				'<p class="cha-sovles"><span>' + chaInfo.challenge_solves + '</span> Teams solved.</p>' +
 				'<h3>description</h3>' +
-				'<p class="cha-description">' + chaInfo.challenge_description + '</p>' +
-				'<br>' +
+				'<p class="cha-description">' + chaInfo.challenge_description + '</p>' + '<br>' +
 				'<h3>Hint</h3>' +
 				'<p class="cha-hit">' + chaInfo.challenge_hit + '</p>' +
-				'<a class="popup-close glyphicon glyphicon-remove" href="javascript:0"></a>' +
+				'<a class="popup-close glyphicon glyphicon-remove" href="javascript:0"></a>' + '<br>' +
+				'<h4>flag submit</h4>' +
+				'<div class="flags row">' +
+				'<div class="col-xs-12">' +
+				'<div class="input-group">' +
+				'<input type="text" class="form-control">' +
+				'<span class="input-group-btn">' +
+				'<input class="btn btn-default" type="button" value="Submit">' +
+				'</span>' +
+				'</div>' +
+				'</div>' +
+				'</div>' +
 				'</div>' +
 				'</div>');
 			$('#team-challenge').append($(chaPopup));
@@ -133,6 +143,9 @@ function loadChaDetails() {
 	});
 };
 
+function flagSubmit() {
+	
+}
 
 function getTop10() {
 	$.ajax({

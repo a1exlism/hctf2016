@@ -33,10 +33,10 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li><a id="toggle-settings" href="javascript:0;">Dashboard</a></li>
-				<li><a id="toggle-bulletin" href="javascript:0;">Bulletin</a></li>
-				<li><a id="toggle-challenge" href="javascript:0;">Challenge</a></li>
-				<li><a id="toggle-rank" href="javascript:0;">Ranking</a></li>
+				<li><a id="toggle-settings" href="###">Dashboard</a></li>
+				<li><a id="toggle-bulletin" href="###">Bulletin</a></li>
+				<li><a id="toggle-challenge" href="###">Challenge</a></li>
+				<li><a id="toggle-rank" href="###">Ranking</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a id="toggle-time">Countdown: <span>Timing</span></a></li>
