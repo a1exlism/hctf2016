@@ -139,7 +139,7 @@ $(function () {
 	setInterval(function () { //update in every 30seconds
 		getSolved();
 		getTeamInfo();
-	}, 30000);
+	}, 60000);
 	
 	function getName() {
 		$.ajax({
@@ -209,6 +209,7 @@ $(function () {
 			dataType: 'json',
 			success: function (data) {
 				if (data) {
+					$('#team-solved .solved-body dl').empty();
 					$.each(data, function (index, value) {
 						$('#team-solved .solved-body dl').append($('<dt>' +
 							'<span class="cha-name">' + value.chaName + '</span>' +

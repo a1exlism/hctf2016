@@ -1,12 +1,13 @@
 /**
  * Created by a1exlism on 16-10-20.
  */
+
+
 var challenges;
 function saveChallenges(data) {
 	challenges = data;
 	//  保存题目数据 json's code
 }
-
 
 function getSolvedPublic() {
 	$.ajax({
@@ -126,25 +127,28 @@ function loadChaDetails() {
 				'<div class="flags row">' +
 				'<div class="col-xs-12">' +
 				'<div class="input-group">' +
-				'<input type="text" class="form-control">' +
+				'<input id="flag-content" type="text" class="form-control">' +
 				'<span class="input-group-btn">' +
-				'<input class="btn btn-default" type="button" value="Submit">' +
+				'<input id="flag-submit" class="btn btn-default" type="button" value="Submit">' +
 				'</span>' +
 				'</div>' +
 				'</div>' +
+				//  Geetest Module
+				'<div id="mask"></div>' +
+				'<div id="popup-captcha"></div>' +
 				'</div>' +
 				'</div>' +
 				'</div>');
 			$('#team-challenge').append($(chaPopup));
 			setClose($('#team-challenge .mask'));
-
+			
 			return false;
 		})
 	});
 };
 
 function flagSubmit() {
-	
+	$('')
 }
 
 function getTop10() {
@@ -185,3 +189,71 @@ setInterval(getChallenge, 40000); //update in every 40seconds
 
 $('#toggle-challenge').click(getChallenge);
 
+
+/*
+ * -- GeeTest Module --
+ */
+
+function captchaHide() {
+	$("#mask, #popup-captcha").hide();
+}
+
+$("#mask").click(function () {
+	$("#mask, #popup-captcha").hide();
+});
+
+$("#flag-submit").click(function () {
+	$("#mask, #popup-captcha").show();
+});
+
+/* -- regenerate Geetest captcha --*/
+
+// flag 提交处理 
+function flagSubmit(captchaObj) {
+	// 将验证码加到id为captcha的元素里
+	captchaObj.appendTo("#popup-captcha");
+	//拖动验证成功后两秒(可自行设置时间)自动发生跳转等行为
+	captchaObj.onSuccess(function () {
+		captchaHide();
+		//  mask 隐藏
+		var validate = captchaObj.getValidate();
+		$.ajax({
+			url: "Geetest/verifyLogin", // 进行二次验证
+			type: "post",
+			dataType: "json",
+			data: {
+				flag: $('#flag-content').text(),
+				geetest_challenge: validate.geetest_challenge,
+				geetest_validate: validate.geetest_validate,
+				geetest_seccode: validate.geetest_seccode
+			},
+			success: function (data) {
+				if (data && (data.status === "success")) {
+					postLogin();
+				} else if (data && (data.status === "fail_2")) {
+					$('.geetest-fail').show();
+					setTimeout(function () {
+						$('.geetest-fail').hide();
+					}, 2500);
+				}
+			}
+			
+		});
+	});
+}
+
+$("#flag-submit").click(function () {
+	$('#popup-captcha').find('.gt_mobile_holder').first().remove();
+	$.ajax({
+		url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
+		type: "get",
+		dataType: "json",
+		success: function (data) {
+			initGeetest({
+				gt: data.gt,
+				challenge: data.challenge,
+				offline: !data.success
+			}, flagSubmit);
+		}
+	});
+});
