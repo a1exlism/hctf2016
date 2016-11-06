@@ -147,7 +147,7 @@
 	width: 100%;
 	background-color: rgba(0, 0, 0, 0.4);
 	overflow: auto;
-	z-index: 999;
+	z-index: 100;
 }
 
 #team-challenge .popup {
@@ -160,7 +160,7 @@
 	-ms-transform: translate(-50%, -50%);
 	-o-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
-	z-index: 9999;
+	z-index: 200;
 }
 
 #team-challenge .popup-close {
@@ -192,9 +192,8 @@
 
 #team-challenge .cha-info .flags .btn {
 	border-radius: 0;
-	color: #333;
-	background-color: #fff;
-
+	color: #fff;
+	background-color: #333;
 	display: inline-block;
 	padding: 6px 12px;
 	margin-bottom: 0;
@@ -210,13 +209,68 @@
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	background-image: none;
 }
 
 #team-challenge .cha-info .flags .btn:hover {
-	color: #fff;
-	background-color: #333;
+	color: #333;
+	background-color: #eee;
 	border: solid #eee 1px;
+}
+
+#team-challenge .cha-info .flag-notify {
+	margin: .5em;
+	text-align: center;
+}
+
+.flag-warning {
+	color: #f0ad4e;
+}
+
+.flag-danger {
+	color: #d9534f;
+}
+
+.flag-success {
+	color: #5cb85c;
+}
+
+.flag-info {
+	color: #428bca;
+}
+
+/* -- challenge geetest -- */
+#mask {
+	display: none;
+	position: fixed;
+	text-align: center;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	overflow: auto;
+	z-index: 300;
+}
+
+#popup-captcha {
+	position: fixed;
+	display: none;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	z-index: 400;
+	-moz-user-select: -moz-none;
+	-webkit-user-select: none;
+	/*
+		Introduced in IE 10.
+		See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+	*/
+	-ms-user-select: none;
+	user-select: none;
 }
 
 /*

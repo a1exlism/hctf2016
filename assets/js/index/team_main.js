@@ -93,6 +93,7 @@ $(function () {
 	var getRank = function () {
 		$('#main-container').empty();
 		$('#main-container').load('Team/rank');
+		getSource('../echarts/echarts', 'js');
 		getSource('team_rank', 'css');
 		getSource('team_rank', 'js');
 	};

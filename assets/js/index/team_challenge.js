@@ -52,14 +52,14 @@ function getCurrentChallenge() {
 					$(probCard).append(cardBar, cardBody);
 					$('#challenge').append(probCard);
 				});
-				setDoneColor();
 				loadChaDetails();
+				setDoneStyle();
 			}
 		}
 	});
 }
 
-function setDoneColor() {
+function setDoneStyle() {
 	$.ajax({
 		url: 'Team_ajax/get_done_names',
 		method: 'get',
@@ -69,6 +69,7 @@ function setDoneColor() {
 				$('#challenge .prob-card').each(function (index, element) {
 					var chaName = $(this).find('.card-body-top').text();
 					if (data.indexOf(chaName) !== -1) {
+						// console.log(data);
 						$(this).find('.card-bar-left').css('border-bottom', 'solid #99FFB2 1px');
 						$(this).find('.card-bar-right').removeClass('doing').addClass('done');
 					}
@@ -82,6 +83,7 @@ function loadChaDetails() {
 	
 	function getChaObj(name) {
 		var challenges = window.challenges;
+		var i;
 		for (i in challenges) {
 			if (challenges[i].challenge_name == name) {
 				return challenges[i];
@@ -107,12 +109,90 @@ function loadChaDetails() {
 		
 	}
 	
+	//  flags
+	function handlerFlag(captchaObj) {
+		
+		captchaObj.appendTo("#popup-captcha");
+		captchaObj.onSuccess(function () {
+			captchaHide();
+			var validate = captchaObj.getValidate();
+			var flag = $('.flag-content').val();
+			$.ajax({
+				url: "Geetest/verifyFlag", // 进行二次验证
+				type: "post",
+				dataType: "json",
+				data: {
+					flag: flag,
+					geetest_challenge: validate.geetest_challenge,
+					geetest_validate: validate.geetest_validate,
+					geetest_seccode: validate.geetest_seccode
+				},
+				success: function (data) {
+					
+					if (data && data.status == 'success') {
+						flagSubmit(flag);
+					} else {
+						alert('no flags has been submitted');
+					}
+				}
+			});
+		});
+	}
+	
+	function flagSubmit(flag) {
+		var teamCha = $('#team-challenge');
+		var chaId = getChaObj($(teamCha).find('.cha-info h1').text()).challenge_id;
+		// console.log(chaId);
+		$.ajax({
+			url: "Check_flag/check",
+			type: "post",
+			dataType: "json",
+			data: {
+				id: chaId,
+				flag: flag
+			},
+			success: function (data) {
+				function notifyShow(staClass, msg) {
+					var notify = $(teamCha).find('.flag-notify');
+					notify.show();
+					notify.text(msg);
+					notify.addClass(staClass);
+					setTimeout(function () {
+						notify.hide();
+					}, 2000);
+				}
+				
+				if (data) {
+					switch (data.statusCode) {
+						case 0:
+							notifyShow('flag-warning', 'Wrong flag, try again.');
+							break;
+						case 1:
+							notifyShow('flag-danger', 'You are cheating!Contact Administrator!');
+							$.post('User_ajax/reset', {
+								status: 'reset'
+							});
+							break;
+						case 2:
+							notifyShow('flag-success', 'Correct flag, Congratulations!')
+							break;
+						case 3:
+							notifyShow('flag-info', 'You have solved this prob.');
+							break;
+					}
+					$.get('Team_ajax/score_update');
+				}
+			}
+		});
+	}
+	
+	
 	$('#challenge .prob-card').each(function (index, element) {
 		$(element).bind('click', function () {
+			
 			var chaName = $(this).find('.card-body-top p').text();
 			// alert(chaName);
 			var chaInfo = getChaObj(chaName);
-			// console.log(chaInfo);
 			var chaPopup = $(
 				'<div class="mask">' +
 				'<div class="popup cha-info">' +
@@ -122,51 +202,63 @@ function loadChaDetails() {
 				'<p class="cha-description">' + chaInfo.challenge_description + '</p>' + '<br>' +
 				'<h3>Hint</h3>' +
 				'<p class="cha-hit">' + chaInfo.challenge_hit + '</p>' +
-				'<a class="popup-close glyphicon glyphicon-remove" href="javascript:0"></a>' + '<br>' +
+				'<a class="popup-close glyphicon glyphicon-remove" href="#"></a>' + '<br>' +
 				'<h4>flag submit</h4>' +
 				'<div class="flags row">' +
-				'<div class="col-xs-12">' +
+				'<div class="col-md-8">' +
 				'<div class="input-group">' +
-				'<input id="flag-content" type="text" class="form-control">' +
+				'<input type="text" class="flag-content form-control">' +
 				'<span class="input-group-btn">' +
 				'<input id="flag-submit" class="btn btn-default" type="button" value="Submit">' +
 				'</span>' +
 				'</div>' +
 				'</div>' +
-				//  Geetest Module
-				'<div id="mask"></div>' +
-				'<div id="popup-captcha"></div>' +
+				'<div class="col-md-8">' +
+				'<p class="flag-notify"></p>' +
+				'</div>' +
 				'</div>' +
 				'</div>' +
 				'</div>');
-			$('#team-challenge').append($(chaPopup));
-			setClose($('#team-challenge .mask'));
 			
+			var teamCha = $('#team-challenge');
+			$(teamCha).append($(chaPopup));
+			setClose($(teamCha).find('.mask'));
+			$('#mask').bind('click', captchaHide);
+			
+			$("#flag-submit").click(function () {
+				$.ajax({
+					url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
+					type: "get",
+					dataType: "json",
+					success: function (data) {
+						initGeetest({
+							gt: data.gt,
+							challenge: data.challenge,
+							offline: !data.success
+						}, handlerFlag);
+					}
+				});
+				captchaShow();
+			});
 			return false;
 		})
 	});
 };
 
-function flagSubmit() {
-	$('')
-}
-
 function getTop10() {
 	$.ajax({
-		url: 'Team_ajax/get_ranks',
-		method: 'post',
+		url: 'Team_ajax/get_ranks/10',
+		method: 'get',
 		dataType: 'json',
-		data: {
-			number: 10
-		},
 		success: function (data) {
-			$('#team-challenge .sidebar p').remove();
+			var teamCha = $('#team-challenge');
+			$(teamCha).find('.sidebar p').remove();
 			if (data) {
 				$.each(data, function (index, value) {
-					$('#team-challenge .sidebar').append($('<p class="team">' + value.team_name + '<span class="score">' + value.total_score + '</span></p>'));
+					$(teamCha).find('.sidebar').append($('<p class="team">' + value.team_name + '<span class="score">' + value.total_score + '</span></p>'));
 				});
 				
-				$('#team-challenge .sidebar p').each(function (index, element) {
+				$(teamCha).find('.sidebar p').each(function (index, element) {
 					if ((index + 1) <= 3) {
 						$(element).find('.score ').prepend('<i class="iconfont top-' + (index + 1) + '">&#xe614;</i>');
 					}
@@ -175,7 +267,6 @@ function getTop10() {
 		}
 	});
 }
-
 
 function getChallenge() {
 	getSolvedPublic();
@@ -196,64 +287,9 @@ $('#toggle-challenge').click(getChallenge);
 
 function captchaHide() {
 	$("#mask, #popup-captcha").hide();
+	$('#popup-captcha').empty();
 }
 
-$("#mask").click(function () {
-	$("#mask, #popup-captcha").hide();
-});
-
-$("#flag-submit").click(function () {
+function captchaShow() {
 	$("#mask, #popup-captcha").show();
-});
-
-/* -- regenerate Geetest captcha --*/
-
-// flag 提交处理 
-function flagSubmit(captchaObj) {
-	// 将验证码加到id为captcha的元素里
-	captchaObj.appendTo("#popup-captcha");
-	//拖动验证成功后两秒(可自行设置时间)自动发生跳转等行为
-	captchaObj.onSuccess(function () {
-		captchaHide();
-		//  mask 隐藏
-		var validate = captchaObj.getValidate();
-		$.ajax({
-			url: "Geetest/verifyLogin", // 进行二次验证
-			type: "post",
-			dataType: "json",
-			data: {
-				flag: $('#flag-content').text(),
-				geetest_challenge: validate.geetest_challenge,
-				geetest_validate: validate.geetest_validate,
-				geetest_seccode: validate.geetest_seccode
-			},
-			success: function (data) {
-				if (data && (data.status === "success")) {
-					postLogin();
-				} else if (data && (data.status === "fail_2")) {
-					$('.geetest-fail').show();
-					setTimeout(function () {
-						$('.geetest-fail').hide();
-					}, 2500);
-				}
-			}
-			
-		});
-	});
 }
-
-$("#flag-submit").click(function () {
-	$('#popup-captcha').find('.gt_mobile_holder').first().remove();
-	$.ajax({
-		url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
-		type: "get",
-		dataType: "json",
-		success: function (data) {
-			initGeetest({
-				gt: data.gt,
-				challenge: data.challenge,
-				offline: !data.success
-			}, flagSubmit);
-		}
-	});
-});

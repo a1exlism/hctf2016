@@ -20,13 +20,8 @@ class Geetest extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-
-		/*
-			PC Client
-			$this->captcha_id = "9461f13fdaf942af20e90509d9149c6d";
-			$this->private_key = "aac091f5965f4f87d542f95e77b16398";
-			$this->GtSdk = new GeetestLib($this->captcha_id, $this->private_key);
-		*/
+		$this->load->model('session_check');
+		$this->load->library('session');
 
 		/* Mobile Client */
 		$this->mobile_captcha_id = "32bbbde17a1a19c1fa06121f437ff2c8";
@@ -34,15 +29,8 @@ class Geetest extends CI_Controller
 		$this->GtSdk = new GeetestLib($this->mobile_captcha_id, $this->mobile_private_key);
 	}
 
-	public function index()
-	{
-		//	codes?
-	}
-
 	public function startCaptcha()
 	{
-
-		session_start();
 		$user_id = "test";
 		$status = $this->GtSdk->pre_process($user_id);
 		$_SESSION['gtserver'] = $status;
@@ -56,7 +44,6 @@ class Geetest extends CI_Controller
 		 * 输出二次验证结果
 		 */
 		// error_reporting(0);
-		session_start();
 
 		$user_id = $_SESSION['user_id'];
 		if ($_SESSION['gtserver'] == 1) {   //服务器正常
@@ -75,19 +62,26 @@ class Geetest extends CI_Controller
 		}
 	}
 
-	public function flag_handle()
+	public function verifyFlag()
 	{
 		/**
-		 * flag 验证
+		 * 输出二次验证结果
 		 */
-		// error_reporting(0);
-		session_start();
+		//  session check
+		if ($this->session_check->check() !== 1) {
+			redirect('index/login', 'location');
+		}
 
 		$user_id = $_SESSION['user_id'];
 		if ($_SESSION['gtserver'] == 1) {   //服务器正常
 			$result = $this->GtSdk->success_validate($_POST['geetest_challenge'], $_POST['geetest_validate'], $_POST['geetest_seccode'], $user_id);
 			if ($result) {
-				echo '{"status":"success"}';
+				$flag = $this->input->post('flag');
+				if (!empty($flag)) {
+					echo '{"status":"success"}';
+				} else {
+					echo '{"status":"fail_0"}';
+				}
 			} else {
 				echo '{"status":"fail_1"}';
 			}

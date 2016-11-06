@@ -31,3 +31,6 @@
 	</div>
 
 </div>
+
+<div id="mask"></div>
+<div id="popup-captcha"></div>

@@ -12,7 +12,6 @@ class Team_ajax extends CI_Controller
 		$this->load->model('challenge_model');
 		$this->load->model('public_model');
 		$this->load->model('session_check');
-
 		$this->load->helper('form');
 		$this->load->library('form_validation');  //表单验证类
 
@@ -184,10 +183,9 @@ class Team_ajax extends CI_Controller
 	/*
 	 *  -- Ranking -- 
 	 */
-	public function get_ranks()
+	public function get_ranks($num = null)
 	{
-		$number = $this->input->post('number', TRUE); //  查询人数
-		$arr = $this->user_model->user_get_rank(null, $number)->result();
+		$arr = $this->user_model->user_get_rank(null, $num)->result();
 		echo json_encode($arr);
 	}
 

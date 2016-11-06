@@ -9,7 +9,7 @@ class User_ajax extends CI_Controller
 		$this->load->library('session');
 		$this->load->model('user_model');
 		$this->load->model('session_check');
-
+		$this->load->model('score_model');
 		$this->load->helper('form');
 		$this->load->library('form_validation');  //表单验证类
 
@@ -101,7 +101,6 @@ class User_ajax extends CI_Controller
 			);
 
 			$this->user_model->user_register($arr_reg);
-
 			echo '{"status": "success"}';
 			return NULL;
 		}
@@ -125,6 +124,8 @@ class User_ajax extends CI_Controller
 				);
 				$this->session->set_userdata($session_arr);
 				echo '{"status": "success"}';
+				//  table score_record init
+				$this->score_model->init($user_data->team_token, $team_name);
 			} else {
 				echo '{"status": "fail_1"}';
 			}
@@ -133,4 +134,8 @@ class User_ajax extends CI_Controller
 		}
 	}
 
+	public function reset() {
+		$status = $this->input->post('status', TRUE);
+
+	}
 }

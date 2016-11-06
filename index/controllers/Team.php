@@ -13,9 +13,8 @@ class Team extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('session');
-		$this->load->model('user_model');
+		$this->load->helper('url');
 		$this->load->model('session_check');
-
 		//  session check
 		if ($this->session_check->check() !== 1) {
 			redirect('index/login', 'location');
