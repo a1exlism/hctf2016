@@ -135,7 +135,14 @@ class User_ajax extends CI_Controller
 	}
 
 	public function reset() {
+		$session_token = $this->session->userdata('team_token');
 		$status = $this->input->post('status', TRUE);
-
+		if(!empty($status)&& $status == 'reset'){
+			$arr = array(
+				'team_pass' => md5(uniqid(rand().'xxxx'))
+			);
+			$this->user_model->update($session_token, $arr);
+			$this->session->sess_destroy(); 
+		}
 	}
 }

@@ -64,7 +64,7 @@ CREATE TABLE hctf2016.score_record (
   score_f     INT         NOT NULL DEFAULT 0,
   total_score INT         NOT NULL DEFAULT 0
 )
-  CHARACTER SET = utf8;
+ CHARACTER SET = utf8;
 
 /* -- Bulletin 公告 -- */
 CREATE TABLE hctf2016.bulletin (
@@ -72,6 +72,7 @@ CREATE TABLE hctf2016.bulletin (
   bulletin_message VARCHAR(200) NOT NULL,
   create_time      TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   update_time      TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  --  5.6.5 or higher
 )
   CHARACTER SET = utf8;
 

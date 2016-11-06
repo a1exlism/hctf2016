@@ -157,17 +157,18 @@ $(function () {
 		// ]
 	};
 	
-	var series = [];  //  global variable
-
+	
 	var getData = function () {
 		$.get('Team_ajax/get_ranks/10').done(function (data) {
 			var nowT = getTimeLine();
 			
-			var legendData = [],
-					seriesData = [],
-					index = '';
-					
+			var series = [],
+				legendData = [],
+				seriesData = [],
+				index = '';
+			
 			data = eval('(' + data + ')');  //  for json traverse
+			
 			if (data) {
 				legendData = [];
 				for (index in data) {

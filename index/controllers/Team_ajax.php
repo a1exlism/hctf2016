@@ -155,9 +155,12 @@ class Team_ajax extends CI_Controller
 		echo json_encode($results);
 	}
 
+	
+
 	public function get_challenges()
 	{
 		//  根据$level显示
+		//  todo: 需要从dynamic_notify内读, 定时加载level_check()
 		$session_token = $this->session->userdata('team_token');
 		$level = $this->user_model->user_select_token($session_token)->row()->compet_level;
 		$result = $this->challenge_model->select_level($level)->result();
