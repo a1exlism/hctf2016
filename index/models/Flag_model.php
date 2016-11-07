@@ -87,6 +87,7 @@ class Flag_model extends CI_model
 	{
 		$team_cheat=$this->db->where('team_token',$token)->select('is_cheat')->get('team_info');
 		$team_cheat=$team_cheat->result_array();
+		
 		if($team_cheat[0]['is_cheat']!==0)
 			return 1;
 
@@ -97,7 +98,11 @@ class Flag_model extends CI_model
 		);
 		$result = $this->db->where($where)->get('dynamic_notify');
 		$result = $result->result_array();
-		if ($result[0]['challenge_flag'] == $flag && empty($result[0]['challenge_solved_time']))#正确flag
+
+		if(empty($result[0]))
+			return 4;
+
+		else if($result[0]['challenge_flag'] == $flag && empty($result[0]['challenge_solved_time']))#正确flag
 		{
 			$tmp = $this->db->where('challenge_id', $id)->get('challenge_info');
 			$tmp = $tmp->result_array();
