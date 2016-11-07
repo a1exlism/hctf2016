@@ -4,16 +4,17 @@
 $(function () {
 	var startTime = new Date('2016-11-15 08:00:00').getTime();
 	
-	function getTimeLine() {
+	function getTimeLine(minAgo) {
+		minAgo = minAgo || 0;
 		function prefixZero(x) {
-			if (x.length == 1) {
+			if (x.toString().length == 1) {
 				return '0' + x;
 			} else {
 				return x;
 			}
 		}
-		
-		var d = new Date();
+
+		var d = new Date(new Date().getTime() - minAgo * 60 * 1000);
 		var timeObj = {
 			'month': prefixZero(d.getMonth() + 1),
 			'date': prefixZero(d.getDate()),
@@ -56,9 +57,9 @@ $(function () {
 			textStyle: {
 				color: '#fff'
 			},
-			inactiveColor: '#aaa'
-			// inactiveColor: '#aaa',
-			// data: ['Team 1', 'Team 2', 'Team 3', 'Team 4', 'Team 5', 'Team 6', 'Team 7', 'Team 8', 'Team 9', 'Team 10']
+			// inactiveColor: '#aaa'
+			inactiveColor: '#aaa',
+			data: ['Team 1', 'Team 2', 'Team 3', 'Team 4', 'Team 5', 'Team 6', 'Team 7', 'Team 8', 'Team 9', 'Team 10']
 			
 			//  team names
 		},
@@ -76,9 +77,7 @@ $(function () {
 			},
 			boundaryGap: false, //从0开始
 			type: 'category',
-			data: [getTimeLine()]
-			
-			//  update time
+			data: [getTimeLine(50), getTimeLine(40), getTimeLine(30), getTimeLine(20), getTimeLine(10), getTimeLine()]
 		},
 		yAxis: {
 			axisLine: {
@@ -92,70 +91,70 @@ $(function () {
 				}
 			},
 			type: 'value'
-		}
-		// },
-		// series: [
-		// 	{
-		// 		name: 'Team 1',
-		// 		type: 'line',
-		// 		step: 'start',
-		// 		data: [120, 132, 77, 134, 90, 88, 210]
-		// 	},
-		// 	{
-		// 		name: 'Team 2',
-		// 		type: 'line',
-		// 		step: 'start',
-		// 		data: [20, 132, 283, 134, 130, 230, 210]
-		// 	},
-		// 	{
-		// 		name: 'Team 3',
-		// 		type: 'line',
-		// 		step: 'start',
-		// 		data: [77, 132, 101, 134, 90, 230, 999]
-		// 	},
-		// 	{
-		// 		name: 'Team 4',
-		// 		type: 'line',
-		// 		step: 'middle',
-		// 		data: [120, 199, 211, 234, 200, 430, 410]
-		// 	},
-		// 	{
-		// 		name: 'Team 5',
-		// 		type: 'line',
-		// 		step: 'end',
-		// 		data: [250, 438, 481, 424, 190, 930, 510]
-		// 	},
-		// 	{
-		// 		name: 'Team 6',
-		// 		type: 'line',
-		// 		step: 'start',
-		// 		data: [120, 132, 77, 134, 90, 88, 210]
-		// 	},
-		// 	{
-		// 		name: 'Team 7',
-		// 		type: 'line',
-		// 		step: 'start',
-		// 		data: [120, 132, 233, 134, 190, 830, 210]
-		// 	},
-		// 	{
-		// 		name: 'Team 8',
-		// 		type: 'line',
-		// 		step: 'start',
-		// 		data: [77, 132, 101, 134, 90, 230, 999]
-		// 	},
-		// 	{
-		// 		name: 'Team 9',
-		// 		type: 'line',
-		// 		step: 'middle',
-		// 		data: [220, 199, 201, 234, 290, 430, 410]
-		// 	},
-		// 	{
-		// 		name: 'Team 10',
-		// 		type: 'line',
-		// 		step: 'end',
-		// 		data: [450, 432, 401, 454, 590, 530, 510]
-		// 	}
-		// ]
+		// }
+		},
+		series: [
+			{
+				name: 'Team 1',
+				type: 'line',
+				step: 'middle',
+				data: [0, 120, 132, 77, 134, 90, 88]
+			},
+			{
+				name: 'Team 2',
+				type: 'line',
+				step: 'middle',
+				data: [0, 20, 132, 283, 134, 130, 230]
+			},
+			{
+				name: 'Team 3',
+				type: 'line',
+				step: 'middle',
+				data: [0, 77, 132, 101, 134, 90, 230]
+			},
+			{
+				name: 'Team 4',
+				type: 'line',
+				step: 'middle',
+				data: [0, 120, 199, 211, 234, 200, 430]
+			},
+			{
+				name: 'Team 5',
+				type: 'line',
+				step: 'middle',
+				data: [0, 250, 438, 481, 424, 190, 510]
+			},
+			{
+				name: 'Team 6',
+				type: 'line',
+				step: 'middle',
+				data: [0, 120, 132, 77, 134, 90, 210]
+			},
+			{
+				name: 'Team 7',
+				type: 'line',
+				step: 'middle',
+				data: [0, 120, 132, 233, 190, 830, 210]
+			},
+			{
+				name: 'Team 8',
+				type: 'line',
+				step: 'middle',
+				data: [0, 67, 132, 101, 134, 90, 130]
+			},
+			{
+				name: 'Team 9',
+				type: 'line',
+				step: 'middle',
+				data: [0, 220, 199, 201, 234, 290, 410]
+			},
+			{
+				name: 'Team 10',
+				type: 'line',
+				step: 'middle',
+				data: [0, 50, 432, 401, 454, 590, 510]
+			}
+		]
 	};
 	
 	
@@ -188,26 +187,25 @@ $(function () {
 			}
 		})
 	};
-	getData();
 	
 	//  rander chart
-	(function chartRender() {
+	function chartRender() {
 		var nowTime = new Date().getTime();
 		var timeBreak = parseInt((nowTime - startTime) / 1000);
 		if (650 > timeBreak && timeBreak > 550) {
-			//  todo: get data
+			getData();
 		}
 		setInterval(function () {
 			var timeBreak = parseInt((nowTime - startTime) / 1000);
 			if (650 > timeBreak && timeBreak > 550) {
-				//  todo: get data
+				getData();
 			}
 		}, 600000);
 		
 		
 		rankChart.setOption(option);
-	})();
-
+	}
+	chartRender();
 
 // --  pageination --
 	function pagination() {

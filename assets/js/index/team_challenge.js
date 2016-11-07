@@ -139,6 +139,26 @@ function loadChaDetails() {
 		});
 	}
 	
+	function getTimeLine(minAgo) {
+		minAgo = minAgo || 0;
+		function prefixZero(x) {
+			if (x.toString().length == 1) {
+				return '0' + x;
+			} else {
+				return x;
+			}
+		}
+		
+		var d = new Date(new Date().getTime() - minAgo * 60 * 1000);
+		var timeObj = {
+			'month': prefixZero(d.getMonth() + 1),
+			'date': prefixZero(d.getDate()),
+			'hours': prefixZero(d.getHours()),
+			'minutes': prefixZero(d.getMinutes())
+		};
+		return (timeObj.month + '-' + timeObj.date + ' ' + timeObj.hours + ':' + timeObj.minutes).toString();
+	}
+	
 	function flagSubmit(flag) {
 		var teamCha = $('#team-challenge');
 		var chaId = getChaObj($(teamCha).find('.cha-info h1').text()).challenge_id;
@@ -175,7 +195,15 @@ function loadChaDetails() {
 							break;
 						case 2:
 							notifyShow('flag-success', 'Correct flag, Congratulations!');
-							$.get('Team_ajax/update_score');
+							//  score update for score chart
+							$.ajax({
+								url: 'Team_ajax/score_update',
+								type: 'post',
+								dataType: 'json',
+								data: {
+									solved_time: getTimeLine()
+								}
+							});
 							break;
 						case 3:
 							notifyShow('flag-info', 'You have solved this prob.');
@@ -183,13 +211,10 @@ function loadChaDetails() {
 						default:
 							notifyShow('flag-warning', 'This challenge is hidden now.');
 					}
-					//  score update for score chart
-					$.get('Team_ajax/score_update');
 				}
 			}
 		});
 	}
-	
 	
 	$('#challenge .prob-card').each(function (index, element) {
 		$(element).bind('click', function () {
