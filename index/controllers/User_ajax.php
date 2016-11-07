@@ -113,7 +113,7 @@ class User_ajax extends CI_Controller
 		$team_name = $this->input->post('teamname', TRUE);
 		$team_pass = $this->input->post('password', TRUE);
 		$user_data = $this->user_model->user_select($team_name)->row();
-	
+
 		if ($user_data) {
 			//  如果用户存在
 			$team_pass = $this->user_model->str_encode($team_pass);
@@ -134,15 +134,20 @@ class User_ajax extends CI_Controller
 		}
 	}
 
-	public function reset() {
+	public function reset()
+	{
+		if ($this->session_check->check() === 0) {
+			redirect('index/login', 'location');
+		}
+		
 		$session_token = $this->session->userdata('team_token');
 		$status = $this->input->post('status', TRUE);
-		if(!empty($status)&& $status == 'reset'){
+		if (!empty($status) && $status == 'reset') {
 			$arr = array(
-				'team_pass' => md5(uniqid(rand().'xxxx'))
+				'team_pass' => md5(uniqid(rand() . 'xxxx'))
 			);
 			$this->user_model->update($session_token, $arr);
-			$this->session->sess_destroy(); 
+			$this->session->sess_destroy();
 		}
 	}
 }

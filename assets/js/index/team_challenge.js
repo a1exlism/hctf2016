@@ -174,12 +174,16 @@ function loadChaDetails() {
 							});
 							break;
 						case 2:
-							notifyShow('flag-success', 'Correct flag, Congratulations!')
+							notifyShow('flag-success', 'Correct flag, Congratulations!');
+							$.get('Team_ajax/update_score');
 							break;
 						case 3:
 							notifyShow('flag-info', 'You have solved this prob.');
 							break;
+						default:
+							notifyShow('flag-warning', 'This challenge is hidden now.');
 					}
+					//  score update for score chart
 					$.get('Team_ajax/score_update');
 				}
 			}

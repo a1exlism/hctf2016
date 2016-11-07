@@ -2,6 +2,7 @@
  * Created by a1exlism on 16-11-3.
  */
 $(function () {
+	var startTime = new Date('2016-11-15 08:00:00').getTime();
 	
 	function getTimeLine() {
 		function prefixZero(x) {
@@ -190,7 +191,22 @@ $(function () {
 	getData();
 	
 	//  rander chart
-	rankChart.setOption(option);
+	(function chartRender() {
+		var nowTime = new Date().getTime();
+		var timeBreak = parseInt((nowTime - startTime) / 1000);
+		if (650 > timeBreak && timeBreak > 550) {
+			//  todo: get data
+		}
+		setInterval(function () {
+			var timeBreak = parseInt((nowTime - startTime) / 1000);
+			if (650 > timeBreak && timeBreak > 550) {
+				//  todo: get data
+			}
+		}, 600000);
+		
+		
+		rankChart.setOption(option);
+	})();
 
 
 // --  pageination --

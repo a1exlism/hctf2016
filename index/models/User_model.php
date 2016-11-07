@@ -57,7 +57,6 @@ class  User_model extends CI_Model
 
 	//	Login logic
 
-
 	public function user_register($arr)
 	{
 		//	$teamname, $email, $school, $password, $phone

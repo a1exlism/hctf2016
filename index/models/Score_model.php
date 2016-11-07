@@ -21,23 +21,24 @@ class Score_model extends CI_Model
 				'team_name' => $name,
 				'team_token' => $token,
 				'score_a' => 0,
+				'score_b' => 0,
+				'score_c' => 0,
+				'score_d' => 0,
+				'score_e' => 0,
+				'score_f' => 0,
 				'total_score' => 0
 			);
-			$this->db->insert('score_record', $arr);
+			$this->db->update('score_record', $arr);
 		}
 	}
 
 	public function select($token)
 	{
-		$this->db->select('team_name, total_score');
+		$this->db->select('*');
 		$this->db->from('score_record');
 		$this->db->where('team_token', $token);
 		$query = $this->db->get();
 		return $query;
-	}
-
-	public function insert($arr) {
-		$this->db->insert('score_record', $arr);
 	}
 	
 	public function update($token, $arr) {

@@ -3,6 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Team_ajax extends CI_Controller
 {
+	public $session_token;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -11,10 +13,15 @@ class Team_ajax extends CI_Controller
 		$this->load->model('user_model');
 		$this->load->model('challenge_model');
 		$this->load->model('public_model');
+		$this->load->model('score_model');
 		$this->load->model('session_check');
 		$this->load->helper('form');
 		$this->load->library('form_validation');  //表单验证类
 
+		if ($this->session_check->check() === 0) {
+			redirect('index/login', 'location');
+		}
+		$this->session_token = $this->session->userdata('team_token');
 	}
 
 	public function index()
@@ -43,15 +50,15 @@ class Team_ajax extends CI_Controller
 
 	public function get_teamname()
 	{
-		$team_token = $this->session->userdata('team_token');
-		$team_name_arr = $this->user_model->user_get_name($team_token);
+		$session_token = $this->session_token;
+		$team_name_arr = $this->user_model->user_get_name($session_token);
 		echo $team_name_arr;
 	}
 
 	public function get_solved()
 	{
 		//  solved
-		$session_token = $this->session->userdata('team_token');
+		$session_token = $this->session_token;
 		$notifies = $this->public_model->notify_select($session_token)->result();
 		$solved = array();
 		for ($i = 0; $i < count($notifies); $i++) {
@@ -80,7 +87,7 @@ class Team_ajax extends CI_Controller
 	public function get_team_info()
 	{
 		//  sidebar
-		$session_token = $this->session->userdata('team_token');
+		$session_token = $this->session_token;
 		$data = $this->user_model->user_select_token($session_token)->row();
 		//  level
 		$result = array();
@@ -95,7 +102,7 @@ class Team_ajax extends CI_Controller
 
 	public function pass_change()
 	{
-		$session_token = $this->session->userdata('team_token');
+		$session_token = $this->session_token;
 		$post_data = array(
 			'ori_pass' => $this->user_model->str_encode($this->input->post('ori_pass', TRUE)),
 			'new_pass' => $this->user_model->str_encode($this->input->post('new_pass', TRUE))
@@ -155,13 +162,12 @@ class Team_ajax extends CI_Controller
 		echo json_encode($results);
 	}
 
-	
 
 	public function get_challenges()
 	{
 		//  根据$level显示
 		//  todo: 需要从dynamic_notify内读, 定时加载level_check()
-		$session_token = $this->session->userdata('team_token');
+		$session_token = $this->session_token;
 		$level = $this->user_model->user_select_token($session_token)->row()->compet_level;
 		$result = $this->challenge_model->select_level($level)->result();
 		echo json_encode($result);
@@ -169,7 +175,7 @@ class Team_ajax extends CI_Controller
 
 	public function get_done_names()
 	{
-		$session_token = $this->session->userdata('team_token');
+		$session_token = $this->session_token;
 		$result = $this->public_model->notify_select($session_token)->result();
 		$cha_names = array();
 		for ($i = 0; $i < count($result); $i++) {
@@ -192,4 +198,29 @@ class Team_ajax extends CI_Controller
 		echo json_encode($arr);
 	}
 
+	/*
+	 * -- Score Graphic --
+	 */
+
+	public function get_score()
+	{
+
+	}
+
+	public function update_score()
+	{
+		$ori_data = $this->score_model->select($this->session_token)->row();
+		$total_score = $this->user_model->user_select_token($this->session_token)->row()->total_score;
+
+		$new_data = array(
+			"score_a" => $ori_data->score_b,
+			"score_b" => $ori_data->score_c,
+			"score_c" => $ori_data->score_d,
+			"score_d" => $ori_data->score_e,
+			"score_e" => $ori_data->score_f,
+			"score_f" => $total_score,
+			"total_score" => $total_score
+		);
+		$this->score_model->update($this->session_token, $new_data);
+	}
 }

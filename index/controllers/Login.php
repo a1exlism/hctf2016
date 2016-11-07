@@ -31,7 +31,6 @@ class Login extends CI_Controller
 
 		//  session check
 		if ($this->session_check->check() === 1) {
-			//  登录状态  以后会更改的
 			redirect('index/team', 'location');
 		} else {
 			$this->load->view('index/login');
