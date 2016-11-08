@@ -1,8 +1,8 @@
 /* -- Create DataBase -- */
--- CREATE DATABASE hctf2016;
+CREATE DATABASE hctf2016;
 SET NAMES "utf8";
 
--- USE hctf2016;
+USE hctf2016;
 
 /* -- Team Info -- */
 CREATE TABLE hctf2016.team_info (

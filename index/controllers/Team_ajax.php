@@ -223,4 +223,10 @@ class Team_ajax extends CI_Controller
 	{
 		echo json_encode($this->score_model->select_top10()->result());
 	}
+
+	public function get_ranks10($start = 0, $end = 10)
+	{
+		$res = $this->user_model->get_rank_10($start, $end)->result();
+		echo json_encode($res);
+	}
 }

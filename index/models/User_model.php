@@ -118,7 +118,17 @@ class  User_model extends CI_Model
 			return $query;
 		}
 	}
-	
+
+	public function get_rank_10($start = 0, $end = 10)
+	{
+		$this->db->select('*');
+		$this->db->from('team_info');
+		$this->db->limit($start, $end);
+		$query = $this->db->get();
+		
+		return $query;
+	}
+
 }
 
 ?>

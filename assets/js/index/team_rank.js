@@ -33,6 +33,8 @@ $(function () {
 			data = eval('(' + data + ')');  //  for json traverse
 			var xAxisData = ['', '', '', '', 'Last update: ', getTimeLine()],
 				yAxisSeries = [],
+				yAxisMax = '',
+				yAxisMin = '',
 				yAxisSeriesData = [],
 				legendData = [];
 			
@@ -100,8 +102,9 @@ $(function () {
 							color: 'rgba(255, 255, 255, 0.6)'
 						}
 					},
-					type: 'value'
-					// }
+					type: 'value',
+					max: '',
+					min: '' 
 				},
 				series: yAxisSeries
 			};
@@ -117,6 +120,9 @@ $(function () {
 						data: [obj.score_a, obj.score_b, obj.score_c, obj.score_d, obj.score_e, obj.total_score]
 					});
 				}
+				option.yAxis.max = data[0].total_score;
+				option.yAxis.min = data[data.length - 1].score_a;
+				console.log(yAxisMax + ' -- ' + yAxisMin);
 				rankChart.setOption(option);
 			}
 		})
@@ -139,7 +145,10 @@ $(function () {
 			//  页面前端渲染
 		}
 	}
-	
+
+	function getRanks(start, end) {
+		
+	}
 	function setPaginationColumn() {
 		var totalRow;
 	}
