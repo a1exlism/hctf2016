@@ -31,9 +31,15 @@ class createapi extends CI_Controller
 		$path="../index/libraries/".$name.'.php';
 
 		//echo $path;
-		if ( ! write_file($path, $data,'wb'))
+		if (!write_file($path, $data,'wb'))
 		{
-    		echo 'Unable to write the file';
+    		echo "<script>alert('Unable to write the file!')</script>";
+    		echo "<script>window.location.href='/hctf2016/adm1n/createapi/index'</script>";
+		}
+		else
+		{
+			echo "<script>alert('success to create api!')</script>";
+    		echo "<script>window.location.href='/hctf2016/adm1n/createapi/index'</script>";
 		}		
 
 		#function getflag($token){return $flag;}

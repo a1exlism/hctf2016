@@ -52,14 +52,14 @@ class Web_admin extends CI_Controller
 		if(empty($user)||empty($pass))
 		{
 		echo "<script>alert('Please input admin name and password first')</script>";
-		redirect('/adm1n/web_admin/index/'.$key);
+		echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
 		}
 		else
 		{
 			if($user!=$this-> admin || $pass!=$this-> pass || $key!=$this-> key)
 			{
 				echo "<script>alert('Wrong input!')</script>";
-				redirect('/adm1n/web_admin/index/'.$key);
+				echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
 			}
 
 			else

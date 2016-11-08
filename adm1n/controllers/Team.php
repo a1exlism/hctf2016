@@ -33,12 +33,12 @@ class Team extends CI_controller
 		if($bool==0)
 		{
 			echo "<script>alert('ban failed!')</script>";
-			redirect('/adm1n/team/index');
+			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
 		}
 		else if($bool == 1)
 		{
 			echo "<script>alert('ban succeed!')</script>";
-			redirect('/adm1n/team/index');
+			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
 		}
 	}
 
@@ -75,12 +75,12 @@ class Team extends CI_controller
 		if($bool==0)
 		{
 			echo "<script>alert('change score failed!')</script>";
-			redirect('/adm1n/team/index');
+			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
 		}
 		else if($bool == 1)
 		{
 			echo "<script>alert('change score succeed!')</script>";
-			redirect('/adm1n/team/index');	
+			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
 		}
 	}
 
@@ -94,12 +94,12 @@ class Team extends CI_controller
 		if($bool==0)
 		{
 			echo "<script>alert('open challenge failed!')</script>";
-			redirect('/adm1n/team/index');
+			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
 		}
 		else if($bool == 1)
 		{
 			echo "<script>alert('open challenge succeed!')</script>";
-			redirect('/adm1n/team/index');	
+			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
 		}
 	}
 
@@ -119,12 +119,12 @@ class Team extends CI_controller
 		if($bool==0)
 		{
 			echo "<script>alert('give card failed!')</script>";
-			redirect('/adm1n/team/index');
+			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
 		}
 		else if($bool == 1)
 		{
 			echo "<script>alert('give card succeed!')</script>";
-			redirect('/adm1n/team/index');
+			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
 		}
 	}
 

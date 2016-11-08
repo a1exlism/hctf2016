@@ -74,7 +74,7 @@ class challenge extends CI_controller
 		if(!is_numeric($score) || empty($description) || !is_numeric($level) || empty($name) || empty($type))
 		{
 			echo "<script>alert('you have to input something!')</script>";
-			redirect('/adm1n/challenge/index');
+			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
 		}
 		else
 		{
@@ -92,12 +92,12 @@ class challenge extends CI_controller
 			if($bool==0)
 			{
 				echo "<script>alert('add failed!')</script>";
-				redirect('/adm1n/challenge/index');
+				echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
 			}
 			else if($bool == 1)
 			{
 				echo "<script>alert('add succeed!')</script>";
-				redirect('/adm1n/challenge/index');
+				echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
 			}
 		}
 
@@ -131,7 +131,7 @@ class challenge extends CI_controller
 		if(!is_numeric($id))
 		{
 			echo "<script>alert('you have to input id!')</script>";
-			redirect('/adm1n/challenge/index');
+			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
 		}
 
 		$data=array(
@@ -147,12 +147,12 @@ class challenge extends CI_controller
 		if($bool==0)
 		{
 			echo "<script>alert('update failed!')</script>";
-			redirect('/adm1n/challenge/index');
+			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
 		}
 		else if($bool == 1)
 		{
 			echo "<script>alert('update succeed!')</script>";
-			redirect('/adm1n/challenge/index');
+			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
 		}
 	}
 
@@ -164,7 +164,7 @@ class challenge extends CI_controller
 		if(!is_numeric($id))
 		{
 			echo "<script>alert('you have to input id!')</script>";
-			redirect('/adm1n/challenge/index');
+			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
 		}
 		else
 		{
@@ -173,12 +173,12 @@ class challenge extends CI_controller
 			if($bool==0)
 			{
 				echo "<script>alert('delete failed!')</script>";
-				redirect('/adm1n/challenge/index');
+				echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
 			}
 			else if($bool == 1)
 			{
 				echo "<script>alert('delete succeed!')</script>";
-				redirect('/adm1n/challenge/index');
+				echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
 			}
 		}
 	}

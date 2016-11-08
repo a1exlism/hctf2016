@@ -33,12 +33,12 @@ class Info extends CI_Controller
 		if($bool==0)
 		{
 			echo "<script>alert('delete failed!')</script>";
-			redirect('/adm1n/info/index');
+			echo "<script>window.location.href='/hctf2016/adm1n/info/index'</script>";
 		}
 		else if($bool == 1)
 		{
 			echo "<script>alert('delete succeed!')</script>";
-			redirect('/adm1n/info/index');
+			echo "<script>window.location.href='/hctf2016/adm1n/info/index'</script>";
 		}
 	}
 
@@ -55,12 +55,12 @@ class Info extends CI_Controller
 		if($bool==0)
 		{
 			echo "<script>alert('add failed!')</script>";
-			redirect('/adm1n/info/index');
+			echo "<script>window.location.href='/hctf2016/adm1n/info/index'</script>";
 		}
 		else if($bool == 1)
 		{
 			echo "<script>alert('add succeed!')</script>";
-			redirect('/adm1n/info/index');
+			echo "<script>window.location.href='/hctf2016/adm1n/info/index'</script>";
 		}
 	}
 
@@ -78,12 +78,12 @@ class Info extends CI_Controller
 		if($bool==0)
 		{
 			echo "<script>alert('change failed!')</script>";
-			redirect('/adm1n/info/index');
+    		echo "<script>window.location.href='/hctf2016/adm1n/info/index'</script>";
 		}
 		else if($bool == 1)
 		{
 			echo "<script>alert('change succeed!')</script>";
-			redirect('/adm1n/info/index');
+			echo "<script>window.location.href='/hctf2016/adm1n/info/index'</script>";
 		}
 	}
 }
