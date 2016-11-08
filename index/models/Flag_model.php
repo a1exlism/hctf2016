@@ -66,10 +66,15 @@ class Flag_model extends CI_model
 				$tmp_challenge = $tmp_challenge->result_array();
 				if (empty($tmp_challenge[0]))#未开题时开题
 				{
-					#api待开发
-					//$this->load->library($value['challenge_api']);
-					//$flg=$this->$value['challenge_api']->getflag($token);
-					$flag = time();
+					if(!empty($value['challenge_api']))
+					{
+						$this->load->library($value['challenge_api']);
+						$flg=$this->$value['challenge_api']->getflag($token);
+					}
+					else
+					{
+						$flag = time();
+					}
 					$new_challenge_data = array(
 						'team_token' => $token,
 						'challenge_id' => $value['challenge_id'],

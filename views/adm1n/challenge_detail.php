@@ -35,7 +35,7 @@ document.form.submit();
 	<br>
 	api:<input type="text" name="api" value=<?php echo '"'.$result[0]['challenge_api'].'"';?>>
 	<br>
-	threshold:<input type="text" name="api" value=<?php echo '"'.$result[0]['challenge_threshold'].'"';?>>
+	threshold:<input type="text" name="threshold" value=<?php echo '"'.$result[0]['challenge_threshold'].'"';?>>
 	<br>
 	<input type="button" value="UPDATE" onclick=_update()>
 	<input type="button" value="DELETE" onclick=_delete()>

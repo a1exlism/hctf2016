@@ -13,7 +13,7 @@ class Info extends CI_Controller
 		$this->run=$this->session_check->check();
 		if($this->run==0)
 		{
-			echo "<script>window.location.href='/hctf2016/adm1n/Web_admin/index'</script>";
+			redirect('/adm1n/web_admin/index');
 		}
 	}
 
@@ -33,12 +33,12 @@ class Info extends CI_Controller
 		if($bool==0)
 		{
 			echo "<script>alert('delete failed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/info/index'</script>";
+			redirect('/adm1n/info/index');
 		}
 		else if($bool == 1)
 		{
 			echo "<script>alert('delete succeed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/info/index'</script>";	
+			redirect('/adm1n/info/index');
 		}
 	}
 
@@ -55,12 +55,12 @@ class Info extends CI_Controller
 		if($bool==0)
 		{
 			echo "<script>alert('add failed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/info/index'</script>";
+			redirect('/adm1n/info/index');
 		}
 		else if($bool == 1)
 		{
 			echo "<script>alert('add succeed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/info/index'</script>";	
+			redirect('/adm1n/info/index');
 		}
 	}
 
@@ -78,12 +78,12 @@ class Info extends CI_Controller
 		if($bool==0)
 		{
 			echo "<script>alert('change failed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/info/index'</script>";
+			redirect('/adm1n/info/index');
 		}
 		else if($bool == 1)
 		{
 			echo "<script>alert('change succeed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/info/index'</script>";	
+			redirect('/adm1n/info/index');
 		}
 	}
 }

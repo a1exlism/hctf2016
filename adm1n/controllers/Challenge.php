@@ -11,7 +11,7 @@ class challenge extends CI_controller
 		$run=$this->session_check->check();
 		if($run==0)
 		{
-			echo "<script>window.location.href='/hctf2016/adm1n/Web_admin/index'</script>";
+			redirect('/adm1n/Web_admin/index');
 		}
 	}
 
@@ -74,12 +74,7 @@ class challenge extends CI_controller
 		if(!is_numeric($score) || empty($description) || !is_numeric($level) || empty($name) || empty($type))
 		{
 			echo "<script>alert('you have to input something!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
-			//var_dump($score);
-			//var_dump($description);
-			//var_dump($level);
-			//var_dump($hit);
-			//var_dump($api);
+			redirect('/adm1n/challenge/index');
 		}
 		else
 		{
@@ -97,12 +92,12 @@ class challenge extends CI_controller
 			if($bool==0)
 			{
 				echo "<script>alert('add failed!')</script>";
-				echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
+				redirect('/adm1n/challenge/index');
 			}
 			else if($bool == 1)
 			{
 				echo "<script>alert('add succeed!')</script>";
-				echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";	
+				redirect('/adm1n/challenge/index');
 			}
 		}
 
@@ -136,7 +131,7 @@ class challenge extends CI_controller
 		if(!is_numeric($id))
 		{
 			echo "<script>alert('you have to input id!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
+			redirect('/adm1n/challenge/index');
 		}
 
 		$data=array(
@@ -152,12 +147,12 @@ class challenge extends CI_controller
 		if($bool==0)
 		{
 			echo "<script>alert('update failed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
+			redirect('/adm1n/challenge/index');
 		}
 		else if($bool == 1)
 		{
 			echo "<script>alert('update succeed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";	
+			redirect('/adm1n/challenge/index');
 		}
 	}
 
@@ -169,7 +164,7 @@ class challenge extends CI_controller
 		if(!is_numeric($id))
 		{
 			echo "<script>alert('you have to input id!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";	
+			redirect('/adm1n/challenge/index');
 		}
 		else
 		{
@@ -178,12 +173,12 @@ class challenge extends CI_controller
 			if($bool==0)
 			{
 				echo "<script>alert('delete failed!')</script>";
-				echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
+				redirect('/adm1n/challenge/index');
 			}
 			else if($bool == 1)
 			{
 				echo "<script>alert('delete succeed!')</script>";
-				echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";	
+				redirect('/adm1n/challenge/index');
 			}
 		}
 	}

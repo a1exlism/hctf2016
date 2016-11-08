@@ -11,7 +11,7 @@ class Team extends CI_controller
 		$run=$this->session_check->check();
 		if($run==0)
 		{
-			echo "<script>window.location.href='/hctf2016/adm1n/Web_admin/index'</script>";
+			redirect('/adm1n/web_admin/index');
 		}
 	}
 
@@ -33,12 +33,12 @@ class Team extends CI_controller
 		if($bool==0)
 		{
 			echo "<script>alert('ban failed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
+			redirect('/adm1n/team/index');
 		}
 		else if($bool == 1)
 		{
 			echo "<script>alert('ban succeed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";	
+			redirect('/adm1n/team/index');
 		}
 	}
 
@@ -75,12 +75,12 @@ class Team extends CI_controller
 		if($bool==0)
 		{
 			echo "<script>alert('change score failed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
+			redirect('/adm1n/team/index');
 		}
 		else if($bool == 1)
 		{
 			echo "<script>alert('change score succeed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";	
+			redirect('/adm1n/team/index');	
 		}
 	}
 
@@ -94,12 +94,12 @@ class Team extends CI_controller
 		if($bool==0)
 		{
 			echo "<script>alert('open challenge failed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
+			redirect('/adm1n/team/index');
 		}
 		else if($bool == 1)
 		{
 			echo "<script>alert('open challenge succeed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";	
+			redirect('/adm1n/team/index');	
 		}
 	}
 
@@ -119,12 +119,12 @@ class Team extends CI_controller
 		if($bool==0)
 		{
 			echo "<script>alert('give card failed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
+			redirect('/adm1n/team/index');
 		}
 		else if($bool == 1)
 		{
 			echo "<script>alert('give card succeed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";	
+			redirect('/adm1n/team/index');
 		}
 	}
 
