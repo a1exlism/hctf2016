@@ -130,6 +130,9 @@ class challenge extends CI_controller
 		$api=$this->input->post('api');
 		$api=$this->security->xss_clean($api);
 
+		$threshold=$this->input->post('threshold');
+		$threshold=$this->security->xss_clean($threshold);
+
 		if(!is_numeric($id))
 		{
 			echo "<script>alert('you have to input id!')</script>";
@@ -141,7 +144,8 @@ class challenge extends CI_controller
 					'challenge_description'=>$description,
 					'challenge_level'=>$level,
 					'challenge_hit'=>$hit,
-					'challenge_api'=>$api
+					'challenge_api'=>$api,
+					'challenge_threshold'=>$threshold
 					);
 		$bool=$this->challenge_model->change($data,$id);
 
