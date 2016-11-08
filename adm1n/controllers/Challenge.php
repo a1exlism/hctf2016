@@ -31,7 +31,7 @@ class challenge extends CI_controller
 		$this->load->view('adm1n/challenge_view');
 
 		$this->load->view('adm1n/show_challenge',$data);
-		var_dump($result);
+		//var_dump($result);
 	}
 
 	public function detail($id)
@@ -60,6 +60,9 @@ class challenge extends CI_controller
 		$level=$this->input->post('level');
 		$level=$this->security->xss_clean($level);
 
+		$threshold=$this->input->post('threshold');
+		$threshold=$this->security->xss_clean($threshold);
+
 		$hit=$this->input->post('hit');
 		$hit=$this->security->xss_clean($hit);
 
@@ -87,7 +90,8 @@ class challenge extends CI_controller
 					'challenge_description'=>$description,
 					'challenge_level'=>$level,
 					'challenge_hit'=>$hit,
-					'challenge_api'=>$api
+					'challenge_api'=>$api,
+					'challenge_threshold'=>$threshold
 					);
 			$bool=$this->challenge_model->add($data);
 			if($bool==0)

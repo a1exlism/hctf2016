@@ -17,6 +17,7 @@
 	<input type="text" name="score" placeholder="score">
 	<input type="text" name="description" placeholder="description">
 	<input type="text" name="level" placeholder="level">
+	<input type="text" name="threshold" placeholder="threshold(选填)">
 	<input type="text" name="hit" placeholder="hit(选填)">
 	<input type="text" name="api" placeholder="api(选填)">
 	<input type="submit" value="INSERT">
