@@ -57,17 +57,10 @@ CREATE TABLE hctf2016.score_record (
   team_name   VARCHAR(40) NOT NULL,
   team_token  VARCHAR(40) NOT NULL,
   score_a     INT         NOT NULL DEFAULT 0,
-  time_a      VARCHAR(40) ,
   score_b     INT         NOT NULL DEFAULT 0,
-  time_b      VARCHAR(40) ,
   score_c     INT         NOT NULL DEFAULT 0,
-  time_c      VARCHAR(40) ,
   score_d     INT         NOT NULL DEFAULT 0,
-  time_d      VARCHAR(40) ,
   score_e     INT         NOT NULL DEFAULT 0,
-  time_e      VARCHAR(40) ,
-  score_f     INT         NOT NULL DEFAULT 0,
-  time_f      VARCHAR(40) ,
   total_score INT         NOT NULL DEFAULT 0
 )
  CHARACTER SET = utf8;

@@ -25,7 +25,6 @@ class Score_model extends CI_Model
 				'score_c' => 0,
 				'score_d' => 0,
 				'score_e' => 0,
-				'score_f' => 0,
 				'total_score' => 0
 			);
 			$this->db->update('score_record', $arr);
@@ -40,9 +39,21 @@ class Score_model extends CI_Model
 		$query = $this->db->get();
 		return $query;
 	}
-	
-	public function update($token, $arr) {
+
+	public function update($token, $arr)
+	{
 		$this->db->where('team_token', $token);
-		$this->db->update('score_record', $arr);	
+		$this->db->update('score_record', $arr);
+	}
+
+	public function select_top10()
+	{
+		$this->db->select('*');
+		$this->db->from('score_record');
+		$this->db->order_by('total_score', 'DESC');
+		$this->db->limit(10);
+		$query = $this->db->get();
+		
+		return $query;
 	}
 }

@@ -192,7 +192,7 @@ class Team_ajax extends CI_Controller
 	/*
 	 *  -- Ranking -- 
 	 */
-	 
+
 	public function get_ranks($num = null)
 	{
 		$arr = $this->user_model->user_get_rank(null, $num)->result();
@@ -210,19 +210,17 @@ class Team_ajax extends CI_Controller
 
 		$new_data = array(
 			"score_a" => $ori_data->score_b,
-			"time_a" => $ori_data->score_b,
 			"score_b" => $ori_data->score_c,
-			"time_b" => $ori_data->score_c,
 			"score_c" => $ori_data->score_d,
-			"time_c" => $ori_data->score_d,
 			"score_d" => $ori_data->score_e,
-			"time_d" => $ori_data->score_e,
 			"score_e" => $ori_data->score_f,
-			"time_e" => $ori_data->score_f,
-			"score_f" => $total_score,
-			"time_f" => $this->input->post('solved_time'),
 			"total_score" => $total_score
 		);
 		$this->score_model->update($this->session_token, $new_data);
+	}
+
+	public function get_top10()
+	{
+		echo json_encode($this->score_model->select_top10()->result());
 	}
 }
