@@ -14,9 +14,12 @@ class Web_admin extends CI_Controller
 		$this -> load -> library('form_validation'); 
 		$this -> load -> model('Admin_data_model');
 		$data = $this -> Admin_data_model -> get();
-		$this -> admin = $data[0]['user'];
-		$this -> pass = $data[0]['pass'];
-		$this -> key = $data[0]['key'];	
+		if(!empty($data))
+		{
+			$this -> admin = $data[0]['user'];
+			$this -> pass = $data[0]['pass'];
+			$this -> key = $data[0]['key'];	
+		}
 	}
 	
 	public function index()

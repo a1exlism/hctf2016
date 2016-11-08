@@ -68,7 +68,7 @@ class challenge extends CI_controller
 
 
 
-		if(!is_numeric($score) || empty($description) || is_numeric($level) || empty($name) || empty($type))
+		if(!is_numeric($score) || empty($description) || !is_numeric($level) || empty($name) || empty($type))
 		{
 			echo "<script>alert('you have to input something!')</script>";
 			echo "<script>window.location.href='/hctf2016/adm1n/challenge/index'</script>";
