@@ -13,7 +13,7 @@ $(function () {
 				return x;
 			}
 		}
-
+		
 		var d = new Date(new Date().getTime() - minAgo * 60 * 1000);
 		var timeObj = {
 			'month': prefixZero(d.getMonth() + 1),
@@ -25,187 +25,106 @@ $(function () {
 	}
 	
 	var rankChart = echarts.init($('#rank-chart')[0]);
-	var option = {
-		backgroundColor: '#333',
-		textStyle: {
-			color: 'rgba(255, 255, 255, .8)'
-		},
-		color: ['#3cba54', '#f4c20d', '#db3236', '#4885ed', '#74AFAD', '#E44424', '#F6F6F6', '#C1E1A6', '#DF3D82', '#7045B5'],
-		title: {
-			text: 'Team Ranking',
-			textStyle: {
-				color: '#fff'
-			},
-			padding: [
-				5,  // 上
-				10,
-				5,
-				10
-			]
-		},
-		tooltip: {
-			trigger: 'axis',
-			axisPointer: {
-				lineStyle: {
-					color: 'rgba(255, 255, 255, 0.6)',
-					width: 1,
-					opacity: .7
-				}
-			}
-		},
-		legend: {
-			textStyle: {
-				color: '#fff'
-			},
-			// inactiveColor: '#aaa'
-			inactiveColor: '#aaa',
-			data: ['Team 1', 'Team 2', 'Team 3', 'Team 4', 'Team 5', 'Team 6', 'Team 7', 'Team 8', 'Team 9', 'Team 10']
-			
-			//  team names
-		},
-		grid: {
-			left: '3%',
-			right: '4%',
-			bottom: '3%',
-			containLabel: true
-		},
-		xAxis: {
-			axisLine: {
-				lineStyle: {
-					color: '#eee'
-				}
-			},
-			boundaryGap: false, //从0开始
-			type: 'category',
-			data: [getTimeLine(50), getTimeLine(40), getTimeLine(30), getTimeLine(20), getTimeLine(10), getTimeLine()]
-		},
-		yAxis: {
-			axisLine: {
-				lineStyle: {
-					color: '#aaa'
-				}
-			},
-			splitLine: {
-				lineStyle: {
-					color: 'rgba(255, 255, 255, 0.6)'
-				}
-			},
-			type: 'value'
-		// }
-		},
-		series: [
-			{
-				name: 'Team 1',
-				type: 'line',
-				step: 'middle',
-				data: [0, 120, 132, 77, 134, 90, 88]
-			},
-			{
-				name: 'Team 2',
-				type: 'line',
-				step: 'middle',
-				data: [0, 20, 132, 283, 134, 130, 230]
-			},
-			{
-				name: 'Team 3',
-				type: 'line',
-				step: 'middle',
-				data: [0, 77, 132, 101, 134, 90, 230]
-			},
-			{
-				name: 'Team 4',
-				type: 'line',
-				step: 'middle',
-				data: [0, 120, 199, 211, 234, 200, 430]
-			},
-			{
-				name: 'Team 5',
-				type: 'line',
-				step: 'middle',
-				data: [0, 250, 438, 481, 424, 190, 510]
-			},
-			{
-				name: 'Team 6',
-				type: 'line',
-				step: 'middle',
-				data: [0, 120, 132, 77, 134, 90, 210]
-			},
-			{
-				name: 'Team 7',
-				type: 'line',
-				step: 'middle',
-				data: [0, 120, 132, 233, 190, 830, 210]
-			},
-			{
-				name: 'Team 8',
-				type: 'line',
-				step: 'middle',
-				data: [0, 67, 132, 101, 134, 90, 130]
-			},
-			{
-				name: 'Team 9',
-				type: 'line',
-				step: 'middle',
-				data: [0, 220, 199, 201, 234, 290, 410]
-			},
-			{
-				name: 'Team 10',
-				type: 'line',
-				step: 'middle',
-				data: [0, 50, 432, 401, 454, 590, 510]
-			}
-		]
-	};
 	
 	
-	var getData = function () {
-		$.get('Team_ajax/get_ranks/10').done(function (data) {
-			var nowT = getTimeLine();
-			
-			var series = [],
-				legendData = [],
-				seriesData = [],
-				index = '';
+	function getData() {
+		$.get('Team_ajax/get_top10').done(function (data) {
 			
 			data = eval('(' + data + ')');  //  for json traverse
+			var xAxisData = ['', '', '', '', 'Last update: ', getTimeLine()],
+				yAxisSeries = [],
+				yAxisSeriesData = [],
+				legendData = [];
+			
+			var option = {
+				backgroundColor: '#333',
+				textStyle: {
+					color: 'rgba(255, 255, 255, .8)'
+				},
+				color: ['#3cba54', '#f4c20d', '#db3236', '#4885ed', '#74AFAD', '#E44424', '#F6F6F6', '#C1E1A6', '#DF3D82', '#7045B5'],
+				title: {
+					text: 'Team Ranking',
+					textStyle: {
+						color: '#fff'
+					},
+					padding: [
+						5,  // top
+						10,
+						5,
+						10
+					]
+				},
+				tooltip: {
+					trigger: 'axis',
+					axisPointer: {
+						lineStyle: {
+							color: 'rgba(255, 255, 255, 0.6)',
+							width: 1,
+							opacity: .7
+						}
+					}
+				},
+				legend: {
+					textStyle: {
+						color: '#fff'
+					},
+					inactiveColor: '#aaa',
+					// data: ['Team 1', 'Team 2', 'Team 3', 'Team 4', 'Team 5', 'Team 6', 'Team 7', 'Team 8', 'Team 9', 'Team 10']
+					data: legendData
+				},
+				grid: {
+					left: '3%',
+					right: '4%',
+					bottom: '3%',
+					containLabel: true
+				},
+				xAxis: {
+					axisLine: {
+						lineStyle: {
+							color: '#eee'
+						}
+					},
+					boundaryGap: false, //从0开始
+					type: 'category',
+					data: xAxisData
+					// data : [getTimeLine(50), getTimeLine(40), getTimeLine(30), getTimeLine(20), getTimeLine(10), getTimeLine()]
+				},
+				yAxis: {
+					axisLine: {
+						lineStyle: {
+							color: '#aaa'
+						}
+					},
+					splitLine: {
+						lineStyle: {
+							color: 'rgba(255, 255, 255, 0.6)'
+						}
+					},
+					type: 'value'
+					// }
+				},
+				series: yAxisSeries
+			};
 			
 			if (data) {
-				legendData = [];
 				for (index in data) {
-					legendData.push('')
-					seriesData.push(data[index].total_score);
-					series.push({
-						name: data[index].team_name,
+					var obj = data[index];
+					legendData.push(obj.team_name);
+					yAxisSeries.push({
+						name: obj.team_name,
 						type: 'line',
-						step: 'start',
-						data: seriesData
+						step: 'middle',
+						data: [obj.score_a, obj.score_b, obj.score_c, obj.score_d, obj.score_e, obj.total_score]
 					});
-					console.log('index: ' + index);
-					console.log('team_name: ' + data[index].team_name);
-					console.log('total_score: ' + data[index].total_score);
 				}
+				rankChart.setOption(option);
 			}
 		})
-	};
-	
-	//  rander chart
-	function chartRender() {
-		var nowTime = new Date().getTime();
-		var timeBreak = parseInt((nowTime - startTime) / 1000);
-		if (650 > timeBreak && timeBreak > 550) {
-			getData();
-		}
-		setInterval(function () {
-			var timeBreak = parseInt((nowTime - startTime) / 1000);
-			if (650 > timeBreak && timeBreak > 550) {
-				getData();
-			}
-		}, 600000);
-		
-		
-		rankChart.setOption(option);
 	}
-	chartRender();
+	
+	getData();
+
+	setInterval(getData, 10 * 60 * 1000);
 
 // --  pageination --
 	function pagination() {
