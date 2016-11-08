@@ -20,6 +20,10 @@ $(function () {
 	function isExist(sname, stype) {
 		var typeReg = new RegExp(sname, 'gi');
 		var statusCode = 0;
+		if (sname.indexOf('/') !== -1){
+			var tmpArr = sname.split('/');
+			sname = tmpArr[tmpArr.length -1];
+		}
 		if (stype === 'css') {
 			$('link').each(function () {
 				if (this.href.indexOf('font') !== -1) {
@@ -73,17 +77,17 @@ $(function () {
 			});
 		}
 	}
-	
+	var mainContainer = $('#main-container');
 	var getBulletin = function () {
-		$('#main-container').empty();
-		$('#main-container').load('Team/bulletin');
+		$(mainContainer).empty();
+		$(mainContainer).load('Team/bulletin');
 		getSource('team_bulletin', 'css');
 		getSource('team_bulletin', 'js');
 	};
 	
 	var getChanllenge = function () {
-		$('#main-container').empty();
-		$('#main-container').load('Team/challenge');
+		$(mainContainer).empty();
+		$(mainContainer).load('Team/challenge');
 		getSource('../../fonts/crown/iconfont', 'css');
 		getSource('team_challenge', 'css');
 		getSource('team_challenge', 'js');
@@ -91,16 +95,16 @@ $(function () {
 	};
 	
 	var getRank = function () {
-		$('#main-container').empty();
-		$('#main-container').load('Team/rank');
+		$(mainContainer).empty();
+		$(mainContainer).load('Team/rank');
 		getSource('../echarts/echarts', 'js');
 		getSource('team_rank', 'css');
 		getSource('team_rank', 'js');
 	};
 	
 	var getSettings = function () {
-		$('#main-container').empty();
-		$('#main-container').load('Team/settings', function () {
+		$(mainContainer).empty();
+		$(mainContainer).load('Team/settings', function () {
 			
 			$('#team-ranking .msg-btn').click(function () {
 				var sForm = $('#pass-change form');

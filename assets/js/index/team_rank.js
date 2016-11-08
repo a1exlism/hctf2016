@@ -103,8 +103,8 @@ $(function () {
 						}
 					},
 					type: 'value',
-					max: '',
-					min: '' 
+					max: 0,
+					min: 100
 				},
 				series: yAxisSeries
 			};
@@ -128,16 +128,20 @@ $(function () {
 		})
 	}
 	
-	getData();
-
-	setInterval(getData, 10 * 60 * 1000);
-
-// --  pageination --
+	function rankInit() {
+		getData();
+		setInterval(getData, 10 * 60 * 1000);
+	}
+	
+	
+	
+	// --  pageination --
+	
 	function pagination() {
 		this.rows = 0;
 		this.fistPage = 0;
 		this.lastPage = 0;
-		this.perPage = 0; //  每页显示的数量 
+		this.perPage = 10; //  每页显示的数量
 		this.goto = function () {
 			//  ajax 获取perPage量的数据
 		}
@@ -145,11 +149,30 @@ $(function () {
 			//  页面前端渲染
 		}
 	}
-
-	function getRanks(start, end) {
-		
+	
+	//  rank data	layer
+	function getRanks10(start) {
+		if (start == undefined) {
+			start = 0;
+		}
+		$.get('Team_ajax/get_ranks10/' + start).done(function (data) {
+			// [{
+			// 	"team_name": " PPP",
+			// 	"total_score": "1200"
+			// }, {
+			// 	"team_name": "t10",
+			// 	"total_score": "188"
+			// }]
+			
+		});
 	}
-	function setPaginationColumn() {
+	
+	//  view layer
+	function showPagination() {
 		var totalRow;
 	}
+	
+	
+	rankInit();
+	$('#toggle-rank').click(rankInit);
 });

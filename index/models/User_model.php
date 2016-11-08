@@ -119,13 +119,14 @@ class  User_model extends CI_Model
 		}
 	}
 
-	public function get_rank_10($start = 0, $end = 10)
+	public function get_rank_10($start = 0)
 	{
-		$this->db->select('*');
+		$this->db->select(array('team_name', 'total_score'));
 		$this->db->from('team_info');
-		$this->db->limit($start, $end);
+		$this->db->limit(10, $start);
+		$this->db->order_by('total_score', 'DESC');
 		$query = $this->db->get();
-		
+
 		return $query;
 	}
 
