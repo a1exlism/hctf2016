@@ -174,5 +174,9 @@ $(function () {
 	
 	
 	rankInit();
-	$('#toggle-rank').click(rankInit);
+	$('#toggle-rank').click(function() {
+		var divChart = $('<div id="rank-chart" style="height: 35rem;width: 100%;">');
+		$('body').append(divChart);
+		rankInit();
+	});
 });

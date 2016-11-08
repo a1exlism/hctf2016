@@ -77,6 +77,7 @@ $(function () {
 			});
 		}
 	}
+
 	var mainContainer = $('#main-container');
 	var getBulletin = function () {
 		$(mainContainer).empty();
@@ -126,7 +127,6 @@ $(function () {
 	$('#toggle-challenge').click(getChanllenge);
 	$('#toggle-rank').click(getRank);
 	$('#toggle-settings').click(function () {
-		
 		$('#team-solved .solved-body dl').empty();
 		mainInit();
 	});
@@ -294,5 +294,4 @@ $(function () {
 	}
 	
 	
-})
-;
+});
