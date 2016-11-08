@@ -58,6 +58,8 @@ class Team_model extends CI_model
 		$tmp=$this->db->where($where)->get('team_info');
 		//var_dump($tmp);
 		$tmp=$tmp->result_array();
+		if(empty($tmp[0]))
+			return 0;
 		$a=$tmp[0]['total_score']+$score;
 		$data=array('total_score'=>$a);
 		$result=$this->db->update('team_info',$data,$where);
