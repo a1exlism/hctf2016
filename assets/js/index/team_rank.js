@@ -24,11 +24,19 @@ $(function () {
 		return (timeObj.month + '-' + timeObj.date + ' ' + timeObj.hours + ':' + timeObj.minutes).toString();
 	}
 	
-	var rankChart = echarts.init($('#rank-chart')[0]);
-	
-	
 	function getData() {
+		
 		$.get('Team_ajax/get_top10').done(function (data) {
+			
+			if ($('#rank-chart').length > 0) {
+				$('#rank-chart').remove();
+			}
+			//  asyn is a Trick.
+			var divChart = $('<div id="rank-chart" style="height: 35rem;width: 100%;">');
+			
+			$('#main-container .container .row').append(divChart);
+			
+			var rankChart = echarts.init($('#rank-chart')[0]);
 			
 			data = eval('(' + data + ')');  //  for json traverse
 			var xAxisData = ['', '', '', '', 'Last update: ', getTimeLine()],
@@ -122,7 +130,6 @@ $(function () {
 				}
 				option.yAxis.max = data[0].total_score;
 				option.yAxis.min = data[data.length - 1].score_a;
-				console.log(yAxisMax + ' -- ' + yAxisMin);
 				rankChart.setOption(option);
 			}
 		})
@@ -132,7 +139,6 @@ $(function () {
 		getData();
 		setInterval(getData, 10 * 60 * 1000);
 	}
-	
 	
 	
 	// --  pageination --
@@ -172,11 +178,6 @@ $(function () {
 		var totalRow;
 	}
 	
-	
 	rankInit();
-	$('#toggle-rank').click(function() {
-		var divChart = $('<div id="rank-chart" style="height: 35rem;width: 100%;">');
-		$('body').append(divChart);
-		rankInit();
-	});
+	$('#toggle-rank').click(rankInit);
 });
