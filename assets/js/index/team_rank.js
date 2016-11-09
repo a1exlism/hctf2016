@@ -31,10 +31,10 @@ $(function () {
 			if ($('#rank-chart').length > 0) {
 				$('#rank-chart').remove();
 			}
-			//  asyn is a Trick.
+			//  asyn is trick.
 			var divChart = $('<div id="rank-chart" style="height: 35rem;width: 100%;">');
 			
-			$('#main-container .container .row').append(divChart);
+			$('#main-container h1').after(divChart);
 			
 			var rankChart = echarts.init($('#rank-chart')[0]);
 			
@@ -141,37 +141,56 @@ $(function () {
 	}
 	
 	
+	//  第三方队伍信息查看
+	(function searchTeam(teamname) {
+		$.get('team_ajax/search/' + teamname).done(function (data) {
+			console.log(data);
+		})
+	})('t8');
+	
+	
 	// --  pageination --
 	
-	function pagination() {
-		this.rows = 0;
-		this.fistPage = 0;
+	
+	function Pagination() {
+		this.records = 0; //  rows
+		this.fistPage = 1;
 		this.lastPage = 0;
-		this.perPage = 10; //  每页显示的数量
-		this.goto = function () {
-			//  ajax 获取perPage量的数据
-		}
-		this.pageRander = function () {
-			//  页面前端渲染
-		}
+		this.perPages = 10;
+		this.nowPage = 1;
+		
+		this.loadPage = function (pageNum) {
+			$.get('Team_ajax/get_ranks10/' + pageNum * 10).done(function (data) { //ranks从0开始
+				//  pageRender()
+			});
+		};
+		
+		this.pageRender = function () {
+			alert(1);
+		};
 	}
 	
+	var pagObj = new Pagination();
+	
 	//  rank data	layer
-	function getRanks10(start) {
+	function rankDataInit() {
+		$.get('Team_ajax/get_ranks_nums').done(function (data) {
+			data = JSON.parse(data); // strings2obj
+			pagObj.records = data.nums;
+			pagObj.lastPage = parseInt(data.nums / pagObj.perPages + 1);
+			// console.log(pagObj);
+		});
+		
+		
+	}
+	
+	function pageGo(start) {
 		if (start == undefined) {
 			start = 0;
 		}
-		$.get('Team_ajax/get_ranks10/' + start).done(function (data) {
-			// [{
-			// 	"team_name": " PPP",
-			// 	"total_score": "1200"
-			// }, {
-			// 	"team_name": "t10",
-			// 	"total_score": "188"
-			// }]
-			
-		});
 	}
+	
+	rankDataInit();
 	
 	//  view layer
 	function showPagination() {

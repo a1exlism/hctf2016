@@ -1,3 +1,17 @@
-#rank-chart {
-
+#rank-pages {
+	margin-top: 2rem;
 }
+
+#rank-pages .top-1 {
+	color: #FFDF00;
+}
+
+#rank-pages .top-2 {
+	color: #C0C0C0;
+}
+
+#rank-pages .top-3 {
+	color: #C87533;
+}
+
+

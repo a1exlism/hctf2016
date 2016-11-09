@@ -10,6 +10,7 @@ class User_ajax extends CI_Controller
 		$this->load->model('user_model');
 		$this->load->model('session_check');
 		$this->load->model('score_model');
+		$this->load->model('flag_model');
 		$this->load->helper('form');
 		$this->load->library('form_validation');  //表单验证类
 
@@ -101,6 +102,9 @@ class User_ajax extends CI_Controller
 			);
 
 			$this->user_model->user_register($arr_reg);
+			//  table score_record init
+			$team_token = $this->user_model->user_select($team_name)->row()->team_token;
+			$this->score_model->init($team_token, $team_name);
 			echo '{"status": "success"}';
 			return NULL;
 		}
@@ -123,9 +127,10 @@ class User_ajax extends CI_Controller
 					'is_login' => 1
 				);
 				$this->session->set_userdata($session_arr);
+				//  调用开题脚本
+				$this->check_flag->level_check($user_data->team_token);
 				echo '{"status": "success"}';
-				//  table score_record init
-				$this->score_model->init($user_data->team_token, $team_name);
+
 			} else {
 				echo '{"status": "fail_1"}';
 			}
@@ -139,7 +144,7 @@ class User_ajax extends CI_Controller
 		if ($this->session_check->check() === 0) {
 			redirect('index/login', 'location');
 		}
-		
+
 		$session_token = $this->session->userdata('team_token');
 		$status = $this->input->post('status', TRUE);
 		if (!empty($status) && $status == 'reset') {
