@@ -11,7 +11,7 @@ class Team extends CI_controller
 		$run=$this->session_check->check();
 		if($run==0)
 		{
-			echo "<script>window.location.href='/hctf2016/adm1n/Web_admin/index'</script>";
+			redirect('/adm1n/web_admin/index');
 		}
 	}
 
@@ -38,7 +38,7 @@ class Team extends CI_controller
 		else if($bool == 1)
 		{
 			echo "<script>alert('ban succeed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";	
+			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
 		}
 	}
 
@@ -80,7 +80,7 @@ class Team extends CI_controller
 		else if($bool == 1)
 		{
 			echo "<script>alert('change score succeed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";	
+			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
 		}
 	}
 
@@ -99,7 +99,7 @@ class Team extends CI_controller
 		else if($bool == 1)
 		{
 			echo "<script>alert('open challenge succeed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";	
+			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
 		}
 	}
 
@@ -124,7 +124,7 @@ class Team extends CI_controller
 		else if($bool == 1)
 		{
 			echo "<script>alert('give card succeed!')</script>";
-			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";	
+			echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
 		}
 	}
 

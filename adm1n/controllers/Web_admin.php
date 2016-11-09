@@ -11,9 +11,9 @@ class Web_admin extends CI_Controller
 	{
 		parent::__construct();
 		$this -> load -> library('session'); 
-		$this -> load -> library('form_validation'); 
 		$this -> load -> model('Admin_data_model');
 		$data = $this -> Admin_data_model -> get();
+
 		if(!empty($data))
 		{
 			$this -> admin = $data[0]['user'];
@@ -24,14 +24,11 @@ class Web_admin extends CI_Controller
 	
 	public function index()
 	{
-		$is_login = $this -> session -> userdata('is_login');
-		$admin = $this -> session -> userdata('admin');
-		$key = $this -> session -> userdata('key');
-
-
-		if($is_login==1 && $admin==$this -> admin && $key==$this -> key)
+		$this->load->model('session_check');
+		$s=$this->session_check->check();
+		if($s)
 		{
-			echo "<script>window.location.href='/hctf2016/adm1n/Web_admin/admin'</script>";
+			redirect('/adm1n/web_admin/admin');
 		}
 		else 
 		{
@@ -55,14 +52,14 @@ class Web_admin extends CI_Controller
 		if(empty($user)||empty($pass))
 		{
 		echo "<script>alert('Please input admin name and password first')</script>";
-		echo "<script>window.location.href='/hctf2016/adm1n/Web_admin/index/".$key."'</script>";
+		echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
 		}
 		else
 		{
 			if($user!=$this-> admin || $pass!=$this-> pass || $key!=$this-> key)
 			{
 				echo "<script>alert('Wrong input!')</script>";
-				echo "<script>window.location.href='/hctf2016/adm1n/Web_admin/index/".$key."'</script>";
+				echo "<script>window.location.href='/hctf2016/adm1n/team/index'</script>";
 			}
 
 			else
@@ -73,26 +70,19 @@ class Web_admin extends CI_Controller
 					'key' => $key
 				);
 				$this -> session -> set_userdata($set_data);
-				echo "<script>window.location.href='/hctf2016/adm1n/web_admin/admin'</script>";
+				redirect('/adm1n/web_admin/admin');
 			}
 		}
 	}
 
 	public function admin()
 	{
-		/*$is_login=$this -> session -> userdata('is_login');
-		$admin=$this -> session ->userdata('admin');
-		$key=$this-> session ->userdata('key');
-		if(empty($is_login) || empty($admin) || empty($key))
-		{
-			echo "<script>window.location.href='/hctf2016/adm1n/web_admin/index/".$key."'</script>";
-		}*/
 
 		$this->load->model('session_check');
 		$s=$this->session_check->check();
 		if(!$s)
 		{
-			echo "<script>window.location.href='/hctf2016/adm1n/web_admin/index'</script>";
+			redirect('/adm1n/Web_admin/index');
 		}
 
 		else
