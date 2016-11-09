@@ -128,7 +128,7 @@ class User_ajax extends CI_Controller
 				);
 				$this->session->set_userdata($session_arr);
 				//  调用开题脚本
-				$this->check_flag->level_check($user_data->team_token);
+				$this->flag_model->level_check($user_data->team_token);
 				echo '{"status": "success"}';
 
 			} else {
