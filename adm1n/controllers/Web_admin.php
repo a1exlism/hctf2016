@@ -91,6 +91,23 @@ class Web_admin extends CI_Controller
 		}
 	}
 
+	public function logout()
+	{
+		$this->load->model('session_check');
+		$s=$this->session_check->check();
+		if(!$s)
+		{
+			redirect('/adm1n/web_admin/index');
+		}
+
+		else
+		{
+			$unset_data = array('admin', 'is_login','key');
+			$this->session->unset_userdata($unset_data);
+			redirect('/adm1n/web_admin/index');
+		}
+	}
+
 	
 
 }
