@@ -16,7 +16,7 @@ CREATE TABLE hctf2016.team_info (
   is_expand    BOOL             NOT NULL DEFAULT 0,
   -- 是否可以开题
   total_score  INT              NOT NULL DEFAULT 0,
-  compet_level INT UNSIGNED     NOT NULL DEFAULT 1,
+  compet_level INT UNSIGNED     NOT NULL DEFAULT 0,
   -- 可挑战层数
   is_cheat     BOOL             NOT NULL DEFAULT 0
 )
