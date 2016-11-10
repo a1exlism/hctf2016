@@ -62,7 +62,7 @@ class  User_model extends CI_Model
 		//	$teamname, $email, $school, $password, $phone
 		$token = $this->str_encode();
 		$insert_data = array(
-			'compet_level' => 1,
+//			'compet_level' => 0,
 			'is_cheat' => 0,
 			'is_expand' => 0,
 			'total_score' => 0,

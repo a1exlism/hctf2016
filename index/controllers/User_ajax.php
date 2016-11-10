@@ -105,6 +105,7 @@ class User_ajax extends CI_Controller
 			//  table score_record init
 			$team_token = $this->user_model->user_select($team_name)->row()->team_token;
 			$this->score_model->init($team_token, $team_name);
+			$this->flag_model->level_check($team_token); //  调用开题脚本
 			echo '{"status": "success"}';
 			return NULL;
 		}
@@ -127,8 +128,7 @@ class User_ajax extends CI_Controller
 					'is_login' => 1
 				);
 				$this->session->set_userdata($session_arr);
-				//  调用开题脚本
-				$this->flag_model->level_check($user_data->team_token);
+
 				echo '{"status": "success"}';
 
 			} else {
