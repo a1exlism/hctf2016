@@ -17,74 +17,23 @@
 
 		<div id="rank-pages" class="col-xs-12">
 			<div id="pagination">
-				<h2 style="text-align: center">-- Pagination --</h2>
+				<h2>Details</h2>
 				<table class="table">
 					<thead>
 					<tr>
-						<th>Rank</th>
-						<th>Column heading</th>
-						<th>Column heading</th>
-						<th>Column heading</th>
+						<th>Order</th>
+						<th>Team name</th>
+						<th>Score</th>
 					</tr>
 					</thead>
 
 					<tbody>
-					<tr class="top-1">
-						<td>1</td>
-						<td>Column content</td>
-						<td>Column content</td>
-						<td>Column content</td>
-					</tr>
-					<tr class="top-2">
-						<td>2</td>
-						<td>Column content</td>
-						<td>Column content</td>
-						<td>Column content</td>
-					</tr>
-					<tr class="top-3">
-						<td>3</td>
-						<td>Column content</td>
-						<td>Column content</td>
-						<td>Column content</td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td>Column content</td>
-						<td>Column content</td>
-						<td>Column content</td>
-					</tr>
-					<tr>
-						<td>5</td>
-						<td>Column content</td>
-						<td>Column content</td>
-						<td>Column content</td>
-					</tr>
-					<tr>
-						<td>6</td>
-						<td>Column content</td>
-						<td>Column content</td>
-						<td>Column content</td>
-					</tr>
-					<tr>
-						<td>7</td>
-						<td>Column content</td>
-						<td>Column content</td>
-						<td>Column content</td>
-					</tr>
-					<tr>
-						<td>8</td>
-						<td>Column content</td>
-						<td>Column content</td>
-						<td>Column content</td>
-					</tr>
-					<tr>
-						<td>9</td>
-						<td>Column content</td>
-						<td>Column content</td>
-						<td>Column content</td>
-					</tr>
+					
 					</tbody>
 				</table>
+			<ul class="pagination">
+			
+			</ul>
 			</div>
 		</div>
 	</div>

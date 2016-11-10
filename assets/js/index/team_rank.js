@@ -142,31 +142,61 @@ $(function () {
 	
 	
 	//  第三方队伍信息查看
-	(function searchTeam(teamname) {
+	function teamDetails(teamname) {
 		$.get('team_ajax/search/' + teamname).done(function (data) {
 			console.log(data);
 		})
-	})('t8');
+	};
 	
 	
 	// --  pageination --
 	
 	
 	function Pagination() {
+		
 		this.records = 0; //  rows
 		this.fistPage = 1;
-		this.lastPage = 0;
+		this.lastPage = 1;
 		this.perPages = 10;
 		this.nowPage = 1;
-		
-		this.loadPage = function (pageNum) {
-			$.get('Team_ajax/get_ranks10/' + pageNum * 10).done(function (data) { //ranks从0开始
-				//  pageRender()
+		this.nowTop = 1;  //  top order
+		this.loadPage = function (pageIndex, start) {
+			$.get('Team_ajax/get_ranks10/' + pageIndex * 10).done(function (data) { //ranks从0开始
+				data = JSON.parse(data);
+				var index, pagination, paginationBody;
+				pagination = $('#pagination');
+				paginationBody = $(pagination).find('.table tbody');
+				
+				if ($(paginationBody).find('li').length > 0) {
+					$(paginationBody).empty();
+				}
+				
+				for (index in data) {
+					var teamInfo = $(
+						'<tr>' +
+						'<td>' + parseInt(pageIndex * 10 + parseInt(index) + 1) + '</td>' +
+						'<td><a target="_blank" href="team_ajax/search/' + data[index].team_name + '">' + data[index].team_name + '</a></td>' +
+						'<td>' + data[index].total_score + '</td>' +
+						'</tr>');
+					$(paginationBody).append($(teamInfo));
+				}
+				
+				if (pageIndex == undefined || pageIndex == 0) {
+					$.each($(paginationBody).find('tr'), function (index, element) {
+						if (index < 3) {
+							$(element).addClass('top-' + (index + 1));
+						}
+					});
+				}
 			});
 		};
-		
-		this.pageRender = function () {
-			alert(1);
+		this.createPagination = function (nums) {
+			var pagUl = $('#pagination').find('.pagination');
+			var i = 1;
+			while (nums-- > 0) {
+				var li = $('<li><a href="#">' + parseInt(i++) + '</a></li>');
+				$(pagUl).append(li);
+			}
 		};
 	}
 	
@@ -178,25 +208,27 @@ $(function () {
 			data = JSON.parse(data); // strings2obj
 			pagObj.records = data.nums;
 			pagObj.lastPage = parseInt(data.nums / pagObj.perPages + 1);
-			// console.log(pagObj);
+			pagObj.nowTop = parseInt(pagObj.records / 10 - 1) * 10 + 1;
+			pagObj.loadPage(pagObj.nowPage - 1, pagObj.nowTop);
+			pagObj.createPagination(pagObj.lastPage);
+			var pagination = $('#pagination');
+			pagination.find('.pagination li').each(function (index, element) {
+				$(element).click(function (event) {
+					pagination.find('tbody').empty();
+					pagObj.nowPage = parseInt(index) + 1;
+					pagObj.nowTop = pagObj.nowPage * 10 + 1;
+					pagObj.loadPage(pagObj.nowPage - 1, pagObj.nowTop);
+					event.preventDefault();
+				})
+			});
 		});
-		
-		
-	}
-	
-	function pageGo(start) {
-		if (start == undefined) {
-			start = 0;
-		}
-	}
-	
-	rankDataInit();
-	
-	//  view layer
-	function showPagination() {
-		var totalRow;
 	}
 	
 	rankInit();
-	$('#toggle-rank').click(rankInit);
+	rankDataInit();
+	
+	$('#toggle-rank').click(function () {
+		rankInit();
+		rankDataInit();
+	});
 });

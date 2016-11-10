@@ -51,7 +51,7 @@
 									<input type="password" class="form-control" name="password" id="pass-login" placeholder="Password"
 									       tabindex="2">
 								</div>
-						<!--	
+						<!--
 								<div class="form-group text-center">
 									<input type="checkbox" tabindex="3" name="remember" id="remember" style="display:none">
 									<label for="remember" onselectstart="return false;">Remember Me</label>
@@ -63,7 +63,7 @@
 											<input type="button" value="Login In" id="cover-submit-login"
 											       tabindex="3" class="btn btn-success form-control">
 										</div>
-										
+
 									</div>
 								</div>
 								<div class="form-group">

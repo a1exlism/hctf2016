@@ -1,17 +1,53 @@
 #rank-pages {
 	margin-top: 2rem;
+	padding-left: 2.5rem;
+	padding-right: 2.5rem;
 }
 
-#rank-pages .top-1 {
+#rank-pages .top-1, #rank-pages .top-1 a {
 	color: #FFDF00;
 }
 
-#rank-pages .top-2 {
+#rank-pages .top-2, #rank-pages .top-2 a {
 	color: #C0C0C0;
 }
 
-#rank-pages .top-3 {
+#rank-pages .top-3, #rank-pages .top-3 a {
 	color: #C87533;
 }
 
+#pagination {
+	text-align: center;
+}
 
+#pagination h2 {
+	margin: 1.3rem 0;
+}
+
+#pagination a {
+	color: #fff;
+}
+
+#pagination .pagination {
+	margin: 0.8rem auto;
+	display: inline-block;
+	text-align: center;
+}
+
+#pagination .table tbody > tr{
+	text-align: left;
+}
+
+#pagination .pagination li {
+	display: inline-block;
+}
+
+#pagination .pagination li > a {
+	color: #fff;
+	background: #222;
+}
+
+#pagination .pagination li > a:hover {
+	color: #222;
+	background: #eee;
+}
