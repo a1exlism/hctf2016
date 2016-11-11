@@ -31,6 +31,7 @@
 						<p class="team-level">Level: <span></span></p>
 						<p class="team-score">Total Score: <span></span></p>
 						<p class="team-ranking">Ranking: <span></span></p>
+						<p class="team-token">Token: <span></span></p>
 					</div>
 					<a href="javascript:0;" class="msg-btn">Change Passwd</a>
 				</div>

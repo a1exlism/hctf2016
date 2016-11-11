@@ -236,9 +236,11 @@ $(function () {
 			method: 'get',
 			dataType: 'json',
 			success: function (data) {
-				$('#team-ranking .team-level').find('span').html(data.level);
-				$('#team-ranking .team-ranking').find('span').html(data.ranking);
-				$('#team-ranking .team-score').find('span').html(data.score);
+				var teamRanking = $('#team-ranking');
+				$(teamRanking).find('.team-level').find('span').html(data.level);
+				$(teamRanking).find('.team-ranking').find('span').html(data.ranking);
+				$(teamRanking).find('.team-score').find('span').html(data.score);
+				$(teamRanking).find('.team-token').find('span').html(data.token);
 			}
 		})
 	};

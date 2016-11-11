@@ -217,6 +217,12 @@ input::-webkit-input-placeholder {
 	margin-bottom: 1em;
 }
 
+#team-settings .sidebar .team-token > span {
+	word-wrap: break-word;
+	word-break: normal;
+	color: #C2D8FF;
+}
+
 /*
  * -- Sidebar Start --
  */
@@ -252,7 +258,6 @@ input::-webkit-input-placeholder {
 	margin-bottom: 5px;
 	text-align: left;
 }
-
 
 #team-ranking .team-score span,
 #team-ranking .team-level span,

@@ -96,6 +96,8 @@ class Team_ajax extends CI_Controller
 		$result['score'] = $data->total_score;
 		//  ranking
 		$result['ranking'] = $this->user_model->user_get_rank($session_token);
+		//  token
+		$result['token'] = $session_token;
 		echo json_encode($result);
 	}
 
@@ -145,11 +147,6 @@ class Team_ajax extends CI_Controller
 		$results = array();
 
 		for ($i = 0; $i < count($notifies); $i++) {
-//		
-//			if (empty($notifies[$i]['challenge_solved_time'])) {
-//				continue;
-//			}
-//			
 			foreach ($notifies[$i] as $key => $value) {
 				switch ($key) {
 					case 'challenge_solved_time':
@@ -232,6 +229,11 @@ class Team_ajax extends CI_Controller
 			"total_score" => $total_score
 		);
 		$this->score_model->update($this->session_token, $new_data);
+	}
+
+	public function test(){
+		$test = $this->score_model->get_status($this->session_token)->row();
+		echo $test->is_cheat;
 	}
 
 	public function get_top10()
