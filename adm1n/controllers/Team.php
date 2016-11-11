@@ -70,6 +70,8 @@ class Team extends CI_controller
 		$score=$this->input->post('score');
 		$score=$this->security->xss_clean($score);
 
+		echo $method.' '.$value;
+
 		$bool=$this->team_model->add($method,$value,$score);
 
 		if($bool==0)

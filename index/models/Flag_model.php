@@ -105,7 +105,9 @@ class Flag_model extends CI_model
 		$result = $result->result_array();
 
 		if(empty($result[0]))
+		{
 			return 4;
+		}	
 
 		else if($result[0]['challenge_flag'] == $flag && empty($result[0]['challenge_solved_time']))#正确flag
 		{
@@ -130,14 +132,15 @@ class Flag_model extends CI_model
 				$challenge[0]['challenge_score'] = $score;
 				$this->db->where('challenge_id', $id)->update('challenge_info', $challenge[0]);#题目分值修改
 				$now_time=time();
-				$this->db->where('team_token',$token)->update('score_update',$now_time);
+				$this->db->where('team_token',$token)->update('team_info',array('score_update'=>$now_time));
 
 				#队伍level提升
 				$this->level_check($token);
 				#修改各个队伍分数
 				$ready_team = $this->db->where('challenge_id', $id)->select('team_token')->get('dynamic_notify');
 				$ready_team = $ready_team->result_array();
-				foreach ($ready_team as $value) {
+				foreach ($ready_team as $value) 
+				{
 					$team_token = $value['team_token'];
 					#查询每队解出题目
 					$sql = "SELECT challenge_id FROM dynamic_notify WHERE team_token = ? AND challenge_solved_time LIKE '%' ";
@@ -151,6 +154,8 @@ class Flag_model extends CI_model
 						$sum = $sum + $ready_challenge[0]['challenge_score'];
 					}
 					$team_data = array('total_score' => $sum);
+					$basic_score=$this->db->where('team_token', $team_token)->get('team_info')->result_array();
+					$num=$num+$basic_score[0]['basic_score'];
 					$this->db->where('team_token', $team_token)->update('team_info', $team_data);
 				}
 
