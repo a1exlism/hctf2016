@@ -106,6 +106,7 @@ class  User_model extends CI_Model
 			$this->db->select(array('team_name', 'total_score'));
 			$this->db->from('team_info');
 			$this->db->order_by('total_score', 'DESC');
+			$this->db->where('is_cheat', 0);
 			$query = $this->db->get();
 			return $query;
 		} else if (empty($token) && !empty($num)) {
@@ -113,6 +114,7 @@ class  User_model extends CI_Model
 			$this->db->select(array('team_name', 'total_score'));
 			$this->db->from('team_info');
 			$this->db->order_by('total_score', 'DESC');
+			$this->db->where('is_cheat', 0);
 			$this->db->limit($num);
 			$query = $this->db->get();
 			return $query;
@@ -122,6 +124,7 @@ class  User_model extends CI_Model
 	public function select_records()
 	{
 		$this->db->from('team_info');
+		$this->db->where('is_cheat', 0);
 		return $this->db->count_all_results();
 	}
 
@@ -129,6 +132,7 @@ class  User_model extends CI_Model
 	{
 		$this->db->select(array('team_name', 'total_score'));
 		$this->db->from('team_info');
+		$this->db->where('is_cheat', 0);
 		$this->db->limit(10, $start);
 		$this->db->order_by('total_score', 'DESC');
 		$query = $this->db->get();

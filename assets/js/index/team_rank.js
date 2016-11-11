@@ -197,7 +197,7 @@ $(function () {
 		$.get('Team_ajax/get_ranks_nums').done(function (data) {
 			data = JSON.parse(data); // strings2obj
 			pagObj.records = data.nums;
-			pagObj.lastPage = parseInt(data.nums / pagObj.perPages);
+			pagObj.lastPage = parseInt(data.nums / pagObj.perPages) + 1;
 			pagObj.nowTop = parseInt(pagObj.records / 10 - 1) * 10 + 1;
 			pagObj.loadPage(pagObj.nowPage - 1, pagObj.nowTop);
 			pagObj.createPagination(pagObj.lastPage);

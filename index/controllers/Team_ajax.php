@@ -150,7 +150,6 @@ class Team_ajax extends CI_Controller
 			foreach ($notifies[$i] as $key => $value) {
 				switch ($key) {
 					case 'challenge_solved_time':
-
 						$results[$i]['solvedTime'] = date('H:i:s m-d-Y', $value);
 						break;
 					case 'team_name':
@@ -165,7 +164,6 @@ class Team_ajax extends CI_Controller
 		}
 		echo json_encode($results);
 	}
-
 
 	public function get_challenges()
 	{
@@ -229,11 +227,6 @@ class Team_ajax extends CI_Controller
 			"total_score" => $total_score
 		);
 		$this->score_model->update($this->session_token, $new_data);
-	}
-
-	public function test(){
-		$test = $this->score_model->get_status($this->session_token)->row();
-		echo $test->is_cheat;
 	}
 
 	public function get_top10()
