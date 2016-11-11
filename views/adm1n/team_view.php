@@ -13,7 +13,7 @@
 <br/>
 <form action="/hctf2016/adm1n/team/ban" method="post">
 	<select name="method">
-		<option value="team_name">id</option>
+		<option value="team_name">name</option>
 		<option value="team_token">token</option>
 	</select>
 	<input type="text" name="value" >
@@ -22,7 +22,7 @@
 <br/>
 <form action="/hctf2016/adm1n/team/score" method="post">
 	<select name="method">
-		<option value="team_name">id</option>
+		<option value="team_name">name</option>
 		<option value="team_token">token</option>
 	</select>
 	<input type="text" name="value" >
@@ -37,7 +37,7 @@
 <br/>
 <form action="/hctf2016/adm1n/team/card" method="post">
 	<select name="method">
-		<option value="team_name">id</option>
+		<option value="team_name">name</option>
 		<option value="team_token">token</option>
 	</select>
 	<input type="text" name="value" >

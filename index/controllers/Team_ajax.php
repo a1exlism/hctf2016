@@ -145,9 +145,11 @@ class Team_ajax extends CI_Controller
 	{
 		$notifies = $this->public_model->notify_select()->result();
 		$results = array();
-
+var_dump($notifies);
 		for ($i = 0; $i < count($notifies); $i++) {
 			foreach ($notifies[$i] as $key => $value) {
+				var_dump($value);
+				echo $i."<br>";
 				switch ($key) {
 					case 'challenge_solved_time':
 						$results[$i]['solvedTime'] = date('H:i:s m-d-Y', $value);
@@ -162,6 +164,7 @@ class Team_ajax extends CI_Controller
 				}
 			}
 		}
+
 		echo json_encode($results);
 	}
 

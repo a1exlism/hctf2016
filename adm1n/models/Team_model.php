@@ -54,24 +54,18 @@ class Team_model extends CI_model
 	public function add($method,$value,$score)
 	{
 		$where=array($method=>$value);
-		//var_dump($where);
 		$tmp=$this->db->where($where)->get('team_info');
-		//var_dump($tmp);
 		$tmp=$tmp->result_array();
 		if(empty($tmp[0]))
 			return 0;
-		$a=$tmp[0]['total_score']+$score;
-		$data=array('total_score'=>$a);
-		$result=$this->db->update('team_info',$data,$where);
-		$data=array(
-			'team_token'=>$tmp[0]['team_token'],
-			'challenge_id'=>0,
-			'challenge_open_time'=>0,
-			'challenge_solved_time'=>1
-		);
-		$res=$this->db->insert('dynamic_notify',$data);
-		$result=$res&$result;
-		return $result;
+		else
+		{
+			$a=$tmp[0]['total_score']+$score;
+			$b=$tmp[0]['basic_score']+$score;
+			$data=array('total_score'=>$a,'basic_score'=>$b);
+			$result=$this->db->update('team_info',$data,$where);
+			return $result;
+		}
 	}
 
 	public function open($id)
