@@ -18,7 +18,9 @@ CREATE TABLE hctf2016.team_info (
   total_score  INT              NOT NULL DEFAULT 0,
   compet_level INT UNSIGNED     NOT NULL DEFAULT 0,
   -- 可挑战层数
-  is_cheat     BOOL             NOT NULL DEFAULT 0
+  is_cheat     BOOL             NOT NULL DEFAULT 0,
+  -- 总分更新时间
+  score_update INT              NOT NULL DEFAULT 0
 )
   CHARACTER SET = utf8;
 
@@ -63,7 +65,7 @@ CREATE TABLE hctf2016.score_record (
   score_e     INT         NOT NULL DEFAULT 0,
   total_score INT         NOT NULL DEFAULT 0
 )
- CHARACTER SET = utf8;
+  CHARACTER SET = utf8;
 
 /* -- Bulletin 公告 -- */
 CREATE TABLE hctf2016.bulletin (
