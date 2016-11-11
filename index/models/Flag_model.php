@@ -129,6 +129,8 @@ class Flag_model extends CI_model
 				$challenge[0]['challenge_solves'] = $num;
 				$challenge[0]['challenge_score'] = $score;
 				$this->db->where('challenge_id', $id)->update('challenge_info', $challenge[0]);#题目分值修改
+				$now_time=time();
+				$this->db->where('team_token',$token)->update('score_update',$now_time);
 
 				#队伍level提升
 				$this->level_check($token);
