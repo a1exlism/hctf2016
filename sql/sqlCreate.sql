@@ -20,7 +20,8 @@ CREATE TABLE hctf2016.team_info (
   -- 可挑战层数
   is_cheat     BOOL             NOT NULL DEFAULT 0,
   -- 总分更新时间
-  score_update INT              NOT NULL DEFAULT 0
+  score_update INT              NOT NULL DEFAULT 0,
+  basic_score  INT              NOT NULL DEFAULT 0
 )
   CHARACTER SET = utf8;
 
