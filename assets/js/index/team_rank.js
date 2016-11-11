@@ -139,18 +139,8 @@ $(function () {
 		getData();
 		setInterval(getData, 10 * 60 * 1000);
 	}
-	
-	
-	//  第三方队伍信息查看
-	function teamDetails(teamname) {
-		$.get('team_ajax/search/' + teamname).done(function (data) {
-			console.log(data);
-		})
-	};
-	
-	
+
 	// --  pageination --
-	
 	
 	function Pagination() {
 		
@@ -175,7 +165,7 @@ $(function () {
 					var teamInfo = $(
 						'<tr>' +
 						'<td>' + parseInt(pageIndex * 10 + parseInt(index) + 1) + '</td>' +
-						'<td><a target="_blank" href="team_ajax/search/' + data[index].team_name + '">' + data[index].team_name + '</a></td>' +
+						'<td><a target="_blank" href="teams/search/' + data[index].team_name + '">' + data[index].team_name + '</a></td>' +
 						'<td>' + data[index].total_score + '</td>' +
 						'</tr>');
 					$(paginationBody).append($(teamInfo));
@@ -207,7 +197,7 @@ $(function () {
 		$.get('Team_ajax/get_ranks_nums').done(function (data) {
 			data = JSON.parse(data); // strings2obj
 			pagObj.records = data.nums;
-			pagObj.lastPage = parseInt(data.nums / pagObj.perPages + 1);
+			pagObj.lastPage = parseInt(data.nums / pagObj.perPages);
 			pagObj.nowTop = parseInt(pagObj.records / 10 - 1) * 10 + 1;
 			pagObj.loadPage(pagObj.nowPage - 1, pagObj.nowTop);
 			pagObj.createPagination(pagObj.lastPage);
