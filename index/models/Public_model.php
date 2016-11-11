@@ -41,6 +41,7 @@ class Public_model extends CI_Model
 			$this->db->select(array('dynamic_notify.challenge_id', 'dynamic_notify.challenge_solved_time', 'team_info.team_name'));
 			$this->db->join('team_info', 'team_info.team_token = dynamic_notify.team_token');
 			$this->db->where('dynamic_notify.challenge_solved_time IS NOT NULL AND team_info.is_cheat = 0');
+			$this->db->order_by('team_info.score_update', 'ASC');
 		}
 		$query = $this->db->get();
 		return $query;

@@ -155,4 +155,10 @@ class User_ajax extends CI_Controller
 			$this->session->sess_destroy();
 		}
 	}
+
+	public function forget()
+	{
+		$team_email = $this->input->post('email');
+//		$this->form_validation->set_rules('email', );
+	}
 }

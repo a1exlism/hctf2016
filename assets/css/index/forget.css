@@ -1,0 +1,23 @@
+/* From http://stackoverflow.com/questions/20547819/vertical-align-with-bootstrap-3 */
+
+html, body, .container, .row {
+	height: 100%;
+}
+
+.vertical-center {
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+/*#forget .control-label {*/
+/*text-align: center;*/
+/*font-size: 2rem;*/
+/*}*/
+
+#forget input {
+	background-color: rgba(255, 255, 255, 1);
+}

@@ -1,0 +1,38 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: a1exlism
+ * Date: 16-11-11
+ * Time: 下午8:25
+ */
+?>
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Forget Password</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap/darkly.min.css') ?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/css/index/forget.css') ?>">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-md-offset-2 col-md-8 vertical-center">
+			<div class="form-group" id="forget">
+				<div class="input-group">
+					<span class="input-group-addon">Team Email</span>
+					<input type="text" class="form-control" placeholder="test@root.com">
+					<span class="input-group-btn">
+						<button id="submit" class="btn btn-default" type="button">Send</button>
+          </span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="<?php echo base_url('assets/js/bootstrap/jquery.min.js') ?>"></script>
+<script src="<?php echo base_url('assets/js/index/forget.js') ?> "></script>
+</body>
+</html>

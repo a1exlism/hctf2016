@@ -42,8 +42,8 @@
 					<div class="row">
 						<div class="col-xs-8 col-xs-offset-2 col-md-8 col-md-offset-2">
 							<!-- Login -->
-<!--							<form id="form-login" action="login/login" method="post" role="form">-->
-								<form id="form-login" action="User_ajax/login_check" method="post" role="form">
+							<!--								<form id="form-login" action="User_ajax/login_check" method="post" role="form">-->
+							<form id="form-login" action="login/login" method="post" role="form">
 								<div class="form-group">
 									<input type="text" class="form-control" name="teamname" id="user-login" placeholder="Teamname"
 									       tabindex="1">
@@ -52,17 +52,17 @@
 									<input type="password" class="form-control" name="password" id="pass-login" placeholder="Password"
 									       tabindex="2">
 								</div>
-						<!--
-								<div class="form-group text-center">
-									<input type="checkbox" tabindex="3" name="remember" id="remember" style="display:none">
-									<label for="remember" onselectstart="return false;">Remember Me</label>
-								</div>
-						-->
+								<!--
+										<div class="form-group text-center">
+											<input type="checkbox" tabindex="3" name="remember" id="remember" style="display:none">
+											<label for="remember" onselectstart="return false;">Remember Me</label>
+										</div>
+								-->
 								<div class="form-group">
 									<div class="row">
 										<div class="col-xs-8 col-xs-offset-2 col-lg-10 col-lg-offset-1">
-<!--											<input type="button" value="Login In" id="cover-submit-login"-->
-											<input type="submit" value="Login In" id="cover-submit-login"
+											<!--											<input type="submit" value="Login In" id="cover-submit-login"-->
+											<input type="button" value="Login In" id="cover-submit-login"
 											       tabindex="3" class="btn btn-success form-control">
 										</div>
 
@@ -72,24 +72,24 @@
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="text-center">
-												<a href="/forget" class="forget-password">Forget Password?</a>
+												<a href="forget" class="forget-password">Forget Password?</a>
 											</div>
 										</div>
 									</div>
 									<!-- msgtip Login -->
-										<div class="msgtip">
-											<div class="msgtip-success-login">
-												<p>Login success</p>
-											</div>
-											<div class="msgtip-fail-login">
-												<p>Login failed.</p><br>
-												<p>Wrong username || password</p>
-											</div>
-											<div class="geetest-fail">
-												<p>Login failed.</p><br>
-												<p>极验HTTP500,请重试.</p>
-											</div>
+									<div class="msgtip">
+										<div class="msgtip-success-login">
+											<p>Login success</p>
 										</div>
+										<div class="msgtip-fail-login">
+											<p>Login failed.</p><br>
+											<p>Wrong username || password</p>
+										</div>
+										<div class="geetest-fail">
+											<p>Login failed.</p><br>
+											<p>极验HTTP500,请重试.</p>
+										</div>
+									</div>
 								</div>
 							</form>
 							<!-- Register -->

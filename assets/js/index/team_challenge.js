@@ -15,13 +15,14 @@ function getSolvedPublic() {
 		method: 'get',
 		dataType: 'json',
 		success: function (data) {
-			$('#solved-info ul').empty();
+			var solvedInfo = $('#solved-info');
+			$(solvedInfo).find('ul').empty();
 			if (data) {
-				$.each(data, function (index, value) {
-					$('#solved-info > ul').append($('<li>' +
-						value.solvedTime + ' :<span class="teamName"> ' +
-						value.teamName + '</span> solved ' +
-						value.chaName + '</li>'));
+				$.each(data, function (index, element) {
+					$(solvedInfo).find('ul').append($('<li>' +
+						element.solvedTime + ' :<span class="teamName"> ' +
+						element.teamName + '</span> solved ' +
+						element.chaName + '</li>'));
 				});
 			}
 		}

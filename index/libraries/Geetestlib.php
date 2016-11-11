@@ -380,6 +380,6 @@ class Geetestlib
 	 */
 	private function triggerError($err)
 	{
-		trigger_error($err);
+//		trigger_error($err);
 	}
 }

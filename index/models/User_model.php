@@ -106,6 +106,7 @@ class  User_model extends CI_Model
 			$this->db->select(array('team_name', 'total_score'));
 			$this->db->from('team_info');
 			$this->db->order_by('total_score', 'DESC');
+			$this->db->order_by('score_update', 'ASC');
 			$this->db->where('is_cheat', 0);
 			$query = $this->db->get();
 			return $query;
@@ -114,6 +115,7 @@ class  User_model extends CI_Model
 			$this->db->select(array('team_name', 'total_score'));
 			$this->db->from('team_info');
 			$this->db->order_by('total_score', 'DESC');
+			$this->db->order_by('score_update', 'ASC');
 			$this->db->where('is_cheat', 0);
 			$this->db->limit($num);
 			$query = $this->db->get();
@@ -135,6 +137,7 @@ class  User_model extends CI_Model
 		$this->db->where('is_cheat', 0);
 		$this->db->limit(10, $start);
 		$this->db->order_by('total_score', 'DESC');
+		$this->db->order_by('score_update', 'ASC');
 		$query = $this->db->get();
 
 		return $query;
