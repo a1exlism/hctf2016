@@ -42,7 +42,8 @@
 					<div class="row">
 						<div class="col-xs-8 col-xs-offset-2 col-md-8 col-md-offset-2">
 							<!-- Login -->
-							<form id="form-login" action="login/login" method="post" role="form">
+<!--							<form id="form-login" action="login/login" method="post" role="form">-->
+								<form id="form-login" action="User_ajax/login_check" method="post" role="form">
 								<div class="form-group">
 									<input type="text" class="form-control" name="teamname" id="user-login" placeholder="Teamname"
 									       tabindex="1">
@@ -60,7 +61,8 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-xs-8 col-xs-offset-2 col-lg-10 col-lg-offset-1">
-											<input type="button" value="Login In" id="cover-submit-login"
+<!--											<input type="button" value="Login In" id="cover-submit-login"-->
+											<input type="submit" value="Login In" id="cover-submit-login"
 											       tabindex="3" class="btn btn-success form-control">
 										</div>
 
