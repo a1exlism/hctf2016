@@ -3,11 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Forget extends CI_Controller
 {
-
+	private $mail_checksum;
+	
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->library('email');
+		
+		$this->mail_checksum = md5(md5('fackemail'));
 	}
 
 	public function index()
@@ -15,12 +18,18 @@ class Forget extends CI_Controller
 		$this->load->view('index/forget');
 	}
 
-	public function send_email($token = null) {
+	public function mail_send($token, $receiver, $checksum) {
+		if($this->mail_checksum != $checksum) {
+			echo "You are NOT allowed to here.";
+			exit();
+		}
+	
 		$subject = 'HCTF2016 | Password Reset';
-		$link = 'https://www.google.com';
+		$link = 'user_ajax/pass_reset/'.$token;
+		$sender = 'a1ex_x@126.com';
+		
 		$message = "<p>Use the following link within the next day to reset your password:<a href='$link' target='_blank'>$link</a></p>";
 
-		// Get full html:
 		$body = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -38,14 +47,10 @@ class Forget extends CI_Controller
     </body>
     </html>';
 
-//    $this->load->view('');
-		// Also, for getting full html you may use the following internal method:
-		//$body = $this->email->full_html($subject, $message);
-
 		$result = $this->email
-			->from('a1ex_x@126.com')
+			->from($sender)
 //			->reply_to('yoursecondemail@somedomain.com')    // Optional, an account where a human being reads.
-			->to('385197882@qq.com')
+			->to($receiver)
 			->subject($subject)
 			->message($body)
 			->send();

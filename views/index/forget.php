@@ -41,7 +41,11 @@
 		</div>
 	</div>
 </div>
+<div id="mask"></div>
+<div id="popup-captcha"></div>
+
 <script src="<?php echo base_url('assets/js/bootstrap/jquery.min.js') ?>"></script>
+<script src="<?php echo base_url('assets/js/geetest/gt.js') ?>"></script>
 <script src="<?php echo base_url('assets/js/index/forget.js') ?> "></script>
 </body>
 </html>

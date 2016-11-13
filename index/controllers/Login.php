@@ -32,16 +32,17 @@ class Login extends CI_Controller
 		//  session check
 		if ($this->session_check->check() === 1) {
 			redirect('index/team', 'location');
-		} else {
-			$this->load->view('index/login');
 		}
 	}
 
 	public function index()
 	{
-
+		$this->load->view('index/login');
 	}
 
-
+	public function pass_reset()
+	{
+		$this->load->view('index/pass_reset');
+	}
 
 }

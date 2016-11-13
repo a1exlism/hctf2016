@@ -144,8 +144,6 @@
 <script src="<?php echo base_url('assets/js/bootstrap/jquery.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js') ?>"></script>
 
-<script src="<?php echo base_url('assets/js/index/particles.js') ?> "></script>
-
 <!-- 极验: 引入封装了failback的接口--initGeetest -->
 <script src="<?php echo base_url('assets/js/geetest/gt.js') ?>"></script>
 
