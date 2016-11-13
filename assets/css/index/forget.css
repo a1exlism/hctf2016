@@ -1,5 +1,10 @@
 /* From http://stackoverflow.com/questions/20547819/vertical-align-with-bootstrap-3 */
 
+h1 {
+	text-align: center;
+	padding-bottom: 10rem;
+}
+
 html, body, .container, .row {
 	height: 100%;
 }
@@ -13,11 +18,18 @@ html, body, .container, .row {
 	transform: translateY(-50%);
 }
 
-/*#forget .control-label {*/
-/*text-align: center;*/
-/*font-size: 2rem;*/
-/*}*/
-
 #forget input {
 	background-color: rgba(255, 255, 255, 1);
+}
+
+#msgtip .well {
+	display: none;
+}
+
+.success {
+	color: #00BC8C;
+}
+
+.error {
+	color: #E74C3C;
 }

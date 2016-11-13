@@ -38,6 +38,15 @@ class  User_model extends CI_Model
 		return $query;
 	}
 
+	public function user_select_email($email)
+	{
+		$this->db->select('team_name');
+		$this->db->from('team_info');
+		$this->db->where('team_email', $email);
+		$query = $this->db->get();
+		return $query;
+	}
+
 	public function user_insert($arr)
 	{
 		$this->db->insert('team_info', $arr);

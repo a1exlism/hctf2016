@@ -156,9 +156,44 @@ class User_ajax extends CI_Controller
 		}
 	}
 
-	public function forget()
+	public function forget_validate()
 	{
 		$team_email = $this->input->post('email');
-//		$this->form_validation->set_rules('email', );
+		$config = array(
+			array(
+				'field' => 'email',
+				'label' => 'email',
+				'rules' => 'required|valid_email',
+				'errors' => array(
+					'required' => 'Email required.',
+					'valid_email' => 'Invalid email.'
+				)
+			)
+		);
+		$this->form_validation->set_rules($config);
+		if ($this->form_validation->run() == FALSE) {
+
+			$result = array(
+				'status' => 'error',
+				'message' => 'Email empty || Invalid email'
+//				'message' => form_error('email')
+			);
+		
+		} else {
+			$team_obj = $this->user_model->user_select_email($team_email)->row();
+			if (empty($team_obj)) {
+				$result = array(
+					'status' => 'error',
+					'message' => 'No such team.'
+				);
+			} else {
+				$result = array(
+					'status' => 'success',
+					'message' => 'Password reset address has been sent to your email.'
+				);
+			}
+		}
+		echo json_encode($result);
 	}
+	
 }

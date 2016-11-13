@@ -80,3 +80,8 @@ git reset HEAD .
 16. 忘记在challenge这边写`链接`字段了, 所以describe需要规范化`xxx<a href="xxx">xxx</a>xxx`
 
 17. changllenge_id为0表示加分记录，不可读取。
+
+18. Unable to load dynamic library '/usr/lib/php/20151012/php_mbstring.dll'
+    [gist](https://gist.github.com/69f5d75b6d420b9ca5606320f2f1bc56)
+    
+19. 邮件发送解决方案[CodeIgniter & Mailer](https://github.com/ivantcholakov/codeigniter-phpmailer)

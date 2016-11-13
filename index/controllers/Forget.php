@@ -7,10 +7,7 @@ class Forget extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->library('session');
-		$this->load->model('user_model');
-		$this->load->model('session_check');
-		$this->load->helper('form');
+		$this->load->library('email');
 	}
 
 	public function index()
@@ -18,5 +15,14 @@ class Forget extends CI_Controller
 		$this->load->view('index/forget');
 	}
 
-	
+	public function send_email($token) {
+		$this->email->from('ji2hanpgf@163.com', 'admin');
+		$this->email->to('someone@example.com');
+//		$this->email->cc('another@another-example.com');
+//		$this->email->bcc('them@their-example.com');
+		$this->email->subject('Email Test');
+		$this->email->message('Testing the email class.');
+
+		$this->email->send();
+	}
 }
