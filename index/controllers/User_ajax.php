@@ -158,20 +158,35 @@ class User_ajax extends CI_Controller
 		}
 	}
 
-	public function pass_reset($token = null) {
-	
-		if(empty($token)) {
-			echo json_encode(array('status' => 'error'));
+	public function pass_reset()
+	{
+		$token = $this->input->post('query-1', TRUE);
+		$checksum = $this->input->post('query-2', TRUE);
+		$passwd = $this->user_model->str_encode($this->input->post('pass', TRUE));
+
+		if (empty($token)) {
+			echo json_encode(array(
+				'status' => 'error',
+				'message' => 'Team not found'
+			));
 			exit();
 		}
-		
-		$passwd = $this->user_model->str_encode($this->input->post('password', TRUE));
-		$arr = array('team_pass', $passwd);
+
+		if ($this->mail_checksum != $checksum) {
+			echo json_encode(array(
+				'status' => 'error',
+				'message' => 'Check error, you may need new address.'
+			));
+			exit();
+		}
+
+		$arr = array('team_pass' =>  $passwd);
 		$this->user_model->user_update($token, $arr);
 		$notice = array(
-			'status' => 'success'
+			'status' => 'success',
+			'message' => 'Password changed'
 		);
-		
+
 		echo json_encode($notice);
 	}
 }

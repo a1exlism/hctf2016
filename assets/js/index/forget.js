@@ -1,15 +1,19 @@
 $(function () {
-	
+	var forget = $("#forget"),
+		passReset = $('#pass-reset');
+
 	var mask = $('#mask'),
 		popupCaptcha = $('#popup-captcha'),
-		submitBtn = $("#submit"),
+		submitMail = $(forget).find("#submit"),
+		submitPass = $(passReset).find("#submit"),
 		msgTip = $('#msgtip');
+
 	var successMsg = $(msgTip).find('.success'),
 		errorMsg = $(msgTip).find('.error');
 	
 	var mailToSend = '';
 	
-	$(submitBtn).click(function () {
+	$(submitMail).click(function () {
 		$(popupCaptcha).empty();
 		$.ajax({
 			url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
@@ -48,7 +52,7 @@ $(function () {
 						tmpShow(errorMsg, data.message);
 					}
 				}
-
+				
 			});
 		});
 	};
@@ -64,13 +68,40 @@ $(function () {
 			},
 			success: function (data) {
 				if (data) {
-					if (data.status == 'success') {
+					if (data.status === 'success') {
 						tmpShow(successMsg, data.message);
 					}
 				}
 			}
 		})
 	}
+	
+	/* --- pass reset --- */
+	var passChange = function () {
+		var query = window.location.href.split('/'),
+			queryLen = query.length;
+		$.ajax({
+			url: '/hctf2016/index/user_ajax/pass_reset',
+			type: 'post',
+			dataType: 'json',
+			data: {
+				'query-1': query[queryLen - 2],
+				'query-2': query[queryLen - 1],
+				'pass': $(passReset).find('input')[0].value
+			},
+			success: function (data) {
+				if(data && data.status === 'success') {
+					tmpShow(successMsg, data.message);
+					setTimeout(function () {
+						window.location.href = '/hctf2016/index/login';
+					}, 1000);
+				} else {
+					tmpShow(errorMsg, data.message);
+				}
+			}
+		})
+	};
+	$(submitPass).click(passChange);
 	
 	/* --- utilities --- */
 	function captchaHide() {
@@ -84,7 +115,7 @@ $(function () {
 		$(popupCaptcha).empty();
 	});
 	
-	$(submitBtn).click(function () {
+	$(submitMail).click(function () {
 		$(mask).show();
 		$(popupCaptcha).show();
 	});
