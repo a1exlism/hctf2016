@@ -47,9 +47,9 @@ $(function () {
 				},
 				success: function (data) {
 					if (data && (data.status == "success")) {
-						mailSend(data.checksum);
+						mailSend(data.checksum, data.email);
 					} else {
-						tmpShow(errorMsg, data.message);
+						tmpShow(errorMsg);
 					}
 				}
 				
@@ -57,7 +57,7 @@ $(function () {
 		});
 	};
 	
-	function mailSend(checksum) {
+	function mailSend(checksum, email) {
 		$.ajax({
 			url: 'forget/mail_send',
 			type: 'post',

@@ -17,7 +17,7 @@ class Geetest extends CI_Controller
 	private $captcha_id;
 	private $private_key;
 	private $GtSdk;
-	private $mail_checksum;
+	private $mail_salt;
 
 	public function __construct()
 	{
@@ -34,7 +34,7 @@ class Geetest extends CI_Controller
 		$this->mobile_private_key = "aa9621efff0aa0cb09a0f85b00341b8f";
 		$this->GtSdk = new GeetestLib($this->mobile_captcha_id, $this->mobile_private_key);
 
-		$this->mail_checksum = md5(md5('fackemail'));
+		$this->mail_salt = 'fackemail';
 	}
 
 	public function startCaptcha()
@@ -45,8 +45,6 @@ class Geetest extends CI_Controller
 		$_SESSION['user_id'] = $user_id;
 		echo $this->GtSdk->get_response_str();
 	}
-
-	//  todo: verifyLogin verifyRegister 功能重写
 
 
 	public function verifyLogin()
@@ -149,7 +147,7 @@ class Geetest extends CI_Controller
 					} else {
 						$validate_result = array(
 							'status' => 'success',
-							'checksum' => $this->mail_checksum //  防爆破
+							'checksum' => md5(md5($this->mail_salt.$team_email))
 						);
 					}
 				}

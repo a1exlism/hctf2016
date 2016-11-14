@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User_ajax extends CI_Controller
 {
-	private $mail_checksum;
+	private $mail_salt;
 
 	public function __construct()
 	{
@@ -15,7 +15,7 @@ class User_ajax extends CI_Controller
 		$this->load->model('flag_model');
 		$this->load->helper('form');
 		$this->load->library('form_validation');  //表单验证类
-		$this->mail_checksum = md5(md5('fackemail'));
+		$this->mail_salt = 'fackemail';
 	}
 
 	public function register_check()
@@ -163,7 +163,8 @@ class User_ajax extends CI_Controller
 		$token = $this->input->post('query-1', TRUE);
 		$checksum = $this->input->post('query-2', TRUE);
 		$passwd = $this->user_model->str_encode($this->input->post('pass', TRUE));
-
+		$team_email = $this->user_model->user_select_token($token)->row()->team_email;
+		$mail_checksum = md5(md5($this->mail_salt.$team_email));
 		if (empty($token)) {
 			echo json_encode(array(
 				'status' => 'error',
@@ -172,7 +173,7 @@ class User_ajax extends CI_Controller
 			exit();
 		}
 
-		if ($this->mail_checksum != $checksum) {
+		if ($mail_checksum != $checksum) {
 			echo json_encode(array(
 				'status' => 'error',
 				'message' => 'Check error, you may need new address.'

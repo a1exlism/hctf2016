@@ -3,8 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Forget extends CI_Controller
 {
+	private $mail_salt;
 	private $mail_checksum;
-
+	
 	public function __construct()
 	{
 		parent::__construct();
@@ -12,7 +13,7 @@ class Forget extends CI_Controller
 
 		$this->load->model('user_model');
 
-		$this->mail_checksum = md5(md5('fackemail'));
+		$this->mail_salt = 'fackemail';
 	}
 
 	public function index()
@@ -25,7 +26,7 @@ class Forget extends CI_Controller
 		$checksum = $this->input->post('checksum');
 		$receiver = $this->input->post('email');
 		$token = $this->user_model->user_select_email($receiver)->row()->team_token;
-
+		$this->mail_checksum = md5(md5($this->mail_salt.$receiver));
 		if ($this->mail_checksum != $checksum) {
 			echo "You are NOT allowed here.";
 			exit();
@@ -75,13 +76,13 @@ class Forget extends CI_Controller
 
 	public function pass_reset($token = null, $checksum = null)
 	{
-
+		$team_email = $this->user_model->user_select_token($token)->row()->team_email;
+		$this->mail_checksum = md5(md5($this->mail_salt.$team_email));
 		if ($this->mail_checksum != $checksum) {
 			echo "You are NOT allowed to change passwords.";
 			exit();
 		}
 
 		$this->load->view('index/pass_reset');
-
 	}
 }
