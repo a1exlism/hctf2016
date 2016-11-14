@@ -141,7 +141,7 @@ $(function () {
 		getTeamInfo();
 	}
 	
-	setInterval(function () { //update in every 30seconds
+	setInterval(function () { //update in every 60seconds
 		getSolved();
 		getTeamInfo();
 	}, 60000);
@@ -269,8 +269,6 @@ $(function () {
 			msgShow(msgE, 'Empty Input', 2);
 			return false;
 		}
-		// console.log('ori-pass' + oriPass);
-		// console.log('new-pass' + newPass);
 		$.ajax({
 			url: 'Team_ajax/pass_change',
 			type: 'POST',

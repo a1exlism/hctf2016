@@ -21,7 +21,7 @@
 	<div class="row">
 		<div class="col-md-offset-2 col-md-8 vertical-center">
 			<div class="form-group" id="forget">
-				<h1>Password Reset</h1>
+				<h1>Send password reset mail</h1>
 				<div class="input-group">
 					<span class="input-group-addon">Team Email</span>
 					<input type="text" class="form-control" placeholder="test@root.com">

@@ -149,20 +149,22 @@ class Geetest extends CI_Controller
 					} else {
 						$validate_result = array(
 							'status' => 'success',
-							'checksum' => $this->mail_checksum, //  防爆破
-							'message' => 'Password reset address has been sent to your email.'
+							'checksum' => $this->mail_checksum //  防爆破
 						);
 					}
 				}
 
 			} else {
-				echo '{"status":"error"}';
+				$validate_result = array(
+					'status' => 'error',
+					'message' => 'geetest validate error:1'
+				);
 			}
 		} else {
 			if ($this->GtSdk->fail_validate($geetest_challenge, $geetest_validate, $geetest_seccode)) {
 				echo json_encode(array(
 					'status' => 'error',
-					'message' => 'geetest validate error'
+					'message' => 'geetest validate error:2'
 				));
 			}
 		}

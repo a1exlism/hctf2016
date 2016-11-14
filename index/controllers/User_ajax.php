@@ -3,6 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User_ajax extends CI_Controller
 {
+	private $mail_checksum;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -13,7 +15,7 @@ class User_ajax extends CI_Controller
 		$this->load->model('flag_model');
 		$this->load->helper('form');
 		$this->load->library('form_validation');  //表单验证类
-
+		$this->mail_checksum = md5(md5('fackemail'));
 	}
 
 	public function register_check()
@@ -140,7 +142,7 @@ class User_ajax extends CI_Controller
 	}
 
 	public function reset()
-	{
+	{ //  作弊处理
 		if ($this->session_check->check() === 0) {
 			redirect('index/login', 'location');
 		}
@@ -155,9 +157,21 @@ class User_ajax extends CI_Controller
 			$this->session->sess_destroy();
 		}
 	}
+
+	public function pass_reset($token = null) {
 	
-	public function pass_reset() {
-		//  todo: pass reset
-		echo "reset";
+		if(empty($token)) {
+			echo json_encode(array('status' => 'error'));
+			exit();
+		}
+		
+		$passwd = $this->user_model->str_encode($this->input->post('password', TRUE));
+		$arr = array('team_pass', $passwd);
+		$this->user_model->user_update($token, $arr);
+		$notice = array(
+			'status' => 'success'
+		);
+		
+		echo json_encode($notice);
 	}
 }

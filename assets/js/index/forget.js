@@ -1,11 +1,14 @@
 $(function () {
 	
 	var mask = $('#mask'),
-	    popupCaptcha = $('#popup-captcha'),
-	    submitBtn = $("#submit");
+		popupCaptcha = $('#popup-captcha'),
+		submitBtn = $("#submit"),
+		msgTip = $('#msgtip');
+	var successMsg = $(msgTip).find('.success'),
+		errorMsg = $(msgTip).find('.error');
 	
 	var mailToSend = '';
-			
+	
 	$(submitBtn).click(function () {
 		$(popupCaptcha).empty();
 		$.ajax({
@@ -33,17 +36,19 @@ $(function () {
 				type: "post",
 				dataType: "json",
 				data: {
-					email: mailToSend, 
+					email: mailToSend,
 					geetest_challenge: validate.geetest_challenge,
 					geetest_validate: validate.geetest_validate,
 					geetest_seccode: validate.geetest_seccode
 				},
 				success: function (data) {
-					if (data && (data.status === "success")) {
-						mailSend(data);
+					if (data && (data.status == "success")) {
+						mailSend(data.checksum);
+					} else {
+						tmpShow(errorMsg, data.message);
 					}
 				}
-				
+
 			});
 		});
 	};
@@ -58,15 +63,9 @@ $(function () {
 				checksum: checksum
 			},
 			success: function (data) {
-				var msgTip = $('#msgtip');
 				if (data) {
 					if (data.status == 'success') {
-						var success = $(msgTip).find('.success');
-						//  发送邮件
-						tmpShow(success, data.message);
-					} else {
-						var error = $(msgTip).find('.error');
-						tmpShow(error, data.message);
+						tmpShow(successMsg, data.message);
 					}
 				}
 			}
