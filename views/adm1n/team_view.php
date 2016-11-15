@@ -51,8 +51,8 @@
 									<label for="" class="col-lg-2 control-label">Option</label>
 									<div class="col-lg-10">
 										<select class="form-control" id="" name="method">
-											<option>Team Name</option>
-											<option>Team Token</option>
+											<option>team_name</option>
+											<option>team_token</option>
 										</select>
 									</div>
 								</div>
