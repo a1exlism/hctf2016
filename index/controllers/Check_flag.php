@@ -6,7 +6,7 @@ class Check_flag extends CI_Controller
 	/* 
 	 * 私有变量
 	 */
-	 
+
 	private $token;
 
 	public function __construct()
@@ -31,7 +31,27 @@ class Check_flag extends CI_Controller
 		//$this->token='token';
 		$bool = $this->flag_model->check($id, $flag, $this->token);
 		#bool 0校验错误 1作弊 2校验正确 3flag已经正确提交 4没有开题
+		if($bool == 1) {
+			$this->reset();
+		}
 		echo json_encode(array("statusCode" => $bool));
+	}
+
+	public function reset()
+	{ //  作弊处理
+		if ($this->session_check->check() === 0) {
+			redirect('index/login', 'location');
+		}
+
+		$session_token = $this->session->userdata('team_token');
+		$status = $this->input->post('status', TRUE);
+		if (!empty($status) && $status == 'reset') {
+			$arr = array(
+				'team_pass' => md5(md5(uniqid(rand() . 'xxxx')))
+			);
+			$this->user_model->update($session_token, $arr);
+			$this->session->sess_destroy();
+		}
 	}
 }
 

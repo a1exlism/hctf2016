@@ -11,7 +11,7 @@ function saveChallenges(data) {
 
 function getSolvedPublic() {
 	$.ajax({
-		url: 'Team_ajax/get_solved_public',
+		url: 'team_ajax/get_solved_public',
 		method: 'get',
 		dataType: 'json',
 		success: function (data) {
@@ -31,7 +31,7 @@ function getSolvedPublic() {
 
 function getCurrentChallenge() {
 	$.ajax({
-		url: 'Team_ajax/get_challenges',
+		url: 'team_ajax/get_challenges',
 		method: 'get',
 		dataType: 'json',
 		success: function (data) {
@@ -62,7 +62,7 @@ function getCurrentChallenge() {
 
 function setDoneStyle() {
 	$.ajax({
-		url: 'Team_ajax/get_done_names',
+		url: 'team_ajax/get_done_names',
 		method: 'get',
 		dataType: 'json',
 		success: function (data) {
@@ -190,15 +190,13 @@ function loadChaDetails() {
 							break;
 						case 1:
 							notifyShow('flag-danger', 'You are cheating!Contact Administrator!');
-							$.post('User_ajax/reset', {
-								status: 'reset'
-							});
+							window.location.href="index/login";
 							break;
 						case 2:
 							notifyShow('flag-success', 'Correct flag, Congratulations!');
 							//  score update for score chart
 							$.ajax({
-								url: 'Team_ajax/score_update',
+								url: 'team_ajax/score_update',
 								type: 'post',
 								dataType: 'json',
 								data: {
@@ -264,7 +262,7 @@ function loadChaDetails() {
 			
 			$("#flag-submit").click(function () {
 				$.ajax({
-					url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
+					url: "geetest/startCaptcha/t/" + (new Date()).getTime(),
 					type: "get",
 					dataType: "json",
 					success: function (data) {
@@ -284,7 +282,7 @@ function loadChaDetails() {
 
 function getTop10() {
 	$.ajax({
-		url: 'Team_ajax/get_ranks/10',
+		url: 'team_ajax/get_ranks/10',
 		method: 'get',
 		dataType: 'json',
 		success: function (data) {
