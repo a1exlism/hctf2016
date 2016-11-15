@@ -13,7 +13,7 @@
 
 			<div id="myTabContent" class="tab-content col-md-offset-2 col-md-8">
 				<div class="tab-pane fade active in">
-					<form class="form-horizontal" name="form" method="post">
+					<form class="form-horizontal" name="d_form" method="post">
 						<fieldset>
 							<div class="col-lg-10">
 								<div class="form-group">
@@ -121,10 +121,10 @@
 									<div class="col-lg-10 col-lg-offset-2">
 										<div class="row">
 											<div class="col-md-6">
-												<button type="button" class="btn btn-info" onclick=_update()>UPDATE</button>
+												<button type="button" class="btn btn-info" onclick= _update()>UPDATE</button>
 											</div>
 											<div class="col-md-6">
-												<button type="button" class="btn btn-danger" onclick=_delete()>DELETE</button>
+												<button type="button" class="btn btn-danger" onclick= _delete()>DELETE</button>
 											</div>
 										</div>
 									</div>
@@ -141,17 +141,19 @@
 
 
 <script type="text/javascript">
-	window.onload = function () {
-		function _update() {
-			document.form.action = "/hctf2016/adm1n/challenge/change";
-			document.form.submit();
-		}
-
-		function _delete() {
-			document.form.action = "/hctf2016/adm1n/challenge/delete";
-			document.form.submit();
-		}
+	
+	function _update() 
+	{
+		document.d_form.action = "/hctf2016/adm1n/challenge/change";
+		document.d_form.submit();
 	}
+
+	function _delete() 
+	{
+		document.d_form.action = "/hctf2016/adm1n/challenge/delete";
+		document.d_form.submit();
+	}
+	
 </script>
 <?php include_once('footer.php'); ?>
 
