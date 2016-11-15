@@ -179,36 +179,34 @@ VALUES
 -- Table structure for table `score_record`
 --
 
-CREATE TABLE IF NOT EXISTS `score_record` (
-  `team_name`   VARCHAR(40) NOT NULL,
-  `team_token`  VARCHAR(40) NOT NULL,
-  `score_a`     INT(11)     NOT NULL DEFAULT '0',
-  `score_b`     INT(11)     NOT NULL DEFAULT '0',
-  `score_c`     INT(11)     NOT NULL DEFAULT '0',
-  `score_d`     INT(11)     NOT NULL DEFAULT '0',
-  `score_e`     INT(11)     NOT NULL DEFAULT '0',
-  `score_f`     INT(11)     NOT NULL DEFAULT '0',
-  `total_score` INT(11)     NOT NULL DEFAULT '0'
+CREATE TABLE hctf2016.score_record (
+  team_name   VARCHAR(40) NOT NULL,
+  team_token  VARCHAR(40) NOT NULL,
+  score_a     INT         NOT NULL DEFAULT 0,
+  score_b     INT         NOT NULL DEFAULT 0,
+  score_c     INT         NOT NULL DEFAULT 0,
+  score_d     INT         NOT NULL DEFAULT 0,
+  score_e     INT         NOT NULL DEFAULT 0,
+  total_score INT         NOT NULL DEFAULT 0
 )
-  ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  CHARACTER SET = utf8;
 
 --
 -- Dumping data for table `score_record`
 --
 
-INSERT INTO `score_record` (`team_name`, `team_token`, `score_a`, `score_b`, `score_c`, `score_d`, `score_e`, `score_f`, `total_score`)
+INSERT INTO `score_record` (`team_name`, `team_token`, `score_a`, `score_b`, `score_c`, `score_d`, `score_e`, `total_score`)
 VALUES
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0, 0);
+  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
+  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
+  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
+  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
+  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
+  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
+  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
+  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
+  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
+  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
