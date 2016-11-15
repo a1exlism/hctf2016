@@ -39,9 +39,6 @@ class Check_flag extends CI_Controller
 
 	public function reset()
 	{ //  作弊处理
-		if ($this->session_check->check() === 0) {
-			redirect('index/login', 'location');
-		}
 
 		$session_token = $this->session->userdata('team_token');
 		$status = $this->input->post('status', TRUE);
