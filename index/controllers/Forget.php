@@ -34,7 +34,7 @@ class Forget extends CI_Controller
 
 		$subject = 'HCTF2016 | Password Reset';
 		//  todo: URL 需要一个绝对路径
-		$link = 'http://test.com:8000/hctf2016/index/forget/pass_reset/' . $token . '/' . $checksum;
+		$link = 'http://115.159.26.130:8000/hctf2016/index/forget/pass_reset/' . $token . '/' . $checksum;
 		$sender = 'a1ex_x@126.com';
 
 		$message = "<p>Use the following link to reset your password:<a href='" . $link . "' target='_blank'>$link</a></p>";
