@@ -154,7 +154,8 @@ class Flag_model extends CI_model
 						$sum = $sum + $ready_challenge[0]['challenge_score'];
 					}
 					$team_data = array('total_score' => $sum);
-					$basic_score=$this->db->where('team_token', $team_token)->get('team_info')->result_array();
+					$basic_score=$this->db->where('team_token', $team_token)->get('team_info');
+					$basic_score=$basic_score->result_array();
 					$num=$num+$basic_score[0]['basic_score'];
 					$this->db->where('team_token', $team_token)->update('team_info', $team_data);
 				}
