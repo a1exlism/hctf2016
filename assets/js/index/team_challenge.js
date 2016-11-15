@@ -203,14 +203,21 @@ function loadChaDetails() {
 								dataType: 'json',
 								data: {
 									solved_time: getTimeLine()
+								},
+								success: function () {
+									setTimeout(function () {
+										$('.mask').remove();
+										getChallenge();
+									}, 800);
 								}
 							});
 							break;
 						case 3:
-							notifyShow('flag-info', 'You have solved this prob.');
+							notifyShow('flag-info', 'You solved this challenge.');
 							break;
 						default:
 							notifyShow('flag-warning', 'This challenge is hidden now.');
+							// setTimeout(getChallenge, 1000); todo: for testing
 					}
 				}
 			}
