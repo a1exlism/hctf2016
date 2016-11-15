@@ -23,14 +23,14 @@
 								<div class="form-group">
 									<label for="" class="col-lg-2 control-label">Id(optional)</label>
 									<div class="col-lg-10">
-										<input type="text" class="form-control">
+										<input type="text" class="form-control" name="team_name">
 									</div>
 								</div>
 
 								<div class="form-group">
 									<label for="" class="col-lg-2 control-label">Token(optional)</label>
 									<div class="col-lg-10">
-										<input type="text" class="form-control">
+										<input type="text" class="form-control" name="team_token">
 									</div>
 								</div>
 
@@ -51,8 +51,8 @@
 									<label for="" class="col-lg-2 control-label">Option</label>
 									<div class="col-lg-10">
 										<select class="form-control" id="" name="method">
-											<option>Team Name</option>
-											<option>Team Token</option>
+											<option>team_name</option>
+											<option>team_token</option>
 										</select>
 									</div>
 								</div>
@@ -146,7 +146,7 @@
 								<div class="form-group">
 									<label for="" class="col-lg-2 control-label">Value</label>
 									<div class="col-lg-10">
-										<input type="text" class="form-control" id="">
+										<input type="text" class="form-control" id="" name="value">
 									</div>
 								</div>
 

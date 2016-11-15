@@ -94,7 +94,9 @@ class Flag_model extends CI_model
 		$team_cheat=$team_cheat->result_array();
 		
 		if($team_cheat[0]['is_cheat']!=0)
+		{	
 			return 1;
+		}
 
 		$final_time = time();
 		$where = array(
@@ -165,10 +167,12 @@ class Flag_model extends CI_model
 				}
 
 			}
-		} else if (!empty($result[0]['challenge_solved_time']))#flag已经提交
+		} 
+		else if (!empty($result[0]['challenge_solved_time']))#flag已经提交
 		{
 			$bool = 3;
-		} else if ($result[0]['challenge_flag'] !== $flag)#flag错误
+		} 
+		else if ($result[0]['challenge_flag'] !== $flag)#flag错误
 		{
 			$where = array(
 				'challenge_id' => $id,

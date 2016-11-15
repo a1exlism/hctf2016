@@ -47,6 +47,7 @@ class Team_model extends CI_model
 	{
 		$where=array($method=>$value);
 		$data=array('is_cheat'=>1);
+		var_dump($where);
 		$result=$this->db->update('team_info',$data,$where);
 		return $result;
 	}
