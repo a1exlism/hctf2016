@@ -18,7 +18,7 @@
 				<div id="myTabContent" class="tab-content col-md-offset-2 col-md-8">
 
 					<div class="tab-pane fade active in" id="search">
-						<form class="form-horizontal" action="/hctf2016/adm1n/team/search">
+						<form class="form-horizontal" action="/hctf2016/adm1n/team/search" method="post">
 							<fieldset>
 								<div class="form-group">
 									<label for="" class="col-lg-2 control-label">Id(optional)</label>
@@ -45,7 +45,7 @@
 
 
 					<div class="tab-pane fade" id="ban">
-						<form class="form-horizontal" action="/hctf2016/adm1n/team/ban">
+						<form class="form-horizontal" action="/hctf2016/adm1n/team/ban" method="post">
 							<fieldset>
 								<div class="form-group">
 									<label for="" class="col-lg-2 control-label">Option</label>
@@ -75,7 +75,7 @@
 
 
 					<div class="tab-pane fade" id="score">
-						<form class="form-horizontal" action="/hctf2016/adm1n/team/score">
+						<form class="form-horizontal" action="/hctf2016/adm1n/team/score" method="post">
 							<fieldset>
 								<div class="form-group">
 									<div class="col-lg-10">
@@ -112,7 +112,7 @@
 					</div>
 
 					<div class="tab-pane fade" id="challenge">
-						<form class="form-horizontal" action="/hctf2016/adm1n/team/open">
+						<form class="form-horizontal" action="/hctf2016/adm1n/team/open" method="post">
 							<fieldset>
 								<div class="form-group">
 									<label for="" class="col-lg-2 control-label">Challenge ID</label>
@@ -131,7 +131,7 @@
 					</div>
 
 					<div class="tab-pane fade" id="card">
-						<form class="form-horizontal" action="/hctf2016/adm1n/team/card">
+						<form class="form-horizontal" action="/hctf2016/adm1n/team/card" method="post">
 							<fieldset>
 								<div class="form-group">
 									<label for="" class="col-lg-2 control-label">Option</label>

@@ -17,7 +17,7 @@
 
 				<div class="tab-pane fade active in" id="show">
 
-					<form class="form-horizontal" action="/hctf2016/adm1n/challenge/show">
+					<form class="form-horizontal" action="/hctf2016/adm1n/challenge/show" method="post">
 						<fieldset>
 							<div class="form-group">
 								<label for="" class="col-lg-2 control-label">Id(optional)</label>
@@ -36,7 +36,7 @@
 				</div>
 
 				<div class="tab-pane fade" id="add">
-					<form class="form-horizontal" action="/hctf2016/adm1n/challenge/add">
+					<form class="form-horizontal" action="/hctf2016/adm1n/challenge/add" method="post">
 						<fieldset>
 							<div class="col-lg-10">
 								<input type="text" class="form-control" name="name" placeholder="name">
@@ -62,29 +62,6 @@
 
 	</div>
 </div>
-
-
-<!--
-<form action="/hctf2016/adm1n/challenge/show" method="post">
-	<input type="text" name="id" placeholder="id(选填)">
-	<input type="submit" value="SHOW">
-</form>
-
-<br/>
-
-<form action="/hctf2016/adm1n/challenge/add" method="post">
-	<input type="text" name="name" placeholder="name">
-	<input type="text" name="type" placeholder="type">
-	<input type="text" name="score" placeholder="score">
-	<input type="text" name="description" placeholder="description">
-	<input type="text" name="level" placeholder="level">
-	<input type="text" name="threshold" placeholder="threshold(选填)">
-	<input type="text" name="hit" placeholder="hit(选填)">
-	<input type="text" name="api" placeholder="api(选填)">
-	<input type="submit" value="INSERT">
-</form>
-
-<br/>-->
 
 
 <?php include_once('footer.php'); ?>

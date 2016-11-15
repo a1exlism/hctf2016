@@ -14,7 +14,7 @@
 			<div id="myTabContent" class="tab-content col-md-offset-2 col-md-8">
 
 				<div class="tab-pane fade active in" id="create">
-					<form class="form-horizontal" action="/hctf2016/adm1n/createapi/api">
+					<form class="form-horizontal" action="/hctf2016/adm1n/createapi/api" method="post">
 						<fieldset>
 							<div class="form-group">
 								<label for="" class="col-lg-2 control-label">API name</label>

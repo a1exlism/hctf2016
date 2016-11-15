@@ -16,7 +16,7 @@
 			<div id="myTabContent" class="tab-content col-md-offset-2 col-md-8">
 
 				<div class="tab-pane fade active in" id="Insert">
-					<form class="form-horizontal" action="/hctf2016/adm1n/info/add">
+					<form class="form-horizontal" action="/hctf2016/adm1n/info/add" method="post">
 						<fieldset>
 							<div class="form-group">
 								<label for="" class="col-lg-2 control-label">Message</label>
@@ -35,7 +35,7 @@
 				</div>
 
 				<div class="tab-pane fade" id="change">
-					<form class="form-horizontal" action="/hctf2016/adm1n/info/change">
+					<form class="form-horizontal" action="/hctf2016/adm1n/info/change" method="post">
 						<fieldset>
 							<div class="form-group">
 								<label for="" class="col-lg-2 control-label">Bulletin ID</label>
@@ -61,7 +61,7 @@
 				</div>
 
 				<div class="tab-pane fade" id="delete">
-					<form class="form-horizontal" action="/hctf2016/adm1n/info/delete">
+					<form class="form-horizontal" action="/hctf2016/adm1n/info/delete" method="post">
 						<fieldset>
 
 							<div class="form-group">
