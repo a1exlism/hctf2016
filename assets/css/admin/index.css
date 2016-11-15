@@ -4,3 +4,8 @@ input, select {
 	margin: 1em auto !important;
 	background-color: rgba(255, 255, 255, 0.2) !important;
 }
+
+option {
+	color: #fff;
+	background: #222;
+}

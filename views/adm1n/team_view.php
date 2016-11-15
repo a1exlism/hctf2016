@@ -78,8 +78,8 @@
 						<form class="form-horizontal" action="/hctf2016/adm1n/team/score">
 							<fieldset>
 								<div class="form-group">
-									<label for="" class="col-lg-2 control-label">Option</label>
 									<div class="col-lg-10">
+										<label for="" class="col-lg-2 control-label">Option</label>
 										<select class="form-control" id="">
 											<option>Team Name</option>
 											<option>Team Token</option>
