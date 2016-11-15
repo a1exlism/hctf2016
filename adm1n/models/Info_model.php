@@ -11,6 +11,10 @@ class Info_model extends CI_model
 
 	public function del($id)
 	{
+		$temp=$this->db->where('bulletin_id',$id)->get('bulletin');
+		$temp=$temp->result_array();
+		if(empty($temp[0]))
+			return 0;
 		$result=$this->db->where('bulletin_id',$id)->delete('bulletin');
 		return $result;
 	}
