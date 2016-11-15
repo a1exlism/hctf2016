@@ -14,6 +14,7 @@ class Check_flag extends CI_Controller
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->model('flag_model');
+		$this->load->model('user_model');
 		$is_login = $this->session->userdata('is_login');
 		$this->token = $this->session->userdata('team_token');
 		if (!$is_login) {
@@ -39,14 +40,12 @@ class Check_flag extends CI_Controller
 
 	public function reset()
 	{ //  作弊处理
-
 		$session_token = $this->session->userdata('team_token');
 		$arr = array(
 			'team_pass' => md5(md5(uniqid(rand() . 'xxxx')))
 		);
-		$this->user_model->update($session_token, $arr);
+		$this->user_model->user_update($session_token, $arr);
 		$this->session->sess_destroy();
-		redirect('login', 'location');
 	}
 }
 

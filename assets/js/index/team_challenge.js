@@ -119,7 +119,7 @@ function loadChaDetails() {
 			var validate = captchaObj.getValidate();
 			var flag = $('.flag-content').val();
 			$.ajax({
-				url: "Geetest/verifyFlag", // 进行二次验证
+				url: "geetest/verifyFlag", // 进行二次验证
 				type: "post",
 				dataType: "json",
 				data: {
@@ -165,7 +165,7 @@ function loadChaDetails() {
 		var chaId = getChaObj($(teamCha).find('.cha-info h1').text()).challenge_id;
 		// console.log(chaId);
 		$.ajax({
-			url: "Check_flag/check",
+			url: "check_flag/check",
 			type: "post",
 			dataType: "json",
 			data: {
@@ -190,7 +190,9 @@ function loadChaDetails() {
 							break;
 						case 1:
 							notifyShow('flag-danger', 'You are cheating!Contact Administrator!');
-							window.location.href="index/login";
+							setTimeout(function() {
+								window.location.href="login";
+							}, 800);
 							break;
 						case 2:
 							notifyShow('flag-success', 'Correct flag, Congratulations!');
