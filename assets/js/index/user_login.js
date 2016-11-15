@@ -363,12 +363,12 @@ $(function () {
 
 	/* -- regenerate Geetest captcha --*/
 	$("#cover-submit-login").click(function () {
-		$('#popup-captcha').find('.gt_mobile_holder').first().remove();
 		$.ajax({
 			url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
 			type: "get",
 			dataType: "json",
 			success: function (data) {
+				$('#popup-captcha').find('.gt_mobile_holder').first().remove();
 				initGeetest({
 					gt: data.gt,
 					challenge: data.challenge,
@@ -379,12 +379,12 @@ $(function () {
 	});
 
 	$("#cover-submit-register").click(function () {
-		$('#popup-captcha').find('.gt_mobile_holder').first().remove();
 		$.ajax({
 			url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
 			type: "get",
 			dataType: "json",
 			success: function (data) {
+				$('#popup-captcha').find('.gt_mobile_holder').first().remove();
 				initGeetest({
 					gt: data.gt,
 					challenge: data.challenge,
