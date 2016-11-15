@@ -69,8 +69,8 @@
 
 	window.onload = function () {
 		var currentTime = new Date(),
-				startTime   = new Date('2016-10-15 10:00:00'),
-				endTime     = new Date('2016-11-15 10:00:00'); //2days
+				startTime   = new Date('2016-11-25 20:00:00'),
+				endTime     = new Date('2016-12-27 20:00:00');
 		var h1Start = document.getElementsByClassName('h1_start')[0],
 				h1End = document.getElementsByClassName('h1_end')[0],
 				loginBtn = document.getElementsByClassName('login_btn')[0];
@@ -84,17 +84,14 @@
 		if (currentTime.getTime() < startTime.getTime()) {
 			getTimer(startTime.getTime());
 			if (currentTime.getMonth() == (10 - 1) && currentTime.getDate() == 15 && currentTime.getHours() == 9) {
-//			if (1) {
 				setInterval(function () {
 					//  time refresh
 					if (new Date().getHours() === 10) {
-//					if (1) {
 						displayToggle();
 						delete countDown;
 						var timer_node = document.querySelector('countdown-timer');
 						timer_node.removeChild(timer_node.lastChild);
 						getTimer(endTime.getTime());
-						//  这么写规避一下..
 						setTimeout(function() {
 							window.location.href = 'index/login';
 						}, 3000);
@@ -102,7 +99,7 @@
 				}, 1000);
 			}
 		} else {
-			getTimer(endTime.getTime());
+			getTimer(endTime.getTime());   // day 2
 			displayToggle();
 		}
 	}
