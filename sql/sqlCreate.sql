@@ -6,22 +6,22 @@ USE hctf2016;
 
 /* -- Team Info -- */
 CREATE TABLE hctf2016.team_info (
-  team_id      INT UNSIGNED     NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  team_email   VARCHAR(40)      NOT NULL,
-  team_name    VARCHAR(40)      NOT NULL,
-  team_pass    VARCHAR(40)      NOT NULL,
-  team_school  VARCHAR(20)      NOT NULL,
-  team_phone   INT(12) UNSIGNED NOT NULL,
-  team_token   VARCHAR(40)      NOT NULL,
-  is_expand    BOOL             NOT NULL DEFAULT 0,
+  team_id      INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  team_email   VARCHAR(40)  NOT NULL,
+  team_name    VARCHAR(40)  NOT NULL,
+  team_pass    VARCHAR(40)  NOT NULL,
+  team_school  VARCHAR(20)  NOT NULL,
+  team_phone   VARCHAR(15)  NOT NULL,
+  team_token   VARCHAR(40)  NOT NULL,
+  is_expand    BOOL         NOT NULL DEFAULT 0,
   -- 是否可以开题
-  total_score  INT              NOT NULL DEFAULT 0,
-  compet_level INT UNSIGNED     NOT NULL DEFAULT 0,
+  total_score  INT          NOT NULL DEFAULT 0,
+  compet_level INT UNSIGNED NOT NULL DEFAULT 0,
   -- 可挑战层数
-  is_cheat     BOOL             NOT NULL DEFAULT 0,
+  is_cheat     BOOL         NOT NULL DEFAULT 0,
   -- 总分更新时间
-  score_update INT              NOT NULL DEFAULT 0,
-  basic_score  INT              NOT NULL DEFAULT 0
+  score_update INT          NOT NULL DEFAULT 0,
+  basic_score  INT          NOT NULL DEFAULT 0
 )
   CHARACTER SET = utf8;
 
