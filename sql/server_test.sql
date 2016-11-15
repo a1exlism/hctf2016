@@ -191,23 +191,6 @@ CREATE TABLE hctf2016.score_record (
 )
   CHARACTER SET = utf8;
 
---
--- Dumping data for table `score_record`
---
-
-INSERT INTO `score_record` (`team_name`, `team_token`, `score_a`, `score_b`, `score_c`, `score_d`, `score_e`, `total_score`)
-VALUES
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0),
-  ('test2', '273d28b6511cb69ac2c89eddf41cb260', 0, 0, 0, 0, 0, 0);
-
 -- --------------------------------------------------------
 
 --

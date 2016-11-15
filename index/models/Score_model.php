@@ -28,8 +28,7 @@ class Score_model extends CI_Model
 				'score_e' => 0,
 				'total_score' => 0
 			);
-			$this->db->where('team_token', $token);
-			$this->db->update('score_record', $arr);
+			$this->db->insert('score_record', $arr);
 		}
 	}
 
