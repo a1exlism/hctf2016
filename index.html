@@ -69,16 +69,14 @@
 
 	window.onload = function () {
 		var currentTime = new Date(),
-				startTime   = new Date('2016-11-25 20:00:00'),
-				endTime     = new Date('2016-12-27 20:00:00');
+			startTime = new Date('2016-11-25 20:00:00'),
+			endTime = new Date('2016-12-27 20:00:00');
 		var h1Start = document.getElementsByClassName('h1_start')[0],
-				h1End = document.getElementsByClassName('h1_end')[0],
-				loginBtn = document.getElementsByClassName('login_btn')[0];
+			h1End = document.getElementsByClassName('h1_end')[0];
 
 		function displayToggle() {
 			h1Start.style.display = 'none';
 			h1End.style.display = 'block';
-			loginBtn.style.display = 'block';
 		}
 
 		if (currentTime.getTime() < startTime.getTime()) {
@@ -92,7 +90,7 @@
 						var timer_node = document.querySelector('countdown-timer');
 						timer_node.removeChild(timer_node.lastChild);
 						getTimer(endTime.getTime());
-						setTimeout(function() {
+						setTimeout(function () {
 							window.location.href = 'index/login';
 						}, 3000);
 					}
