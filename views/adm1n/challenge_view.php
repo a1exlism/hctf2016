@@ -22,7 +22,7 @@
 							<div class="form-group">
 								<label for="" class="col-lg-2 control-label">Id(optional)</label>
 								<div class="col-lg-10">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" name="id">
 								</div>
 							</div>
 
