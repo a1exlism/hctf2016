@@ -1,6 +1,7 @@
 <?php include_once('header.php'); ?>
 </head>
 <body>
+
 <div id="admin" class="container">
 	<div class="row">
 
@@ -48,7 +49,7 @@
 								<input type="text" class="form-control" name="hit" placeholder="hit(选填)">
 								<input type="text" class="form-control" name="api" placeholder="api(选填)">
 								<div class="form-group">
-									<div class="col-lg-10 col-lg-offset-2">
+									<div class="col-xs-12">
 										<button type="submit" class="btn btn-primary">Insert</button>
 									</div>
 								</div>
