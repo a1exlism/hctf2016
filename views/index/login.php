@@ -83,7 +83,7 @@
 										</div>
 										<div class="msgtip-fail-login">
 											<p>Login failed.</p><br>
-											<p>Wrong username || password</p>
+											<p>Wrong username || password || Not Actived</p>
 										</div>
 										<div class="geetest-fail">
 											<p>Login failed.</p><br>

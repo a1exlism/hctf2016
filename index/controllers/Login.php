@@ -48,8 +48,7 @@ class Login extends CI_Controller
 		}
 
 		$subject = 'HCTF2016 | Account Active';
-		//  todo: URL 需要一个绝对路径
-		$link = 'http://test.com:8000/hctf2016/index/active/mail/' . $token;
+		$link = 'http://115.159.26.130:8000/hctf2016/index/active/mail/' . $token;
 		$sender = 'a1ex_x@126.com';
 
 		$message = "<p>Use the following link to active your account:<a href='" . $link . "' target='_blank'>$link</a></p>";

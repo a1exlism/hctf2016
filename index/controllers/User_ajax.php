@@ -29,7 +29,7 @@ class User_ajax extends CI_Controller
 		if ($user_data) {
 			//  如果用户存在
 			$team_pass = $this->user_model->str_encode($team_pass);
-			if ($user_data->team_pass === $team_pass) {
+			if ($user_data->team_pass === $team_pass && $user_data->active_status == 1) {
 				$session_arr = array(
 					'team_token' => $user_data->team_token,
 					'is_login' => 1
