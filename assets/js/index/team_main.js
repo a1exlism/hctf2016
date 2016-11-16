@@ -185,7 +185,7 @@ $(function () {
 		}
 		
 		
-		var deadline = new Date('2016-12-27 20:00:00');
+		var deadline = new Date('2016-11-27 20:00:00');
 		var timeSpan = $('#toggle-time span')[0];
 		var timeObj = getTime(deadline);
 		if (timeObj.leftTime >= 0) {

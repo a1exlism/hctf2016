@@ -136,18 +136,30 @@ $(function () {
 		$('#form-login').fadeOut(150);
 		$('#login-form-link').removeClass('active');
 		$(this).addClass('active');
-		event.preventDefault(); //防止url被打开
+		event.preventDefault();
 	});
 	
 	/*--- Register input check ---*/
-	var btnRegister = document.getElementById('cover-submit-register'),
+	var btnRegister = document.querySelector('#cover-submit-register'),
+		btnLogin = document.querySelector('#cover-submit-login'),
 		inputTeamName = document.getElementById('user-register'),
 		inputSchool = document.getElementById('school'),
 		inputPassword = document.getElementById('pass-register'),
 		inputConfirm = document.getElementById('password-confirm'),
 		inputPhoneNum = document.getElementById('phone');
 	
-	//  Warning Infomation 警告信息
+	//  messages	
+	
+	var mask = $('#mask'),
+			popupCaptcha = $('#popup-captcha');
+		
+	var msgSucReg = $('.msgtip-success-register'),
+		msgFaiReg = $('.msgtip-fail-register'),
+		msgSucLog = $('.msgtip-success-login'),
+		msgFaiLog = $('.msgtip-fail-login');
+	
+	
+	//  Warning Infomation
 	function warningAdd() {
 		btnRegister.classList.remove('btn-primary');
 		btnRegister.classList.add('submit-wrong');
@@ -174,15 +186,11 @@ $(function () {
 		}
 	}
 	
-	//  email
-	function emailCheck() {
-		
-	}
 	
 	//  password confirm
 	
 	function passwdCheck() {
-
+		
 		if (inputPassword.value != inputConfirm.value) {
 			//  judge classname
 			if (btnRegister.classList.contains('submit-wrong')) {
@@ -196,104 +204,137 @@ $(function () {
 		}
 	}
 	
-
+	
 	inputPassword.addEventListener('blur', passwdCheck);
 	inputPassword.addEventListener('focus', warningRemove);
 	inputConfirm.addEventListener('focus', warningRemove);
 	inputConfirm.addEventListener('blur', passwdCheck);
-
-
+	
+	
 	/*
 	 *
-	 *   --  ajax异步提交表单  --
+	 *   --  ajax asyn submit --
 	 *
 	 * */
-
-	var postLogin = function () {
+	
+	
+	/* -- register -- */
+	$(btnRegister).click(function () {
 		$.ajax({
-			url: 'User_ajax/login_check',
-			type: 'post',
-			dataType: 'json',
-			data: {
-				teamname: $('#user-login').val(),
-				password: $('#pass-login').val()
-			},
+			url: "geetest/startCaptcha/t/" + (new Date()).getTime(),
+			type: "get",
+			dataType: "json",
 			success: function (data) {
-				if (data && (data.status === "success")) {
-					$('.msgtip-success-login').show();
-					setTimeout(function () {
-						window.location.href = 'team';
-					}, 500);
-				} else {
-					$('.msgtip-fail-login').show();
-					setTimeout(function () {
-						$('.msgtip-fail-login').hide();
-					}, 2500);
-				}
+				$('#popup-captcha').find('.gt_mobile_holder').first().remove();
+				initGeetest({
+					gt: data.gt,
+					challenge: data.challenge,
+					offline: !data.success
+				}, registerValidate);
 			}
 		});
+	});
+	
+	
+	var registerValidate = function (captchaObj) {
+		captchaObj.appendTo("#popup-captcha");
+		captchaObj.onSuccess(function () {
+			captchaHide();
+			var validate = captchaObj.getValidate();
+			var email = $('#email').val();
+			$.ajax({
+				url: "geetest/register_check",
+				type: "post",
+				dataType: "json",
+				data: {
+					teamname: $('#user-register').val(),
+					school: $('#school').val(),
+					email: email,
+					password: $('#pass-register').val(),
+					phone: $('#phone').val(),
+					geetest_challenge: validate.geetest_challenge,
+					geetest_validate: validate.geetest_validate,
+					geetest_seccode: validate.geetest_seccode
+				},
+				success: function (data) {
+					if (data && (data.status === "success")) {
+						if (data.to_active && data.to_active === 1) {
+							mailSend(data.checksum, email);
+						}
+						$(msgSucReg).show();
+						setTimeout(function () {
+							$('#login-form-link').click();
+							$(msgSucReg).hide();
+						}, 500);
+					} else if (data && (data.status === "error")) {
+						//  json 数据处理
+						//  清空所有子元素
+						$(msgFaiReg).empty();
+						for (var i in data) {
+							if (i == 'status') {
+								continue;
+							}
+							$(msgFaiReg).append('<p>' + data[i] + '</p>');
+						}
+						$(msgFaiReg).show();
+						setTimeout(function () {
+							$(msgFaiReg).hide();
+						}, 2500);
+					}
+				}
+			});
+		});
 	};
-
-	var postRegister = function () {
+	
+	//  email
+	function mailSend(checksum, mailToSend) {
 		$.ajax({
-			url: 'User_ajax/register_check',
+			url: 'login/mail_send',
 			type: 'post',
 			dataType: 'json',
 			data: {
-				teamname: $('#user-register').val(),
-				school: $('#school').val(),
-				email: $('#email').val(),
-				password: $('#pass-register').val(),
-				phone: $('#phone').val()
+				email: mailToSend,
+				checksum: checksum
 			},
 			success: function (data) {
-
-				if (data && (data.status === "success")) {
-					$('.msgtip-success-register').show();
-					setTimeout(function () {
-						$('#login-form-link').click();
-						$('.msgtip-success-register').hide();
-					}, 500);
-				} else if (data && (data.status === "error")) {
-					//  json 数据处理
-					//  清空所有子元素
-					$('.msgtip-fail-register').empty();
-					for (var i in data) {
-						if (i == 'status') {
-							continue;
-						}
-						$('.msgtip-fail-register').append('<p>' + data[i] + '</p>');
+				if (data) {
+					if (data.status === 'success') {
+						//  todo: tmpShow() 函数编写
+						alert('Success');
+						// tmpShow(successMsg, data.message);
 					}
-					$('.msgtip-fail-register').show();
-					setTimeout(function () {
-						$('.msgtip-fail-register').hide();
-					}, 2500);
 				}
 			}
 		})
-	};
-
-
-	/* --- 极验验证 --- 套用的mobi端 --- */
-	function captchaHide() {
-		$("#mask, #popup-captcha").hide();
 	}
-
-	$("#mask").click(function () {
-		$("#mask, #popup-captcha").hide();
-		$('#cover-submit-login, #cover-submit-register').show();
-	});
-
-	$("#cover-submit-login").click(function () {
-		$("#mask, #popup-captcha").show();
-	});
-
-	$("#cover-submit-register").click(function () {
-		$("#mask, #popup-captcha").show();
-	});
-
+	
+	//  todo: tmpShow() 更改
+	function tmpShow(ele, message) {
+		$(ele).empty();
+		$(ele).append('<p>' + message + '</p>');
+		$(ele).show();
+		setTimeout(function () {
+			$(ele).hide();
+		}, 2500);
+	}
+	
 	/* -- login -- */
-
+	$(btnLogin).click(function () {
+		$.ajax({
+			url: "geetest/startCaptcha/t/" + (new Date()).getTime(),
+			type: "get",
+			dataType: "json",
+			success: function (data) {
+				$(popupCaptcha).find('.gt_mobile_holder').first().remove();
+				initGeetest({
+					gt: data.gt,
+					challenge: data.challenge,
+					offline: !data.success
+				}, handlerPopupLogin);
+			}
+		});
+	});
+	
 	var handlerPopupLogin = function (captchaObj) {
 		// 将验证码加到id为captcha的元素里
 		captchaObj.appendTo("#popup-captcha");
@@ -303,7 +344,7 @@ $(function () {
 			//  mask 隐藏
 			var validate = captchaObj.getValidate();
 			$.ajax({
-				url: "Geetest/verifyLogin", // 进行二次验证
+				url: "geetest/verifyLogin", // 进行二次验证
 				type: "post",
 				dataType: "json",
 				data: {
@@ -325,73 +366,57 @@ $(function () {
 						}, 2500);
 					}
 				}
-
+				
 			});
 		});
 	};
-
-	/* -- register -- */
-
-	var handlerPopupRegister = function (captchaObj) {
-		captchaObj.appendTo("#popup-captcha");
-		captchaObj.onSuccess(function () {
-			//  隐藏 MASK
-			captchaHide();
-			var validate = captchaObj.getValidate();
-			$.ajax({
-				url: "Geetest/verifyLogin",
-				type: "post",
-				dataType: "json",
-				data: {
-					username: $('#user-register').val(),
-					password: $('#pass-register').val(),
-					geetest_challenge: validate.geetest_challenge,
-					geetest_validate: validate.geetest_validate,
-					geetest_seccode: validate.geetest_seccode
-				},
-				success: function (data) {
-					if (data && (data.hasOwnProperty('error'))) {
-						console.log(0);
-					} else {
-						// $('#form-register').submit();
-						postRegister();
-					}
+	
+	var postLogin = function () {
+		$.ajax({
+			url: 'user_ajax/login_check',
+			type: 'post',
+			dataType: 'json',
+			data: {
+				teamname: $('#user-login').val(),
+				password: $('#pass-login').val()
+			},
+			success: function (data) {
+				if (data && (data.status === "success")) {
+					$('.msgtip-success-login').show();
+					setTimeout(function () {
+						window.location.href = 'team';
+					}, 500);
+				} else {
+					$(msgFaiLog).show();
+					setTimeout(function () {
+						$(msgFaiLog).hide();
+					}, 2500);
 				}
-			});
+			}
 		});
+	};
+	
+	/* --- 极验验证 --- 套用的mobi端 --- */
+	
+	function captchaHide() {
+		$(mask).hide();
+		$(popupCaptcha).hide();
 	}
-
-	/* -- regenerate Geetest captcha --*/
-	$("#cover-submit-login").click(function () {
-		$.ajax({
-			url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
-			type: "get",
-			dataType: "json",
-			success: function (data) {
-				$('#popup-captcha').find('.gt_mobile_holder').first().remove();
-				initGeetest({
-					gt: data.gt,
-					challenge: data.challenge,
-					offline: !data.success
-				}, handlerPopupLogin);
-			}
-		});
+	
+	$(mask).click(function () {
+		captchaHide();
+		$(btnLogin).show();
+		$(btnRegister).show();
 	});
-
-	$("#cover-submit-register").click(function () {
-		$.ajax({
-			url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
-			type: "get",
-			dataType: "json",
-			success: function (data) {
-				$('#popup-captcha').find('.gt_mobile_holder').first().remove();
-				initGeetest({
-					gt: data.gt,
-					challenge: data.challenge,
-					offline: !data.success
-				}, handlerPopupRegister);
-			}
-		});
+	
+	$(btnLogin).click(function () {
+		$(mask).show();
+		$(popupCaptcha).show();
+	});
+	
+	$(btnRegister).click(function () {
+		$(mask).show();
+		$(popupCaptcha).show();
 	});
 	
 });

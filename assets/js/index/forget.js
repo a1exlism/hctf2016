@@ -16,7 +16,7 @@ $(function () {
 	$(submitMail).click(function () {
 		$(popupCaptcha).empty();
 		$.ajax({
-			url: "Geetest/startCaptcha/t/" + (new Date()).getTime(),
+			url: "geetest/startCaptcha/t/" + (new Date()).getTime(),
 			type: "get",
 			dataType: "json",
 			success: function (data) {
@@ -36,7 +36,7 @@ $(function () {
 			var validate = captchaObj.getValidate();
 			mailToSend = $('#forget').find('input').val();
 			$.ajax({
-				url: "Geetest/mail_check",
+				url: "geetest/mail_check",
 				type: "post",
 				dataType: "json",
 				data: {

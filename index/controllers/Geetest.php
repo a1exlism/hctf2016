@@ -18,6 +18,7 @@ class Geetest extends CI_Controller
 	private $private_key;
 	private $GtSdk;
 	private $mail_salt;
+	private $active_salt;
 
 	public function __construct()
 	{
@@ -26,15 +27,19 @@ class Geetest extends CI_Controller
 
 		$this->load->library('session');
 		$this->load->library('form_validation');
+		$this->load->library('email');
 
 		$this->load->model('session_check');
 		$this->load->model('user_model');
+		$this->load->model('score_model');
+		$this->load->model('flag_model');
 
 		$this->mobile_captcha_id = "32bbbde17a1a19c1fa06121f437ff2c8";
 		$this->mobile_private_key = "aa9621efff0aa0cb09a0f85b00341b8f";
 		$this->GtSdk = new GeetestLib($this->mobile_captcha_id, $this->mobile_private_key);
 
 		$this->mail_salt = 'fackemail';
+		$this->active_salt = 'fackactive';
 	}
 
 	public function startCaptcha()
@@ -46,6 +51,134 @@ class Geetest extends CI_Controller
 		echo $this->GtSdk->get_response_str();
 	}
 
+
+	//  register
+
+	public function register_check()
+	{
+		$team_name = $this->input->post('teamname', TRUE);
+		$team_school = $this->input->post('school', TRUE);
+		$team_email = $this->input->post('email', TRUE);
+		$team_pass = $this->input->post('password', TRUE);
+		$team_phone = $this->input->post('phone', TRUE);
+
+		//  form-validation
+		$config = array(
+			array(
+				'field' => 'teamname',
+				'label' => 'team_name',
+				'rules' => 'required|is_unique[team_info.team_name]',
+				'errors' => array(
+					'required' => 'Team name required.',
+					'is_unique' => 'The user name has been taken.'
+				)
+			),
+			array(
+				'field' => 'school',
+				'label' => 'school_name',
+				'rules' => 'required',
+				'errors' => array(
+					'required' => 'School name required.'
+				)
+			),
+			array(
+				'field' => 'email',
+				'label' => 'email',
+				'rules' => 'required|valid_email|is_unique[team_info.team_email]',
+				'errors' => array(
+					'required' => 'Email required.',
+					'valid_email' => 'Invalid email',
+					'is_unique' => 'The email has been taken.'
+				)
+			),
+			array(
+				'field' => 'password',
+				'label' => 'team_password',
+				'rules' => 'required',
+				'errors' => array(
+					'required' => 'Password required.'
+				)
+			),  //  前端验证的pass confirm
+			array(
+				'field' => 'phone',
+				'label' => 'phone_number',
+				'rules' => 'required|min_length[8]|max_length[13]|numeric',
+				'errors' => array(
+					'min_length' => 'Wrong number length!',
+					'max_length' => 'Wrong number length!',
+					'numeric' => 'Phone number should be numeric!',
+					'required' => 'Phone number is required.'
+				)
+			)
+		);
+		$this->form_validation->set_rules($config);
+
+		$user_id = $this->session->user_id;
+		$geetest_challenge = $this->input->post('geetest_challenge');
+		$geetest_validate = $this->input->post('geetest_validate');
+		$geetest_seccode = $this->input->post('geetest_seccode');
+
+		$validate_result = array();
+
+		if ($_SESSION['gtserver'] == 1) {   //服务器正常
+			$result = $this->GtSdk->success_validate($geetest_challenge, $geetest_validate, $geetest_seccode, $user_id);
+			if ($result) {
+				//  form data validation
+				if ($this->form_validation->run() == FALSE) {
+
+					//  创建error_json
+					$validate_result = array(
+						'status' => 'error',
+						'name' => form_error('teamname'),
+						'school' => form_error('school'),
+						'email' => form_error('email'),
+						'pass' => form_error('password'),
+						'phone' => form_error('phone')
+					);
+
+				} else {
+
+					$arr_reg = array(
+						'team_name' => $team_name,
+						'team_school' => $team_school,
+						'team_email' => $team_email,
+						'team_pass' => $team_pass,
+						'team_phone' => $team_phone
+					);
+
+					$this->user_model->user_register($arr_reg);
+					//  table score_record init
+					$team_token = $this->user_model->user_select($team_name)->row()->team_token;
+					$this->score_model->init($team_token, $team_name);
+					$this->flag_model->level_check($team_token); //  调用开题脚本
+					$validate_result = array(
+						'status' => 'success',
+						'message' => 'Register success',
+						'checksum' => md5(md5($this->active_salt.$team_email)),
+						'to_active' => 1 //  发邮件
+					);
+				}
+
+			} else {
+				$validate_result = array(
+					'status' => 'error',
+					'message' => 'Geetest test error'
+				);
+
+			}
+		} else {  //服务器宕机,走failback模式
+			if ($this->GtSdk->fail_validate($geetest_challenge, $geetest_validate, $geetest_seccode)) {
+				$validate_result = array(
+					'status' => 'error',
+					'message' => 'Geetest server broke, try again.'
+				);
+			}
+		}
+		echo json_encode($validate_result);
+	}
+
+
+	//  login
 
 	public function verifyLogin()
 	{
@@ -70,6 +203,8 @@ class Geetest extends CI_Controller
 			}
 		}
 	}
+
+	//  flag
 
 	public function verifyFlag()
 	{
@@ -147,7 +282,7 @@ class Geetest extends CI_Controller
 					} else {
 						$validate_result = array(
 							'status' => 'success',
-							'checksum' => md5(md5($this->mail_salt.$team_email))
+							'checksum' => md5(md5($this->mail_salt . $team_email))
 						);
 					}
 				}

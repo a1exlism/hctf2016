@@ -3,22 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller
 {
+	private $active_salt;
+	private $active_checksum;
 
-	/**
-	 * index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 *    http://example.com/index.php/welcome
-	 *  - or -
-	 *    http://example.com/index.php/welcome/index
-	 *  - or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -32,6 +19,8 @@ class Login extends CI_Controller
 		if ($this->session_check->check() === 1) {
 			redirect('index/team', 'location');
 		}
+		
+		$this->active_salt = 'fackactive';
 	}
 
 	public function index()
@@ -43,5 +32,58 @@ class Login extends CI_Controller
 	{
 		$this->load->view('index/pass_reset');
 	}
+	
+	public function mail_send()
+	{
+		$checksum = $this->input->post('checksum');
+		$receiver = $this->input->post('email');
+		
+		$token = $this->user_model->user_select_email($receiver)->row()->team_token;
+		$this->active_checksum = md5(md5($this->active_salt.$receiver));
+		if ($this->active_checksum != $checksum) {
+			echo "You are NOT allowed here.";
+			exit();
+		}
 
+		$subject = 'HCTF2016 | Account Active';
+		//  todo: URL 需要一个绝对路径
+		$link = 'http://test.com:8000/hctf2016/index/active/mail/' . $token;
+		$sender = 'a1ex_x@126.com';
+
+		$message = "<p>Use the following link to active your account:<a href='" . $link . "' target='_blank'>$link</a></p>";
+
+		$body = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=' . strtolower(config_item('charset')) . '" />
+        <title>' . html_escape($subject) . '</title>
+        <style type="text/css">
+            body {
+                font-family: Arial, Verdana, Helvetica, sans-serif;
+                font-size: 30px;
+            }
+        </style>
+    </head>
+    <body>
+    ' . $message . '
+    </body>
+    </html>';
+
+		$result = $this->email
+			->from($sender)
+//			->reply_to('yoursecondemail@somedomain.com')    // Optional, an account where a human being reads.
+			->to($receiver)
+			->subject($subject)
+			->message($body)
+			->send();
+
+//		var_dump($result);
+//		echo '<br />';
+//		echo $this->email->print_debugger();
+		echo json_encode(array(
+			'status' => 'success',
+			'message' => 'Active mail has been post to you.'
+		));
+		exit();
+	}
 }

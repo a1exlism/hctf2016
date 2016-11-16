@@ -5,7 +5,7 @@ class Forget extends CI_Controller
 {
 	private $mail_salt;
 	private $mail_checksum;
-	
+
 	public function __construct()
 	{
 		parent::__construct();

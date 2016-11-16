@@ -122,7 +122,7 @@
 										<!-- msgtip register -->
 										<div class="msgtip">
 											<div class="msgtip-success-register">
-												<p>Register success</p>
+												<p>Check your mail to active the register.</p>
 											</div>
 											<div class="msgtip-fail-register">
 											</div>
