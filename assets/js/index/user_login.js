@@ -151,8 +151,8 @@ $(function () {
 	//  messages	
 	
 	var mask = $('#mask'),
-			popupCaptcha = $('#popup-captcha');
-		
+		popupCaptcha = $('#popup-captcha');
+	
 	var msgSucReg = $('.msgtip-success-register'),
 		msgFaiReg = $('.msgtip-fail-register'),
 		msgSucLog = $('.msgtip-success-login'),
@@ -204,19 +204,16 @@ $(function () {
 		}
 	}
 	
-	
 	inputPassword.addEventListener('blur', passwdCheck);
 	inputPassword.addEventListener('focus', warningRemove);
 	inputConfirm.addEventListener('focus', warningRemove);
 	inputConfirm.addEventListener('blur', passwdCheck);
-	
 	
 	/*
 	 *
 	 *   --  ajax asyn submit --
 	 *
 	 * */
-	
 	
 	/* -- register -- */
 	$(btnRegister).click(function () {
@@ -234,7 +231,6 @@ $(function () {
 			}
 		});
 	});
-	
 	
 	var registerValidate = function (captchaObj) {
 		captchaObj.appendTo("#popup-captcha");
@@ -261,11 +257,7 @@ $(function () {
 						if (data.to_active && data.to_active === 1) {
 							mailSend(data.checksum, email);
 						}
-						$(msgSucReg).show();
-						setTimeout(function () {
-							$('#login-form-link').click();
-							$(msgSucReg).hide();
-						}, 500);
+						
 					} else if (data && (data.status === "error")) {
 						//  json 数据处理
 						//  清空所有子元素
@@ -299,23 +291,15 @@ $(function () {
 			success: function (data) {
 				if (data) {
 					if (data.status === 'success') {
-						//  todo: tmpShow() 函数编写
-						alert('Success');
-						// tmpShow(successMsg, data.message);
+						$(msgSucReg).show();
+						setTimeout(function () {
+							$('#login-form-link').click();
+							$(msgSucReg).hide();
+						}, 500);
 					}
 				}
 			}
 		})
-	}
-	
-	//  todo: tmpShow() 更改
-	function tmpShow(ele, message) {
-		$(ele).empty();
-		$(ele).append('<p>' + message + '</p>');
-		$(ele).show();
-		setTimeout(function () {
-			$(ele).hide();
-		}, 2500);
 	}
 	
 	/* -- login -- */

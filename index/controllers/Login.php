@@ -10,11 +10,13 @@ class Login extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('session');
+		$this->load->library('email');
+		$this->load->library('form_validation');
+		
 		$this->load->model('user_model');
 		$this->load->model('session_check');
 
 		$this->load->helper('form');
-		$this->load->library('form_validation');  //表单验证类
 		//  session check
 		if ($this->session_check->check() === 1) {
 			redirect('index/team', 'location');
