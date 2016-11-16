@@ -49,7 +49,7 @@ class Login extends CI_Controller
 
 		$subject = 'HCTF2016 | Account Active';
 		$link = 'http://115.159.26.130:8000/hctf2016/index/active/mail/' . $token;
-		$sender = 'a1ex_x@126.com';
+		$sender = 'hctf_support@163.com';
 
 		$message = "<p>Use the following link to active your account:<a href='" . $link . "' target='_blank'>$link</a></p>";
 

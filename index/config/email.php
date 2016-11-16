@@ -3,9 +3,9 @@
 $config['useragent']        = 'PHPMailer';              // Mail engine switcher: 'CodeIgniter' or 'PHPMailer'
 $config['protocol']         = 'smtp';                   // 'mail', 'sendmail', or 'smtp'
 $config['mailpath']         = '/usr/sbin/sendmail';			//	todo:What means???
-$config['smtp_host']        = 'smtp.126.com';
-$config['smtp_user']        = 'a1ex_x@126.com';
-$config['smtp_pass']        = 'hctf2016';               //  授权码
+$config['smtp_host']        = 'smtp.163.com';
+$config['smtp_user']        = 'hctf_support@163.com';
+$config['smtp_pass']        = '492eeb198651a24c';
 $config['smtp_port']        = 994;
 $config['smtp_timeout']     = 30;                       // (in seconds)
 $config['smtp_crypto']      = 'ssl';                       // '' or 'tls' or 'ssl'
