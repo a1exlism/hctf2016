@@ -150,7 +150,6 @@ class Geetest extends CI_Controller
 					//  table score_record init
 					$team_token = $this->user_model->user_select($team_name)->row()->team_token;
 					$this->score_model->init($team_token, $team_name);
-					$this->flag_model->level_check($team_token); //  调用开题脚本
 					$validate_result = array(
 						'status' => 'success',
 						'message' => 'Register success',

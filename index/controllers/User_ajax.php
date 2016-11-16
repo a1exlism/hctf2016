@@ -25,9 +25,15 @@ class User_ajax extends CI_Controller
 		$team_name = $this->input->post('teamname', TRUE);
 		$team_pass = $this->input->post('password', TRUE);
 		$user_data = $this->user_model->user_select($team_name)->row();
-
 		if ($user_data) {
 			//  如果用户存在
+			if($user_data->is_expand == 0) {
+				echo json_encode(array(
+					'status' => 'error'
+				));
+				exit();
+			}
+
 			$team_pass = $this->user_model->str_encode($team_pass);
 			if ($user_data->team_pass === $team_pass && $user_data->active_status == 1) {
 				$session_arr = array(
@@ -35,7 +41,9 @@ class User_ajax extends CI_Controller
 					'is_login' => 1
 				);
 				$this->session->set_userdata($session_arr);
-
+				
+				$team_token = $user_data->team_token;
+				$this->flag_model->level_check($team_token); //  调用开题脚本
 				echo '{"status": "success"}';
 
 			} else {
