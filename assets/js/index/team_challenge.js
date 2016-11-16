@@ -198,7 +198,7 @@ function loadChaDetails() {
 							notifyShow('flag-success', 'Correct flag, Congratulations!');
 							//  score update for score chart
 							$.ajax({
-								url: 'team_ajax/score_update',
+								url: 'team_ajax/update_score',
 								type: 'post',
 								dataType: 'json',
 								data: {
