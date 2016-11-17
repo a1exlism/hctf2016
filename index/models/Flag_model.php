@@ -50,7 +50,7 @@ class Flag_model extends CI_model
 		$level = $this->get_level($number);
 		$team = $this->db->where('team_token', $token)->get('team_info');
 		$team = $team->result_array();
-		if ($team[0]['compet_level'] < $level)#level提升
+		if ($team[0]['compet_level'] <= $level)#level提升
 		{
 			$team[0]['compet_level'] = $level;
 			$this->db->where('team_token', $token)->update('team_info', $team[0]);
@@ -58,7 +58,8 @@ class Flag_model extends CI_model
 			$challenge = $this->db->where('challenge_level', $level)->get('challenge_info');
 			$challenge = $challenge->result_array();
 			$time = time();
-			foreach ($challenge as $value) {
+			foreach ($challenge as $value) 
+			{
 				$challenge_id = $value['challenge_id'];
 				#检查是否开过该题 
 				$tmp_where = array('team_token' => $token, 'challenge_id' => $challenge_id);
@@ -69,19 +70,39 @@ class Flag_model extends CI_model
 					if(!empty($value['challenge_api']))
 					{
 						$this->load->library($value['challenge_api']);
-						$flg=$this->$value['challenge_api']->getflag($token);
+						$flag_tmp = $this->$value['challenge_api']->getflag($token);
 					}
 					else
 					{
-						$flag = time();
+						$flag_tmp = time();
 					}
-					$new_challenge_data = array(
-						'team_token' => $token,
-						'challenge_id' => $value['challenge_id'],
-						'challenge_open_time' => $time,
-						'challenge_flag' => $flag
-					);
-					$this->db->insert('dynamic_notify', $new_challenge_data);
+
+					if($value['multi_file']==1)
+					{
+						$flag=$flag_tmp['flag'];
+						$file=$flag_tmp['file'];
+						
+						$new_multi_data = array
+						(
+							'challenge_id'=>$value['challenge_id'],
+							'team_token'=>$token,
+							'file_name'=>$file
+						);
+						$this->db->insert('multi_flags',$new_multi_data);
+					}
+					else
+					{
+						$flag=$flag_tmp;
+
+						$new_challenge_data = array
+						(
+							'team_token' => $token,
+							'challenge_id' => $value['challenge_id'],
+							'challenge_open_time' => $time,
+							'challenge_flag' => $flag
+						);
+						$this->db->insert('dynamic_notify', $new_challenge_data);
+					}
 				}
 			}
 
