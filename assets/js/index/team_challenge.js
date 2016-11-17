@@ -13,14 +13,32 @@ function saveChallenges(data) {
 			window.challenges[i].url = reg.exec(data[i]['challenge_description'])[0].replace(/(\[)|(\])/g, '');
 		}
 	}
-	
-	//  保存题目数据 json's code
+}
+
+function multiName() {
+	var i,
+		chaId;
+	for (i in challenges) {
+		if (challenges[i]['multi_file'] == 1) {
+			chaId = challenges[i]['challenge_id'];
+			//  提供不同文件下载
+			$.ajax({
+				url: 'team_ajax/get_filename/' + chaId,
+				type: 'get',
+				dataType: 'json',
+				async: false,
+				success: function (data) {
+					challenges[i]['file_name'] = data['file_name'];
+				}
+			});
+		}
+	}
 }
 
 function getSolvedPublic() {
 	$.ajax({
 		url: 'team_ajax/get_solved_public',
-		method: 'get',
+		type: 'get',
 		dataType: 'json',
 		success: function (data) {
 			var solvedInfo = $('#solved-info');
@@ -40,13 +58,14 @@ function getSolvedPublic() {
 function getCurrentChallenge() {
 	$.ajax({
 		url: 'team_ajax/get_challenges',
-		method: 'get',
+		type: 'get',
+		async: false,
 		dataType: 'json',
 		success: function (data) {
 			if (data) {
 				$('#challenge .prob-card').remove();
 				saveChallenges(data);
-				// console.log(challenges);
+				multiName();  //改名
 				$.each(data, function (index, value) {
 					var solves = value.challenge_solves || '0';
 					var probCard = $('<div class="col-xs-4 col-md-3 prob-card"></div>');
@@ -71,7 +90,7 @@ function getCurrentChallenge() {
 function setDoneStyle() {
 	$.ajax({
 		url: 'team_ajax/get_done_names',
-		method: 'get',
+		type: 'get',
 		dataType: 'json',
 		success: function (data) {
 			if (data) {
@@ -239,6 +258,7 @@ function loadChaDetails() {
 			var chaName = $(this).find('.card-body-top p').text();
 			// alert(chaName);
 			var chaInfo = getChaObj(chaName);
+			var multiName = chaInfo.file_name || '';
 			var chaPopup = $(
 				'<div class="mask">' +
 				'<div class="popup cha-info">' +
@@ -246,7 +266,7 @@ function loadChaDetails() {
 				'<p class="cha-sovles"><span>' + chaInfo.challenge_solves + '</span> Teams solved.</p>' +
 				'<h3>description</h3>' +
 				'<p class="cha-description">' + chaInfo.challenge_description +
-				' File: <a href="' + chaInfo.url + '">' + chaInfo.url + '</a>' + '</p><br>' +
+				' File: <a href="' + chaInfo.url + multiName + '">' + chaInfo.url + '/' + multiName + '</a>' + '</p><br>' +
 				'<h3>Hint</h3>' +
 				'<p class="cha-hit">' + chaInfo.challenge_hit + '</p>' +
 				'<a class="popup-close glyphicon glyphicon-remove" href="#"></a>' + '<br>' +
@@ -295,7 +315,7 @@ function loadChaDetails() {
 function getTop10() {
 	$.ajax({
 		url: 'team_ajax/get_ranks/10',
-		method: 'get',
+		type: 'get',
 		dataType: 'json',
 		success: function (data) {
 			var teamCha = $('#team-challenge');

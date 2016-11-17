@@ -145,11 +145,9 @@ class Team_ajax extends CI_Controller
 	{
 		$notifies = $this->public_model->notify_select()->result();
 		$results = array();
-var_dump($notifies);
+		var_dump($notifies);
 		for ($i = 0; $i < count($notifies); $i++) {
 			foreach ($notifies[$i] as $key => $value) {
-				var_dump($value);
-				echo $i."<br>";
 				switch ($key) {
 					case 'challenge_solved_time':
 						$results[$i]['solvedTime'] = date('H:i:s m-d-Y', $value);
@@ -175,6 +173,19 @@ var_dump($notifies);
 		$level = $this->user_model->user_select_token($session_token)->row()->compet_level;
 		$result = $this->challenge_model->select_level($level)->result();
 		echo json_encode($result);
+	}
+
+	public function get_filename($cha_id = null)
+	{
+		if (empty($cha_id)) {
+			echo "error";
+			exit();
+		}
+		$session_token = $this->session_token;
+		$file_name = $this->challenge_model->multi_select($session_token, $cha_id)->row()->file_name;
+		echo json_encode(array(
+			'file_name' => $file_name
+		));
 	}
 
 	public function get_done_names()
