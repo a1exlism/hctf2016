@@ -180,8 +180,16 @@
 	text-align: left;
 }
 
-.cha-info h1 {
+#team-challenge .cha-info h1 {
 	margin-top: 0;
+}
+
+#team-challenge .cha-info .popup-close {
+	color: #fff;
+}
+
+#team-challenge .cha-info a {
+	color: #5899EE;
 }
 
 #team-challenge .cha-info .flags .form-control {

@@ -5,7 +5,7 @@ SET NAMES "utf8";
 USE hctf2016;
 
 /* -- Team Info -- */
-CREATE TABLE hctf2016.team_info (
+CREATE TABLE team_info (
   team_id       INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   team_email    VARCHAR(40)  NOT NULL,
   team_name     VARCHAR(40)  NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE hctf2016.team_info (
   active_status BOOL         NOT NULL DEFAULT 0,
   -- 邮件激活
   is_expand     BOOL         NOT NULL DEFAULT 0,
-  -- 是否可以开题
+  -- 是否可以开题/update: 现可以作为登录控制
   total_score   INT          NOT NULL DEFAULT 0,
   compet_level  INT UNSIGNED NOT NULL DEFAULT 0,
   -- 可挑战层数
@@ -28,24 +28,33 @@ CREATE TABLE hctf2016.team_info (
   CHARACTER SET = utf8;
 
 /* -- Challenge Info -- */
-CREATE TABLE hctf2016.challenge_info (
-  challenge_id          INT UNSIGNED     NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  challenge_name        VARCHAR(40)      NOT NULL,
-  challenge_type        VARCHAR(20)      NOT NULL,
-  challenge_score       INT UNSIGNED     NOT NULL,
-  challenge_description VARCHAR(300)     NOT NULL,
+CREATE TABLE challenge_info (
+  challenge_id          INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  challenge_name        VARCHAR(40)  NOT NULL,
+  challenge_type        VARCHAR(20)  NOT NULL,
+  challenge_score       INT UNSIGNED NOT NULL,
+  challenge_description VARCHAR(300) NOT NULL,
   challenge_hit         VARCHAR(100),
-  challenge_level       INT UNSIGNED     NOT NULL,
+  challenge_level       INT UNSIGNED NOT NULL,
   -- 开题层数
-  challenge_solves      INT UNSIGNED              DEFAULT 0,
+  challenge_solves      INT UNSIGNED          DEFAULT 0,
   challenge_api         VARCHAR(40),
-  challenge_threshold   INT(12) UNSIGNED NOT NULL
   -- api 为多flag接口
+  challenge_threshold   INT UNSIGNED NOT NULL DEFAULT 0,
+  -- time threshold
+  multi_file            BOOLEAN               DEFAULT 0
 )
   CHARACTER SET = utf8;
 
+-- 多flag提交
+CREATE TABLE multi_flags (
+  challenge_id INT UNSIGNED NOT NULL PRIMARY KEY,
+  team_token   VARCHAR(40)  NOT NULL,
+  file_name    VARCHAR(120)  NOT NULL
+);
+
 /* -- Dynamic Notify -- */
-CREATE TABLE hctf2016.dynamic_notify (
+CREATE TABLE dynamic_notify (
   notify_id             INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   team_token            VARCHAR(40)  NOT NULL,
   challenge_id          INT UNSIGNED NOT NULL,
@@ -58,7 +67,7 @@ CREATE TABLE hctf2016.dynamic_notify (
   CHARACTER SET = utf8;
 
 /* -- Scores Record -- */
-CREATE TABLE hctf2016.score_record (
+CREATE TABLE score_record (
   team_name   VARCHAR(40) NOT NULL,
   team_token  VARCHAR(40) NOT NULL,
   score_a     INT         NOT NULL DEFAULT 0,
@@ -71,7 +80,7 @@ CREATE TABLE hctf2016.score_record (
   CHARACTER SET = utf8;
 
 /* -- Bulletin 公告 -- */
-CREATE TABLE hctf2016.bulletin (
+CREATE TABLE bulletin (
   bulletin_id      INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
   bulletin_message VARCHAR(200) NOT NULL,
   create_time      TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -82,14 +91,14 @@ CREATE TABLE hctf2016.bulletin (
 
 
 /* -- Card Info 道具卡 -- */
-CREATE TABLE hctf2016.card_info (
+CREATE TABLE card_info (
   card_id    INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
   team_token VARCHAR(40) NOT NULL
 )
   CHARACTER SET = utf8;
 
 /*管理员*/
-CREATE TABLE hctf2016.admin_qwe (
+CREATE TABLE admin_qwe (
   user  VARCHAR(40) NOT NULL  PRIMARY KEY,
   pass  VARCHAR(40) NOT NULL,
   `key` VARCHAR(40) NOT NULL
