@@ -88,34 +88,14 @@
 										       value=<?php echo '"' . $result[0]['challenge_threshold'] . '"'; ?>>
 									</div>
 								</div>
-								<!--
-								id: <input type="text" name="id" value=
-									<?php /*echo '"' . $result[0]['challenge_id'] . '"'; */ ?>>
-								<br>
-								name:<input type="text" name="name" value=
-									<?php /*echo '"' . $result[0]['challenge_name'] . '"'; */ ?>>
-								<br>
-								type:<input type="text" name="type" value=
-									<?php /*echo '"' . $result[0]['challenge_type'] . '"'; */ ?>>
-								<br>
-								score:<input type="text" name="score" value=
-									<?php /*echo '"' . $result[0]['challenge_score'] . '"'; */ ?>>
-								<br>
-								description:<input type="text" name="description" value=
-									<?php /*echo '"' . $result[0]['challenge_description'] . '"'; */ ?>>
-								<br>
-								level:<input type="text" name="level" value=
-									<?php /*echo '"' . $result[0]['challenge_level'] . '"'; */ ?>>
-								<br>
-								hit:<input type="text" name="hit" value=
-									<?php /*echo '"' . $result[0]['challenge_hit'] . '"'; */ ?>>
-								<br>
-								api:<input type="text" name="api" value=
-									<?php /*echo '"' . $result[0]['challenge_api'] . '"'; */ ?>>
-								<br>
-								threshold:<input type="text" name="threshold" value=
-									<?php /*echo '"' . $result[0]['challenge_threshold'] . '"'; */ ?>>
-								<br>-->
+
+								<div class="form-group">
+									<label for="" class="col-lg-2 control-label">Multi-File</label>
+									<div class="col-lg-10">
+										<input type="text" class="form-control" name="multi"
+										       value=<?php echo '"' . $result[0]['multi_file'] . '"'; ?>>
+									</div>
+								</div>
 
 								<div class="form-group">
 									<div class="col-lg-10 col-lg-offset-2">

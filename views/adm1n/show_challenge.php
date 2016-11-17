@@ -27,6 +27,7 @@
 					<td><?= $value['challenge_description']; ?></td>
 					<td><?= $value['challenge_level']; ?></td>
 					<td><?= $value['challenge_hit']; ?></td>
+					<td><?= $value['multi_file']; ?></td>
 					<td><?= $value['challenge_api']; ?></td>
 					<td><?= $value['challenge_threshold']; ?></td>
 				</tr>

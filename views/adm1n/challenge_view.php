@@ -45,9 +45,10 @@
 								<input type="text" class="form-control" name="score" placeholder="score">
 								<input type="text" class="form-control" name="description" placeholder="description">
 								<input type="text" class="form-control" name="level" placeholder="level">
-								<input type="text" class="form-control" name="threshold" placeholder="threshold(选填)">
-								<input type="text" class="form-control" name="hit" placeholder="hit(选填)">
-								<input type="text" class="form-control" name="api" placeholder="api(选填)">
+								<input type="text" class="form-control" name="multi" placeholder="Multi-File(Optional)">
+								<input type="text" class="form-control" name="threshold" placeholder="threshold(Optional)">
+								<input type="text" class="form-control" name="hit" placeholder="hit(Optional)">
+								<input type="text" class="form-control" name="api" placeholder="api(Optional)">
 								<div class="form-group">
 									<div class="col-xs-12">
 										<button type="submit" class="btn btn-primary">Insert</button>
