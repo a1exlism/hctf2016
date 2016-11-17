@@ -5,7 +5,15 @@
 
 var challenges;
 function saveChallenges(data) {
-	challenges = data;
+	var i,
+		reg = /\[.*\]/;
+	window.challenges = data; //这里是一个对象集合
+	for (i in data) {
+		if (reg.test(data[i]['challenge_description']) == true) {
+			window.challenges[i].url = reg.exec(data[i]['challenge_description'])[0].replace(/(\[)|(\])/g, '');
+		}
+	}
+	
 	//  保存题目数据 json's code
 }
 
@@ -79,6 +87,7 @@ function setDoneStyle() {
 		}
 	})
 }
+
 
 function loadChaDetails() {
 	
@@ -190,8 +199,8 @@ function loadChaDetails() {
 							break;
 						case 1:
 							notifyShow('flag-danger', 'You are cheating!Contact Administrator!');
-							setTimeout(function() {
-								window.location.href="login";
+							setTimeout(function () {
+								window.location.href = "login";
 							}, 800);
 							break;
 						case 2:
@@ -217,7 +226,7 @@ function loadChaDetails() {
 							break;
 						default:
 							notifyShow('flag-warning', 'This challenge is hidden now.');
-							// setTimeout(getChallenge, 1000); todo: for testing
+						// setTimeout(getChallenge, 1000); todo: for testing
 					}
 				}
 			}
@@ -236,7 +245,8 @@ function loadChaDetails() {
 				'<h1>' + chaInfo.challenge_name + '</h1>' +
 				'<p class="cha-sovles"><span>' + chaInfo.challenge_solves + '</span> Teams solved.</p>' +
 				'<h3>description</h3>' +
-				'<p class="cha-description">' + chaInfo.challenge_description + '</p>' + '<br>' +
+				'<p class="cha-description">' + chaInfo.challenge_description +
+				' File: <a href="' + chaInfo.url + '">' + chaInfo.url + '</a>' + '</p><br>' +
 				'<h3>Hint</h3>' +
 				'<p class="cha-hit">' + chaInfo.challenge_hit + '</p>' +
 				'<a class="popup-close glyphicon glyphicon-remove" href="#"></a>' + '<br>' +
