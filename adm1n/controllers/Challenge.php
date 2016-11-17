@@ -21,16 +21,13 @@ class challenge extends CI_controller
 
 	public function show()
 	{
-		//$this->load->model('challenge_model');
 		$id = $this->input->post('id');
 		$result = $this->challenge_model->show($id);
-		//var_dump($result);
 		$data = array('result' => $result);
 
 		$this->load->view('adm1n/challenge_view');
 
 		$this->load->view('adm1n/show_challenge', $data);
-		//var_dump($result);
 	}
 
 	public function detail($id)
@@ -42,8 +39,6 @@ class challenge extends CI_controller
 
 	public function add()
 	{
-		//$this->load->model('challenge_model');
-
 		$name = $this->input->post('name');
 		$name = $this->security->xss_clean($name);
 
@@ -101,10 +96,14 @@ class challenge extends CI_controller
 
 	public function change()
 	{
-		//$this->load->model('challenge_model');
-
 		$id = $this->input->post('id');
 		$id = $this->security->xss_clean($id);
+
+		$name=$this->input->post('name');
+		$name=$this->security->xss_clean($name);
+
+		$type=$this->input->post('type');
+		$type=$this->security->xss_clean($type);
 
 		$score = $this->input->post('score');
 		$score = $this->security->xss_clean($score);
@@ -112,7 +111,7 @@ class challenge extends CI_controller
 		$description = $this->input->post('description');
 		$description = $this->security->xss_clean($description);
 
-		$level = $this->input->post('$level');
+		$level = $this->input->post('level');
 		$level = $this->security->xss_clean($level);
 		
 		$multi_file = $this->input->post('multi');
@@ -134,6 +133,8 @@ class challenge extends CI_controller
 
 		$data = array(
 			'challenge_score' => $score,
+			'challenge_type' => $type,
+			'challenge_name' => $name,
 			'challenge_description' => $description,
 			'challenge_level' => $level,
 			'multi_file' => $multi_file,

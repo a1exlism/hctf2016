@@ -11,6 +11,7 @@
 				<th>description</th>
 				<th>level</th>
 				<th>hit</th>
+				<th>multi_file</th>
 				<th>api</th>
 				<th>threshold</th>
 			</tr>
