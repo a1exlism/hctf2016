@@ -85,3 +85,5 @@ git reset HEAD .
     [gist](https://gist.github.com/69f5d75b6d420b9ca5606320f2f1bc56)
     
 19. 邮件发送解决方案[CodeIgniter & Mailer](https://github.com/ivantcholakov/codeigniter-phpmailer)
+
+20. 在challenge页面需要后台遵守一个规范, url需要用`[]`括起来.
