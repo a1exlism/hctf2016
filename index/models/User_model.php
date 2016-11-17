@@ -19,12 +19,9 @@ class  User_model extends CI_Model
 
 	public function user_select($teamname = null)
 	{
-		//  组装sql查询语句
-		if (!empty($teamname)) {
-			$this->db->where('team_name', $teamname);
-		}
 		$this->db->select('*');
-		$query = $this->db->get('team_info');  //获取表数据
+		$this->db->where('team_name', $teamname);
+		$query = $this->db->get('team_info');
 		return $query;
 		//  返回查询对象 result() 所有 row(x) 第x行
 	}

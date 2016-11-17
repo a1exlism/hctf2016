@@ -18,7 +18,6 @@ class User_ajax extends CI_Controller
 		$this->mail_salt = 'fackemail';
 	}
 
-
 	public function pass_reset()
 	{
 		$token = $this->input->post('query-1', TRUE);

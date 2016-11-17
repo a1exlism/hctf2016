@@ -47,11 +47,11 @@ class Login extends CI_Controller
 			exit();
 		}
 
-		$subject = 'HCTF2016 | Account Active';
+		$subject = 'HCTF2016 | Active Email';
 		$link = 'http://115.159.26.130:8000/hctf2016/index/active/mail/' . $token;
 		$sender = 'hctf_support@163.com';
 
-		$message = "<p>Use the following link to active your account:<a href='" . $link . "' target='_blank'>$link</a></p>";
+		$message = "<p>Use the following link to active :<a href='" . $link . "' target='_blank'>$link</a></p>";
 
 		$body = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml">

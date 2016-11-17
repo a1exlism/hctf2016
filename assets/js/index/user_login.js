@@ -117,6 +117,7 @@ $(function () {
 		"retina_detect": true
 	});
 	
+	//  todo: Optimize the Message pop-up
 	/* Login/Register panel switch */
 	
 	var linkLogin = $('#login-form-link'),
@@ -154,10 +155,11 @@ $(function () {
 	var mask = $('#mask'),
 		popupCaptcha = $('#popup-captcha');
 	
-	var msgSucReg = $('.msgtip-success-register'),
-		msgFaiReg = $('.msgtip-fail-register'),
-		msgSucLog = $('.msgtip-success-login'),
-		msgFaiLog = $('.msgtip-fail-login');
+	var msgtip = $('.msgtip');
+	// var msgSucReg = $('.msgtip-success-register'),
+	// 	msgFaiReg = $('.msgtip-fail-register'),
+	// 	msgSucLog = $('.msgtip-success-login'),
+	// 	msgFaiLog = $('.msgtip-fail-login');
 	
 	
 	//  Warning Infomation
@@ -176,18 +178,6 @@ $(function () {
 		}
 	}
 	
-	function emptyCheck(ele) {
-		if (ele.value == '') {
-			warningAdd();
-			ele.addEventListener('blur', function () {
-				warningAdd();
-				btnRegister.value = 'Empty Input!';
-			});
-			ele.addEventListener('focus', warningRemove);
-		}
-	}
-	
-	
 	//  password confirm
 	
 	function passwdCheck() {
@@ -195,7 +185,7 @@ $(function () {
 		if (inputPassword.value != inputConfirm.value) {
 			//  judge classname
 			if (btnRegister.classList.contains('submit-wrong')) {
-				//  JS Hack 方法
+				//  JS Hack 
 				// if (Array.prototype.indexOf.apply(btnRegister.classList, ['submit-wrong']) != -1) {
 				return null;
 			}
@@ -254,31 +244,19 @@ $(function () {
 					geetest_seccode: validate.geetest_seccode
 				},
 				success: function (data) {
-					if (data && (data.status === "success")) {
+					if (data && (data.status == "success")) {
 						if (data.to_active && data.to_active === 1) {
 							mailSend(data.checksum, email);
 						}
 						
-					} else if (data && (data.status === "error")) {
-						//  json 数据处理
-						//  清空所有子元素
-						$(msgFaiReg).empty();
-						for (var i in data) {
-							if (i == 'status') {
-								continue;
-							}
-							$(msgFaiReg).append('<p>' + data[i] + '</p>');
-						}
-						$(msgFaiReg).show();
-						setTimeout(function () {
-							$(msgFaiReg).hide();
-						}, 2500);
+					} else if (data && (data.status == "error")) {
+						tmpShow(msgtip, 'error', data.message);
 					}
 				}
 			});
 		});
 	};
-	
+	//  todo: next function 邮件重发
 	//  email
 	function mailSend(checksum, mailToSend) {
 		$.ajax({
@@ -291,20 +269,13 @@ $(function () {
 			},
 			success: function (data) {
 				if (data) {
-					if (data.status === 'success') {
-						$(msgSucReg).show();
-						setTimeout(function () {
-							$('#login-form-link').click();
-							$(msgSucReg).hide();
-						}, 500);
-					}
+					tmpShow(msgtip, data.status, data.message);
 				}
 			}
 		})
 	}
 	
 	/* -- login -- */
-	//  todo: Login 2nd verify optimize
 	$(btnLogin).click(function () {
 		$.ajax({
 			url: "geetest/startCaptcha/t/" + (new Date()).getTime(),
@@ -331,30 +302,40 @@ $(function () {
 				type: "post",
 				dataType: "json",
 				data: {
-					username: $('#user-login').val(),
+					teamname: $('#user-login').val(),
 					password: $('#pass-login').val(),
 					geetest_challenge: validate.geetest_challenge,
 					geetest_validate: validate.geetest_validate,
 					geetest_seccode: validate.geetest_seccode
 				},
 				success: function (data) {
-					if (data && (data.status === "success")) {
-						$('.msgtip-success-login').show();
+					if (data && (data.status == "success")) {
+						tmpShow(msgtip, data.status, data.message);
 						setTimeout(function () {
 							window.location.href = 'team';
 						}, 500);
-					} else if (data && (data.status === "fail_2")) {
-						$('.geetest-fail').show();
-						setTimeout(function () {
-							$('.geetest-fail').hide();
-						}, 2500);
+					} else {
+						tmpShow(msgtip, data.status, data.message);
 					}
 				}
 			});
 		});
 	};
 	
-	/* --- 极验验证 --- 套用的mobi端 --- */
+	function tmpShow(ele, status, message) {
+		$(ele).empty();
+		$(ele).append('<div class="' + status + '">' + message + '</div>');
+		$(ele).show();
+		var time = 2500;
+		if (status == 'success') {
+			time = 1500;
+		}
+		setTimeout(function () {
+			$(ele).hide();
+		}, time);
+	}
+	
+	/* --- Geetest Mask --- */
 	
 	function captchaHide() {
 		$(mask).hide();
@@ -368,11 +349,13 @@ $(function () {
 	});
 	
 	$(btnLogin).click(function () {
+		$(popupCaptcha).empty();
 		$(mask).show();
 		$(popupCaptcha).show();
 	});
 	
 	$(btnRegister).click(function () {
+		$(popupCaptcha).empty();
 		$(mask).show();
 		$(popupCaptcha).show();
 	});

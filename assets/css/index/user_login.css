@@ -242,12 +242,9 @@ canvas {
 	z-index: 100;
 }
 
-/* 提示信息 msgtip */
+/* msgtip */
 .msgtip {
 	position: relative;
-	margin: 5px 1px;
-	opacity: 1;
-	padding: 5px 0;
 	text-align: center;
 	vertical-align: middle;
 
@@ -261,26 +258,17 @@ canvas {
 	display: inline-block;
 }
 
-div[class^='msgtip-'] {
-	display: none;
+.msgtip .success {
+	color: #5cb85c;
 }
 
-div[class^='msgtip-fail-register'] > p {
+.msgtip .error {
+	color: #d9534f;
+}
+
+.msgtip p {
 	margin: 0;
 	color: inherit;
-}
-
-div[class^='msgtip-success-'] p {
-	color: #449d44;
-}
-
-div[class^='msgtip-fail-'] p {
-	color: #fa7a7a;
-}
-
-.msgtip > .geetest-fail {
-	display: none;
-	color: #fa7a7a;
 }
 
 #popup-captcha {

@@ -129,11 +129,11 @@ class Geetest extends CI_Controller
 					//  创建error_json
 					$validate_result = array(
 						'status' => 'error',
-						'name' => form_error('teamname'),
-						'school' => form_error('school'),
-						'email' => form_error('email'),
-						'pass' => form_error('password'),
-						'phone' => form_error('phone')
+						'message' => form_error('teamname') .
+							form_error('school') .
+							form_error('email') .
+							form_error('password') .
+							form_error('phone')
 					);
 
 				} else {
@@ -196,16 +196,17 @@ class Geetest extends CI_Controller
 		if ($_SESSION['gtserver'] == 1) {
 			$result = $this->GtSdk->success_validate($geetest_challenge, $geetest_validate, $geetest_seccode, $user_id);
 			if ($result) {
-			
+
 				$user_data = $this->user_model->user_select($team_name)->row();
 
-				if ($user_data) {
+				if (!empty($user_data)) {
 
 					if ($user_data->is_expand == 0) {
 						$validate_result = array(
 							'status' => 'error',
 							'message' => 'The sign-in feature is not active yet.'
 						);
+
 					} else {
 
 						$team_pass = $this->user_model->str_encode($team_pass);
@@ -218,13 +219,14 @@ class Geetest extends CI_Controller
 							);
 							$this->session->set_userdata($session_arr);
 
-							$this->flag_model->level_check($team_token); //  调用开题脚本
-
 							$validate_result = array(
 								'status' => 'success',
 								'message' => 'Login success'
 							);
+
+							$this->flag_model->level_check($team_token); //  调用开题脚本
 						} else {
+
 							$validate_result = array(
 								'status' => 'error',
 								'message' => 'Password incorrect, check your password input.'

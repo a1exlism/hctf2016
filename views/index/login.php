@@ -42,7 +42,6 @@
 					<div class="row">
 						<div class="col-xs-8 col-xs-offset-2 col-md-8 col-md-offset-2">
 							<!-- Login -->
-							<!--								<form id="form-login" action="User_ajax/login_check" method="post" role="form">-->
 							<form id="form-login" action="login/login" method="post" role="form">
 								<div class="form-group">
 									<input type="text" class="form-control" name="teamname" id="user-login" placeholder="Teamname"
@@ -75,22 +74,10 @@
 											</div>
 										</div>
 									</div>
-									<!-- msgtip Login -->
-									<div class="msgtip">
-										<div class="msgtip-success-login">
-											<p>Login success</p>
-										</div>
-										<div class="msgtip-fail-login">
-											<p>Login failed.</p><br>
-											<p>Wrong username || password || Not Actived</p>
-										</div>
-										<div class="geetest-fail">
-											<p>Login failed.</p><br>
-											<p>极验HTTP500,请重试.</p>
-										</div>
-									</div>
+		
 								</div>
 							</form>
+
 							<!-- Register -->
 							<form id="form-register" action="login/register" method="post" role="form">
 								<div class="form-group">
@@ -118,17 +105,12 @@
 											<input type="button" id="submit-register" tabindex="7"
 											       class="form-control btn btn-primary" value="Register Now"/>
 										</div>
-										<!-- msgtip register -->
-										<div class="msgtip">
-											<div class="msgtip-success-register">
-												<p>Check your mail to active the register.</p>
-											</div>
-											<div class="msgtip-fail-register">
-											</div>
-										</div>
 									</div>
 								</div>
 							</form>
+
+							<div class="msgtip">
+							</div>
 						</div>
 					</div>
 				</div>
