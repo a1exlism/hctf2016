@@ -93,16 +93,15 @@ class Flag_model extends CI_model
 					else
 					{
 						$flag=$flag_tmp;
-
-						$new_challenge_data = array
-						(
-							'team_token' => $token,
-							'challenge_id' => $value['challenge_id'],
-							'challenge_open_time' => $time,
-							'challenge_flag' => $flag
-						);
-						$this->db->insert('dynamic_notify', $new_challenge_data);
 					}
+					$new_challenge_data = array
+					(
+						'team_token' => $token,
+						'challenge_id' => $value['challenge_id'],
+						'challenge_open_time' => $time,
+						'challenge_flag' => $flag
+					);
+					$this->db->insert('dynamic_notify', $new_challenge_data);
 				}
 			}
 
