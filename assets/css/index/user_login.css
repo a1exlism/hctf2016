@@ -304,12 +304,3 @@ div[class^='msgtip-fail-'] p {
 	-ms-user-select: none;
 	user-select: none;
 }
-
-/* -- login/register -- */
-#submit-login {
-	display: none;
-}
-
-#submit-register {
-	display: none;
-}

@@ -153,7 +153,7 @@ class Geetest extends CI_Controller
 					$validate_result = array(
 						'status' => 'success',
 						'message' => 'Register success',
-						'checksum' => md5(md5($this->active_salt.$team_email)),
+						'checksum' => md5(md5($this->active_salt . $team_email)),
 						'to_active' => 1 //  发邮件
 					);
 				}
@@ -182,25 +182,77 @@ class Geetest extends CI_Controller
 	public function verifyLogin()
 	{
 		/**
-		 * 输出二次验证结果
+		 * 二次验证
 		 */
-		// error_reporting(0);
+		$team_name = $this->input->post('teamname', TRUE);
+		$team_pass = $this->input->post('password', TRUE);
+		$validate_result = array();
 
-		$user_id = $_SESSION['user_id'];
-		if ($_SESSION['gtserver'] == 1) {   //服务器正常
-			$result = $this->GtSdk->success_validate($_POST['geetest_challenge'], $_POST['geetest_validate'], $_POST['geetest_seccode'], $user_id);
+		$user_id = $this->session->user_id;
+		$geetest_challenge = $this->input->post('geetest_challenge');
+		$geetest_validate = $this->input->post('geetest_validate');
+		$geetest_seccode = $this->input->post('geetest_seccode');
+
+		if ($_SESSION['gtserver'] == 1) {
+			$result = $this->GtSdk->success_validate($geetest_challenge, $geetest_validate, $geetest_seccode, $user_id);
 			if ($result) {
-				echo '{"status":"success"}';
+			
+				$user_data = $this->user_model->user_select($team_name)->row();
+
+				if ($user_data) {
+
+					if ($user_data->is_expand == 0) {
+						$validate_result = array(
+							'status' => 'error',
+							'message' => 'The sign-in feature is not active yet.'
+						);
+					} else {
+
+						$team_pass = $this->user_model->str_encode($team_pass);
+						if ($user_data->team_pass === $team_pass && $user_data->active_status == 1) {
+							$team_token = $user_data->team_token;
+
+							$session_arr = array(
+								'team_token' => $team_token,
+								'is_login' => 1
+							);
+							$this->session->set_userdata($session_arr);
+
+							$this->flag_model->level_check($team_token); //  调用开题脚本
+
+							$validate_result = array(
+								'status' => 'success',
+								'message' => 'Login success'
+							);
+						} else {
+							$validate_result = array(
+								'status' => 'error',
+								'message' => 'Password incorrect, check your password input.'
+							);
+						}
+					}
+				} else {
+					$validate_result = array(
+						'status' => 'error',
+						'message' => 'No such Team.'
+					);
+				}
+
 			} else {
-				echo '{"status":"fail_1"}';
+				$validate_result = array(
+					'status' => 'error',
+					'message' => 'Geetest test error'
+				);
 			}
-		} else {  //服务器宕机,走failback模式
-			if ($this->GtSdk->fail_validate($_POST['geetest_challenge'], $_POST['geetest_validate'], $_POST['geetest_seccode'])) {
-				echo '{"status":"success"}';
-			} else {
-				echo '{"status":"fail_2"}';
+		} else {
+			if ($this->GtSdk->fail_validate($geetest_challenge, $geetest_validate, $geetest_seccode)) {
+				$validate_result = array(
+					'status' => 'error',
+					'message' => 'Geetest server broke, try again.'
+				);
 			}
 		}
+		echo json_encode($validate_result);
 	}
 
 	//  flag
@@ -294,10 +346,10 @@ class Geetest extends CI_Controller
 			}
 		} else {
 			if ($this->GtSdk->fail_validate($geetest_challenge, $geetest_validate, $geetest_seccode)) {
-				echo json_encode(array(
+				$validate_result = array(
 					'status' => 'error',
 					'message' => 'geetest validate error:2'
-				));
+				);
 			}
 		}
 		echo json_encode($validate_result);

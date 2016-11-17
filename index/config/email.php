@@ -2,7 +2,7 @@
 
 $config['useragent']        = 'PHPMailer';              // Mail engine switcher: 'CodeIgniter' or 'PHPMailer'
 $config['protocol']         = 'smtp';                   // 'mail', 'sendmail', or 'smtp'
-$config['mailpath']         = '/usr/sbin/sendmail';			//	todo:What means???
+$config['mailpath']         = '/usr/sbin/sendmail';			//	I also have no idea what this means
 $config['smtp_host']        = 'smtp.163.com';
 $config['smtp_user']        = 'hctf_support@163.com';
 $config['smtp_pass']        = '492eeb198651a24c';

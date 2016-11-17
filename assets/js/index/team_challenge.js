@@ -245,7 +245,6 @@ function loadChaDetails() {
 							break;
 						default:
 							notifyShow('flag-warning', 'This challenge is hidden now.');
-						// setTimeout(getChallenge, 1000); todo: for testing
 					}
 				}
 			}

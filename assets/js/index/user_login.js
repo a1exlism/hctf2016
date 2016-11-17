@@ -1,10 +1,5 @@
 $(function () {
 	
-	/* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-	// particlesJS.load('particles-js', './particles.json', function() {
-	//   console.log('callback - particles.js config loaded');
-	// });
-	
 	particlesJS('particles-js', {
 		"particles": {
 			"number": {
@@ -124,24 +119,30 @@ $(function () {
 	
 	/* Login/Register panel switch */
 	
-	$('#login-form-link').click(function (event) {
-		$('#form-login').delay(150).fadeIn(150);
-		$('#form-register').fadeOut(150);
-		$('#register-form-link').removeClass('active');
+	var linkLogin = $('#login-form-link'),
+		linkRegister = $('#register-form-link'),
+		formLogin = $('#form-login'),
+		formRegister = $('#form-register');
+	
+	$(linkLogin).click(function (event) {
+		$(formLogin).delay(100).fadeIn(100);
+		$(formRegister).fadeOut(100);
+		$(linkRegister).removeClass('active');
 		$(this).addClass('active');
-		event.preventDefault(); //防止url被打开
+		event.preventDefault();
 	});
-	$('#register-form-link').click(function (event) {
-		$('#form-register').delay(150).fadeIn(150);
-		$('#form-login').fadeOut(150);
-		$('#login-form-link').removeClass('active');
+	
+	$(linkRegister).click(function (event) {
+		$(formRegister).delay(100).fadeIn(100);
+		$(formLogin).fadeOut(100);
+		$(linkLogin).removeClass('active');
 		$(this).addClass('active');
 		event.preventDefault();
 	});
 	
 	/*--- Register input check ---*/
-	var btnRegister = document.querySelector('#cover-submit-register'),
-		btnLogin = document.querySelector('#cover-submit-login'),
+	var btnRegister = document.querySelector('#submit-register'),
+		btnLogin = document.querySelector('#submit-login'),
 		inputTeamName = document.getElementById('user-register'),
 		inputSchool = document.getElementById('school'),
 		inputPassword = document.getElementById('pass-register'),
@@ -303,6 +304,7 @@ $(function () {
 	}
 	
 	/* -- login -- */
+	//  todo: Login 2nd verify optimize
 	$(btnLogin).click(function () {
 		$.ajax({
 			url: "geetest/startCaptcha/t/" + (new Date()).getTime(),
@@ -314,25 +316,21 @@ $(function () {
 					gt: data.gt,
 					challenge: data.challenge,
 					offline: !data.success
-				}, handlerPopupLogin);
+				}, loginValidate);
 			}
 		});
 	});
 	
-	var handlerPopupLogin = function (captchaObj) {
-		// 将验证码加到id为captcha的元素里
+	var loginValidate = function (captchaObj) {
 		captchaObj.appendTo("#popup-captcha");
-		//拖动验证成功后两秒(可自行设置时间)自动发生跳转等行为
 		captchaObj.onSuccess(function () {
 			captchaHide();
-			//  mask 隐藏
 			var validate = captchaObj.getValidate();
 			$.ajax({
-				url: "geetest/verifyLogin", // 进行二次验证
+				url: "geetest/verifyLogin",
 				type: "post",
 				dataType: "json",
 				data: {
-					// 二次验证
 					username: $('#user-login').val(),
 					password: $('#pass-login').val(),
 					geetest_challenge: validate.geetest_challenge,
@@ -341,8 +339,10 @@ $(function () {
 				},
 				success: function (data) {
 					if (data && (data.status === "success")) {
-						// $('#form-login').submit();
-						postLogin();
+						$('.msgtip-success-login').show();
+						setTimeout(function () {
+							window.location.href = 'team';
+						}, 500);
 					} else if (data && (data.status === "fail_2")) {
 						$('.geetest-fail').show();
 						setTimeout(function () {
@@ -350,33 +350,7 @@ $(function () {
 						}, 2500);
 					}
 				}
-				
 			});
-		});
-	};
-	
-	var postLogin = function () {
-		$.ajax({
-			url: 'user_ajax/login_check',
-			type: 'post',
-			dataType: 'json',
-			data: {
-				teamname: $('#user-login').val(),
-				password: $('#pass-login').val()
-			},
-			success: function (data) {
-				if (data && (data.status === "success")) {
-					$('.msgtip-success-login').show();
-					setTimeout(function () {
-						window.location.href = 'team';
-					}, 500);
-				} else {
-					$(msgFaiLog).show();
-					setTimeout(function () {
-						$(msgFaiLog).hide();
-					}, 2500);
-				}
-			}
 		});
 	};
 	

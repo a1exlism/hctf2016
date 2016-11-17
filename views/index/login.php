@@ -61,8 +61,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-xs-8 col-xs-offset-2 col-lg-10 col-lg-offset-1">
-											<!--											<input type="submit" value="Login In" id="cover-submit-login"-->
-											<input type="button" value="Login In" id="cover-submit-login"
+											<input type="button" value="Login In" id="submit-login"
 											       tabindex="3" class="btn btn-success form-control">
 										</div>
 
@@ -116,7 +115,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-xs-8 col-xs-offset-2 col-md-8 col-md-offset-2">
-											<input type="button" id="cover-submit-register" tabindex="7"
+											<input type="button" id="submit-register" tabindex="7"
 											       class="form-control btn btn-primary" value="Register Now"/>
 										</div>
 										<!-- msgtip register -->
