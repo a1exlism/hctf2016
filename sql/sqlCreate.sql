@@ -48,7 +48,7 @@ CREATE TABLE challenge_info (
 
 -- 多flag提交
 CREATE TABLE multi_flags (
-  challenge_id   INT UNSIGNED NOT NULL PRIMARY KEY,
+  challenge_id   INT UNSIGNED NOT NULL ,
   team_token     VARCHAR(40) DEFAULT NULL,
   file_name      VARCHAR(120) DEFAULT NULL,
   challenge_flag VARCHAR(50)
