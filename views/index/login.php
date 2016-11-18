@@ -44,7 +44,7 @@
 							<!-- Login -->
 							<form id="form-login" action="login/login" method="post" role="form">
 								<div class="form-group">
-									<input type="text" class="form-control" name="teamname" id="user-login" placeholder="Teamname"
+									<input type="text" class="form-control" name="teamname" id="user-login" placeholder="Email/Teamname"
 									       tabindex="1">
 								</div>
 								<div class="form-group">

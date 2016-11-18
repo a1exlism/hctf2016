@@ -296,13 +296,24 @@ $(function () {
 		captchaObj.appendTo("#popup-captcha");
 		captchaObj.onSuccess(function () {
 			captchaHide();
-			var validate = captchaObj.getValidate();
+			var validate = captchaObj.getValidate(),
+				loginUser = $('#user-login').val();
+			var teamname = '',
+				email = '';
+			if (/^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/.test(loginUser)) {
+				//  username Login OR email Login
+				email = loginUser;
+			} else {
+				teamname = loginUser;
+			}
+			
 			$.ajax({
 				url: "geetest/verifyLogin",
 				type: "post",
 				dataType: "json",
 				data: {
-					teamname: $('#user-login').val(),
+					teamname: teamname,
+					email: email,
 					password: $('#pass-login').val(),
 					geetest_challenge: validate.geetest_challenge,
 					geetest_validate: validate.geetest_validate,

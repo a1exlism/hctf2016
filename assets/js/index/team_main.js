@@ -20,9 +20,9 @@ $(function () {
 	function isExist(sname, stype) {
 		var typeReg = new RegExp(sname, 'gi');
 		var statusCode = 0;
-		if (sname.indexOf('/') !== -1){
+		if (sname.indexOf('/') !== -1) {
 			var tmpArr = sname.split('/');
-			sname = tmpArr[tmpArr.length -1];
+			sname = tmpArr[tmpArr.length - 1];
 		}
 		if (stype === 'css') {
 			$('link').each(function () {
@@ -77,30 +77,30 @@ $(function () {
 			});
 		}
 	}
-
+	
 	var mainContainer = $('#main-container');
 	var getBulletin = function () {
-		$(mainContainer).empty();
-		$(mainContainer).load('Team/bulletin');
 		getSource('team_bulletin', 'css');
 		getSource('team_bulletin', 'js');
+		$(mainContainer).empty();
+		$(mainContainer).load('Team/bulletin');
 	};
 	
 	var getChanllenge = function () {
-		$(mainContainer).empty();
-		$(mainContainer).load('Team/challenge');
 		getSource('../../fonts/crown/iconfont', 'css');
 		getSource('team_challenge', 'css');
 		getSource('team_challenge', 'js');
 		getSource('../geetest/gt', 'js');
+		$(mainContainer).empty();
+		$(mainContainer).load('Team/challenge');
 	};
 	
 	var getRank = function () {
-		$(mainContainer).empty();
-		$(mainContainer).load('Team/rank');
 		getSource('../echarts/echarts', 'js');
 		getSource('team_rank', 'css');
 		getSource('team_rank', 'js');
+		$(mainContainer).empty();
+		$(mainContainer).load('Team/rank');
 	};
 	
 	var getSettings = function () {

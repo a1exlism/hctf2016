@@ -185,9 +185,9 @@ class Geetest extends CI_Controller
 		 * 二次验证
 		 */
 		$team_name = $this->input->post('teamname', TRUE);
+		$team_email = $this->input->post('email', TRUE);
 		$team_pass = $this->input->post('password', TRUE);
 		$validate_result = array();
-
 		$user_id = $this->session->user_id;
 		$geetest_challenge = $this->input->post('geetest_challenge');
 		$geetest_validate = $this->input->post('geetest_validate');
@@ -197,7 +197,11 @@ class Geetest extends CI_Controller
 			$result = $this->GtSdk->success_validate($geetest_challenge, $geetest_validate, $geetest_seccode, $user_id);
 			if ($result) {
 
-				$user_data = $this->user_model->user_select($team_name)->row();
+				if(!empty($team_name)) {
+					$user_data = $this->user_model->user_select($team_name)->row();
+				} else {
+					$user_data = $this->user_model->user_select_email($team_email)->row();
+				}
 
 				if (!empty($user_data)) {
 
@@ -269,9 +273,15 @@ class Geetest extends CI_Controller
 			redirect('index/login', 'location');
 		}
 
-		$user_id = $_SESSION['user_id'];
+		$user_id = $this->session->user_id;
+		$geetest_challenge = $this->input->post('geetest_challenge');
+		$geetest_validate = $this->input->post('geetest_validate');
+		$geetest_seccode = $this->input->post('geetest_seccode');
+
+		$validate_result = array();
+
 		if ($_SESSION['gtserver'] == 1) {   //服务器正常
-			$result = $this->GtSdk->success_validate($_POST['geetest_challenge'], $_POST['geetest_validate'], $_POST['geetest_seccode'], $user_id);
+			$result = $this->GtSdk->success_validate($geetest_challenge, $geetest_validate, $geetest_seccode, $user_id);
 			if ($result) {
 				$flag = $this->input->post('flag');
 				if (!empty($flag)) {
@@ -283,7 +293,7 @@ class Geetest extends CI_Controller
 				echo '{"status":"fail_1"}';
 			}
 		} else {  //服务器宕机,走failback模式
-			if ($this->GtSdk->fail_validate($_POST['geetest_challenge'], $_POST['geetest_validate'], $_POST['geetest_seccode'])) {
+			if ($this->GtSdk->fail_validate($geetest_challenge, $geetest_validate, $geetest_seccode)) {
 				echo '{"status":"success"}';
 			} else {
 				echo '{"status":"fail_2"}';

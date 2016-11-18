@@ -37,7 +37,8 @@ class  User_model extends CI_Model
 
 	public function user_select_email($email)
 	{
-		$this->db->select('team_name, team_token');
+		//  todo: May cause security prob
+		$this->db->select('*');
 		$this->db->from('team_info');
 		$this->db->where('team_email', $email);
 		$query = $this->db->get();

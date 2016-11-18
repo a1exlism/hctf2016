@@ -28,6 +28,7 @@ class Teams extends CI_Controller
 
 	public function search($team_name)
 	{
+		$team_name = urldecode($team_name);
 		if (empty($team_name)) {
 			echo "Empty team name";
 			exit();
