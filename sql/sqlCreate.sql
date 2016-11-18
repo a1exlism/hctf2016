@@ -48,9 +48,10 @@ CREATE TABLE challenge_info (
 
 -- 多flag提交
 CREATE TABLE multi_flags (
-  challenge_id INT UNSIGNED NOT NULL PRIMARY KEY,
-  team_token   VARCHAR(40)  NOT NULL,
-  file_name    VARCHAR(120) NOT NULL
+  challenge_id   INT UNSIGNED NOT NULL PRIMARY KEY,
+  team_token     VARCHAR(40) DEFAULT NULL,
+  file_name      VARCHAR(120) NOT NULL,
+  challenge_flag VARCHAR(50)
 );
 
 /* -- Dynamic Notify -- */
@@ -91,11 +92,11 @@ CREATE TABLE bulletin (
 
 
 /* -- Card Info 道具卡 -- */
-CREATE TABLE card_info (
+/*CREATE TABLE card_info (
   card_id    INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
   team_token VARCHAR(40) NOT NULL
 )
-  CHARACTER SET = utf8;
+  CHARACTER SET = utf8;*/
 
 /*管理员*/
 CREATE TABLE admin_qwe (
