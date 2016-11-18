@@ -109,7 +109,7 @@ function setDoneStyle() {
 
 
 function loadChaDetails() {
-	
+
 	function getChaObj(name) {
 		var challenges = window.challenges;
 		var i;
@@ -120,27 +120,27 @@ function loadChaDetails() {
 		}
 		return true;
 	}
-	
+
 	function setClose(ele) {
-		
+
 		// Single Card Info Set close event
 		$(ele).bind('click', function () {
 			$(ele).remove();
 		});
-		
+
 		$(ele).find('.popup').bind('click', function () {
 			return false;
 		});
-		
+
 		$(ele).find('.popup-close').bind('click', function (event) {
 			$(ele).remove();
 		});  //  阻止事件捕获
-		
+
 	}
-	
+
 	//  flags
 	function handlerFlag(captchaObj) {
-		
+
 		captchaObj.appendTo("#popup-captcha");
 		captchaObj.onSuccess(function () {
 			captchaHide();
@@ -157,7 +157,7 @@ function loadChaDetails() {
 					geetest_seccode: validate.geetest_seccode
 				},
 				success: function (data) {
-					
+
 					if (data && data.status == 'success') {
 						flagSubmit(flag);
 					} else {
@@ -167,7 +167,7 @@ function loadChaDetails() {
 			});
 		});
 	}
-	
+
 	function getTimeLine(minAgo) {
 		minAgo = minAgo || 0;
 		function prefixZero(x) {
@@ -177,7 +177,7 @@ function loadChaDetails() {
 				return x;
 			}
 		}
-		
+
 		var d = new Date(new Date().getTime() - minAgo * 60 * 1000);
 		var timeObj = {
 			'month': prefixZero(d.getMonth() + 1),
@@ -187,7 +187,7 @@ function loadChaDetails() {
 		};
 		return (timeObj.month + '-' + timeObj.date + ' ' + timeObj.hours + ':' + timeObj.minutes).toString();
 	}
-	
+
 	function flagSubmit(flag) {
 		var teamCha = $('#team-challenge');
 		var chaId = getChaObj($(teamCha).find('.cha-info h1').text()).challenge_id;
@@ -210,7 +210,7 @@ function loadChaDetails() {
 						notify.hide();
 					}, 2000);
 				}
-				
+
 				if (data) {
 					switch (data.statusCode) {
 						case 0:
@@ -241,14 +241,18 @@ function loadChaDetails() {
 			}
 		});
 	}
-	
+
 	$('#challenge .prob-card').each(function (index, element) {
 		$(element).bind('click', function () {
-			
+
 			var chaName = $(this).find('.card-body-top p').text();
 			// alert(chaName);
 			var chaInfo = getChaObj(chaName);
-			var multiName = chaInfo.file_name || '';
+			var multiName = '';
+			if(chaInfo.file_name !== undefined){
+				multiName = chaInfo.file_name;
+			}
+			console.log(multiName + ' : ' + chaInfo.file_name);
 			var chaPopup = $(
 				'<div class="mask">' +
 				'<div class="popup cha-info">' +
@@ -276,12 +280,12 @@ function loadChaDetails() {
 				'</div>' +
 				'</div>' +
 				'</div>');
-			
+
 			var teamCha = $('#team-challenge');
 			$(teamCha).append($(chaPopup));
 			setClose($(teamCha).find('.mask'));
 			$('#mask').bind('click', captchaHide);
-			
+
 			$("#flag-submit").click(function () {
 				$.ajax({
 					url: "geetest/startCaptcha/t/" + (new Date()).getTime(),
@@ -314,7 +318,7 @@ function getTop10() {
 				$.each(data, function (index, value) {
 					$(teamCha).find('.sidebar').append($('<p class="team">' + value.team_name + '<span class="score">' + value.total_score + '</span></p>'));
 				});
-				
+
 				$(teamCha).find('.sidebar p').each(function (index, element) {
 					if ((index + 1) <= 3) {
 						$(element).find('.score ').prepend('<i class="iconfont top-' + (index + 1) + '">&#xe614;</i>');
