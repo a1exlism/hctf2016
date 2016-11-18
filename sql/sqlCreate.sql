@@ -50,7 +50,7 @@ CREATE TABLE challenge_info (
 CREATE TABLE multi_flags (
   challenge_id   INT UNSIGNED NOT NULL PRIMARY KEY,
   team_token     VARCHAR(40) DEFAULT NULL,
-  file_name      VARCHAR(120) NOT NULL,
+  file_name      VARCHAR(120) DEFAULT NULL,
   challenge_flag VARCHAR(50)
 );
 
@@ -106,4 +106,3 @@ CREATE TABLE admin_qwe (
   `key` VARCHAR(40) NOT NULL
 )
   CHARACTER SET = utf8;
-
