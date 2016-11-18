@@ -12,7 +12,7 @@ class Flag_model extends CI_model
 		$this->load->database();
 		$this->score_table = array(600, 550, 515, 492, 473, 457, 443, 429, 417, 404, 393, 381, 371, 360, 350, 340, 332, 323, 316, 309, 302, 295, 289, 283, 277, 271, 266, 260, 255, 250, 245, 240, 236, 231, 226, 222, 218, 213, 209, 205, 201, 197, 193, 189, 185, 182, 178, 174, 171, 167, 164, 160, 157, 153, 150, 147, 144, 140, 138, 135, 132, 129, 127, 124, 122, 120, 117, 115, 113, 111, 109, 107, 105, 103, 102, 100, 98, 97, 95, 94, 92, 91, 89, 88, 86, 85, 84, 83, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 67, 66, 65, 64, 63, 62, 62, 61, 60, 59, 58, 58, 57, 56, 55, 55, 54, 53, 52, 52, 51, 50, 50, 49, 48, 48, 47, 46, 46, 45, 44, 44, 43, 43, 42, 41, 41, 40, 40, 39, 39, 38, 37, 37, 36, 36, 35, 35, 34, 34, 33, 33, 32, 32, 31, 30, 30, 29, 29, 29, 28, 28, 27, 27, 26, 25, 25, 24, 24, 24, 23, 23, 22, 21, 21, 20, 20, 20, 19, 18, 18, 17, 17, 17, 16, 15, 15, 14, 14, 14, 13, 12, 12, 11, 11, 11, 10);
 
-		$this->level_table = array(3, 6, 9, 12, 15, 18, 21, 24, 27, 30);
+		$this->level_table = array(2,4,15,21);
 	}
 
 	private function get_score($num)
@@ -25,29 +25,55 @@ class Flag_model extends CI_model
 		return $score;
 	}
 
-	private function get_level($number)
+	private function get_level($token)
 	{
-		$i = count($this->level_table);
-		if ($number >= 30) {
-			$level = 10;
-		} else {
-			for ($j = 0; $j < $i; $j++) {
-				if ($number < $this->level_table[$j]) {
+		$team_tmp=$this->db->where('team_token',$token)->get('team_info')->result_array();
+		if(!empty($team_tmp[0]))
+		{
+			$level=$team_tmp[0]['compet_level'];
+			switch ($level) {
+				case '1':
+					$sql="select * from dynamic_notify where level=1 and team_token=? and challenge_solved_time not like NULL";
+					$challenge=$this->db->query($sql,$token)->result_array();
+					$num=count($challenge);
+					if($num>=$this->level_table[0])
+						$level_now=2;
 					break;
-				}
+				
+				case '2':
+					$sql="select * from dynamic_notify where level=2 and team_token=? and challenge_solved_time not like NULL";
+					$challenge=$this->db->query($sql,$token)->result_array();
+					$num=count($challenge);
+					if($num>=$this->level_table[1])
+						$level_now=3;
+					break;
+
+				case '3':
+					$sql="select * from dynamic_notify where team_token=? and challenge_solved_time not like NULL";
+					$challenge=$this->db->query($sql,$token)->result_array();
+					$num=count($challenge);
+					if($num>=$this->level_table[2])
+						$level_now=4;
+					break;
+
+				case '4':
+					$sql="select * from dynamic_notify where level=1 and team_token=? and challenge_solved_time not like NULL";
+					$challenge=$this->db->query($sql,$token)->result_array();
+					$num=count($challenge);
+					if($num>=$this->level_table[3])
+						$level_now=5;
+					break;
 			}
-			$level = $j + 1;
 		}
-		return $level;
 	}
 
 	public function level_check($token)
 	{
-		$sql = "SELECT * FROM dynamic_notify WHERE team_token = ? AND challenge_solved_time LIKE '%' ";
-		$change = $this->db->query($sql, $token);
-		$change = $change->result_array();
-		$number = count($change);
-		$level = $this->get_level($number);
+		//$sql = "SELECT * FROM dynamic_notify WHERE team_token = ? AND challenge_solved_time LIKE '%' ";
+		//$change = $this->db->query($sql, $token);
+		//$change = $change->result_array();
+		//$number = count($change);
+		$level = $this->get_level($token);
 		$team = $this->db->where('team_token', $token)->get('team_info');
 		$team = $team->result_array();
 		if ($team[0]['compet_level'] <= $level)#level提升
@@ -70,36 +96,25 @@ class Flag_model extends CI_model
 					if(!empty($value['challenge_api']))
 					{
 						$this->load->library($value['challenge_api']);
-						$flag_tmp = $this->$value['challenge_api']->getflag($token);
+						$flag = $this->$value['challenge_api']->getflag($token);
 					}
 					else
 					{
-						$flag_tmp = time();
+						$sql="select * from multi_flags where team_token like NULL and challenge_id = ?";
+						$flag_tmp = $this->db->query($sql,$value['challenge_id'])->result_array();
+						$where=$flag[0];
+						$flag_tmp[0]['team_token']=$token;
+						$this->db->update('multi_flags',$flag_tmp[0],$where);
+						$flag=$flag_tmp[0]['flag'];
 					}
 
-					if($value['multi_file']==1)
-					{
-						$flag=$flag_tmp['flag'];
-						$file=$flag_tmp['file'];
-						
-						$new_multi_data = array
-						(
-							'challenge_id'=>$value['challenge_id'],
-							'team_token'=>$token,
-							'file_name'=>$file
-						);
-						$this->db->insert('multi_flags',$new_multi_data);
-					}
-					else
-					{
-						$flag=$flag_tmp;
-					}
 					$new_challenge_data = array
 					(
 						'team_token' => $token,
 						'challenge_id' => $value['challenge_id'],
 						'challenge_open_time' => $time,
-						'challenge_flag' => $flag
+						'challenge_flag' => $flag,
+						'level'=>$value['challenge_level']
 					);
 					$this->db->insert('dynamic_notify', $new_challenge_data);
 				}
