@@ -33,7 +33,7 @@ class Flag_model extends CI_model
 			$level=$team_tmp[0]['compet_level'];
 			switch ($level) {
 				case '1':
-					$sql="select * from dynamic_notify where level=1 and team_token=? and challenge_solved_time not like NULL";
+					$sql="select * from dynamic_notify where challenge_level=1 and team_token=? and challenge_solved_time not like NULL";
 					$challenge=$this->db->query($sql,$token)->result_array();
 					$num=count($challenge);
 					if($num>=$this->level_table[0])
@@ -41,7 +41,7 @@ class Flag_model extends CI_model
 					break;
 				
 				case '2':
-					$sql="select * from dynamic_notify where level=2 and team_token=? and challenge_solved_time not like NULL";
+					$sql="select * from dynamic_notify where challenge_level=2 and team_token=? and challenge_solved_time not like NULL";
 					$challenge=$this->db->query($sql,$token)->result_array();
 					$num=count($challenge);
 					if($num>=$this->level_table[1])
@@ -57,7 +57,7 @@ class Flag_model extends CI_model
 					break;
 
 				case '4':
-					$sql="select * from dynamic_notify where level=1 and team_token=? and challenge_solved_time not like NULL";
+					$sql="select * from dynamic_notify where team_token=? and challenge_solved_time not like NULL";
 					$challenge=$this->db->query($sql,$token)->result_array();
 					$num=count($challenge);
 					if($num>=$this->level_table[3])
@@ -102,10 +102,10 @@ class Flag_model extends CI_model
 					{
 						$sql="select * from multi_flags where team_token like NULL and challenge_id = ?";
 						$flag_tmp = $this->db->query($sql,$value['challenge_id'])->result_array();
-						$where=$flag[0];
+						$where=$flag_tmp[0];
 						$flag_tmp[0]['team_token']=$token;
 						$this->db->update('multi_flags',$flag_tmp[0],$where);
-						$flag=$flag_tmp[0]['flag'];
+						$flag=$flag_tmp[0]['challenge_flag'];
 					}
 
 					$new_challenge_data = array
