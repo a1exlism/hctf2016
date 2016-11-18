@@ -137,6 +137,10 @@ class Flag_model extends CI_model
 				$data = array('challenge_solved_time' => $final_time);
 				$this->db->update('dynamic_notify', $data, $where);
 				$bool = 2;
+				$qisiwole=$this->db->where('team_token',$token)->get('team_info')->result_array();
+				$fp=fopen('log/log', 'a+');
+				fwrite($fp, date('y-m-d h:m:s').' '.$token.' '.$qisiwole[0]['team_name'].' '.$tmp[0]['challenge_name']."\r\n");
+				fclose($fp);
 				$challenge = $this->db->where('challenge_id', $id)->get('challenge_info');
 				$challenge = $challenge->result_array();
 				$num = $challenge[0]['challenge_solves'] + 1;
