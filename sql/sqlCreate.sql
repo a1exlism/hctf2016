@@ -59,6 +59,7 @@ CREATE TABLE dynamic_notify (
   notify_id             INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   team_token            VARCHAR(40)  NOT NULL,
   challenge_id          INT UNSIGNED NOT NULL,
+  challenge_level       INT UNSIGNED NOT NULL,
   challenge_open_time   INT          NOT NULL,
   challenge_solved_time INT,
   -- 解题时间
