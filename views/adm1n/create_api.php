@@ -44,6 +44,13 @@
 
 	</div>
 </div>
+
+<form action="/hctf2016/adm1n/createapi/join_json" method="post">
+	<input type="text" name="id" placeholder="challenge_id">
+	<input type="text" name="json" placeholder="json file name">
+	<input type="submit" value="join json">
+</form>
+
 <?php include_once('footer.php'); ?>
 
 

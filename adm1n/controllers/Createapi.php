@@ -49,6 +49,25 @@ class createapi extends CI_Controller
 	{
 		$this->load->view('adm1n/create_api');
 	}
+
+	public function join_json()
+	{
+		$id=$this->input->post('id',true);
+		$json_name=$this->input->post('json',true);
+
+		$status=$this->Admin_data_model->join_json($id,$json_name);
+
+		if ($status)
+		{
+    		echo "<script>alert('json is in database!')</script>";
+    		echo "<script>window.location.href='/hctf2016/adm1n/createapi/index'</script>";
+		}
+		else
+		{
+			echo "<script>alert('can\' join json!')</script>";
+    		echo "<script>window.location.href='/hctf2016/adm1n/createapi/index'</script>";
+		}	
+	}
 }
 
 ?>
