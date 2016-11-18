@@ -26,7 +26,7 @@ function multiName() {
 				url: 'team_ajax/get_filename/' + chaId,
 				type: 'get',
 				dataType: 'json',
-				async: false,
+				async: false, //同步等待加载
 				success: function (data) {
 					challenges[i]['file_name'] = data['file_name'];
 				}
@@ -41,11 +41,11 @@ function getSolvedPublic() {
 		type: 'get',
 		dataType: 'json',
 		success: function (data) {
-			var solvedInfo = $('#solved-info');
-			$(solvedInfo).find('ul').empty();
+			var solvedInfo = $('#solved-info ul');
+			$(solvedInfo).empty();
 			if (data) {
 				$.each(data, function (index, element) {
-					$(solvedInfo).find('ul').append($('<li>' +
+					$(solvedInfo).append($('<li>' +
 						element.solvedTime + ' :<span class="teamName"> ' +
 						element.teamName + '</span> solved ' +
 						element.chaName + '</li>'));
@@ -59,7 +59,7 @@ function getCurrentChallenge() {
 	$.ajax({
 		url: 'team_ajax/get_challenges',
 		type: 'get',
-		async: false,
+		// async: false,
 		dataType: 'json',
 		success: function (data) {
 			if (data) {
@@ -161,7 +161,7 @@ function loadChaDetails() {
 					if (data && data.status == 'success') {
 						flagSubmit(flag);
 					} else {
-						alert('no flags has been submitted');
+						notifyShow('flag-error', data.message);
 					}
 				}
 			});
@@ -224,20 +224,11 @@ function loadChaDetails() {
 							break;
 						case 2:
 							notifyShow('flag-success', 'Correct flag, Congratulations!');
-							//  score update for score chart
-							$.ajax({
-								url: 'team_ajax/update_score',
-								type: 'post',
-								dataType: 'json',
-								data: {
-									solved_time: getTimeLine()
-								},
-								success: function () {
-									setTimeout(function () {
-										$('.mask').remove();
-										getChallenge();
-									}, 800);
-								}
+							$.get('team_ajax/update_score').done(function () {
+								setTimeout(function () {
+									$('.mask').remove();
+									getChallenge();
+								}, 800);
 							});
 							break;
 						case 3:

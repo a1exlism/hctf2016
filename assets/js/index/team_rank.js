@@ -41,9 +41,9 @@ $(function () {
 			data = eval('(' + data + ')');  //  for json traverse
 			var xAxisData = ['', '', '', '', 'Last update: ', getTimeLine()],
 				yAxisSeries = [],
-				yAxisMax = '',
-				yAxisMin = '',
-				yAxisSeriesData = [],
+			// yAxisMax = '',
+			// yAxisMin = '',
+			// yAxisSeriesData = [],
 				legendData = [];
 			
 			var option = {
@@ -128,18 +128,40 @@ $(function () {
 						data: [obj.score_a, obj.score_b, obj.score_c, obj.score_d, obj.score_e, obj.total_score]
 					});
 				}
-				option.yAxis.max = data[0].total_score;
-				option.yAxis.min = data[data.length - 1].score_a;
+				option.yAxis.max = getExtrem(data[0], 'max');
+				option.yAxis.min = getExtrem(data[data.length - 1], 'min');
 				rankChart.setOption(option);
 			}
 		})
+	}
+	
+	function getExtrem(obj, status) {
+		//  极值
+		var ext = 0;
+		var i, score;
+		if (status == 'max') {
+			for (i in obj) {
+				score = obj[i];
+				if (/score/g.test(i) && ext < score) {
+					ext = score;
+				}
+			}
+		} else if (status == 'min') {
+			for (i in obj) {
+				score = obj[i];
+				if (/score/g.test(i) && ext > score) {
+					ext = score;
+				}
+			}
+		}
+		return ext;
 	}
 	
 	function rankInit() {
 		getData();
 		setInterval(getData, 10 * 60 * 1000);
 	}
-
+	
 	// --  pageination --
 	
 	function Pagination() {

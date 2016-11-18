@@ -32,7 +32,6 @@ class Team_ajax extends CI_Controller
 	public function get_source()
 	{
 		$source = array(
-			//  TRUE : xss 过滤
 			'name' => $this->input->post('name', TRUE),
 			'type' => $this->input->post('type', TRUE)
 		);
@@ -145,7 +144,6 @@ class Team_ajax extends CI_Controller
 	{
 		$notifies = $this->public_model->notify_select()->result();
 		$results = array();
-		var_dump($notifies);
 		for ($i = 0; $i < count($notifies); $i++) {
 			foreach ($notifies[$i] as $key => $value) {
 				switch ($key) {
@@ -236,7 +234,7 @@ class Team_ajax extends CI_Controller
 			"score_b" => $ori_data->score_c,
 			"score_c" => $ori_data->score_d,
 			"score_d" => $ori_data->score_e,
-			"score_e" => $ori_data->score_f,
+			"score_e" => $ori_data->total_score,
 			"total_score" => $total_score
 		);
 		$this->score_model->update($this->session_token, $new_data);

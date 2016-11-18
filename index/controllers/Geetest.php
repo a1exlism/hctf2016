@@ -197,7 +197,7 @@ class Geetest extends CI_Controller
 			$result = $this->GtSdk->success_validate($geetest_challenge, $geetest_validate, $geetest_seccode, $user_id);
 			if ($result) {
 
-				if(!empty($team_name)) {
+				if (!empty($team_name)) {
 					$user_data = $this->user_model->user_select($team_name)->row();
 				} else {
 					$user_data = $this->user_model->user_select_email($team_email)->row();
@@ -285,20 +285,30 @@ class Geetest extends CI_Controller
 			if ($result) {
 				$flag = $this->input->post('flag');
 				if (!empty($flag)) {
-					echo '{"status":"success"}';
+					$validate_result = array(
+						'status' => 'success'
+					);
 				} else {
-					echo '{"status":"fail_0"}';
+					$validate_result = array(
+						'status' => 'error',
+						'message' => 'No flag submit.'
+					);
 				}
 			} else {
-				echo '{"status":"fail_1"}';
+				$validate_result = array(
+					'status' => 'error',
+					'message' => 'Geetest test error'
+				);
 			}
-		} else {  //服务器宕机,走failback模式
+		} else {
 			if ($this->GtSdk->fail_validate($geetest_challenge, $geetest_validate, $geetest_seccode)) {
-				echo '{"status":"success"}';
-			} else {
-				echo '{"status":"fail_2"}';
+				$validate_result = array(
+					'status' => 'error',
+					'message' => 'Geetest server broke, try again.'
+				);
 			}
 		}
+		echo json_encode($validate_result);
 	}
 
 	//  mail check	

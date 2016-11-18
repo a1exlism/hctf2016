@@ -33,9 +33,8 @@ class Check_flag extends CI_Controller
 		$bool = $this->flag_model->check($id, $flag, $this->token);
 		#bool 0校验错误 1作弊 2校验正确 3flag已经正确提交 4没有开题
 
-		
-		if ($bool == 1) 
-		{
+
+		if ($bool == 1) {
 
 			$this->reset();
 		}
