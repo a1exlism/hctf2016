@@ -38,7 +38,7 @@ CREATE TABLE challenge_info (
   challenge_level       INT UNSIGNED NOT NULL,
   -- 开题层数
   challenge_solves      INT UNSIGNED          DEFAULT 0,
-  challenge_api         VARCHAR(40),
+  challenge_api         VARCHAR(40)           DEFAULT NULL,
   -- api 为多flag接口
   challenge_threshold   INT UNSIGNED NOT NULL DEFAULT 0,
   -- time threshold
@@ -50,7 +50,7 @@ CREATE TABLE challenge_info (
 CREATE TABLE multi_flags (
   challenge_id INT UNSIGNED NOT NULL PRIMARY KEY,
   team_token   VARCHAR(40)  NOT NULL,
-  file_name    VARCHAR(120)  NOT NULL
+  file_name    VARCHAR(120) NOT NULL
 );
 
 /* -- Dynamic Notify -- */

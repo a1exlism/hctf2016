@@ -236,7 +236,7 @@ class Team_ajax extends CI_Controller
 			"score_b" => $ori_data->score_c,
 			"score_c" => $ori_data->score_d,
 			"score_d" => $ori_data->score_e,
-			"score_e" => $ori_data->score_f,
+			"score_e" => $ori_data->total_score,
 			"total_score" => $total_score
 		);
 		$this->score_model->update($this->session_token, $new_data);
