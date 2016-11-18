@@ -26,12 +26,8 @@ $(function () {
 		}
 		if (stype === 'css') {
 			$('link').each(function () {
-				if (this.href.indexOf('font') !== -1) {
-					statusCode = 1;
-					return true;
-					//  这个宏有问题, 单页面只能动态加载一个font内容!!!!
-				}
-				if (this.href.indexOf(sname) !== -1) {
+				if (this.href.indexOf('font') !== -1 || this.href.indexOf(sname) !== -1) {
+					//  只能识别一个font
 					// alert('CSS已存在');
 					statusCode = 1;
 					return true;  //中断当前循环
@@ -39,7 +35,6 @@ $(function () {
 			});
 		} else if (stype === 'js') {
 			$('script').each(function () {
-				
 				if (this.src.indexOf(sname) !== -1) {
 					// alert('JS已存在');
 					statusCode = 1;
@@ -73,6 +68,11 @@ $(function () {
 					} else {
 						addCSS(resultUrl);
 					}
+				},
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+					alert(XMLHttpRequest.status);
+					alert(XMLHttpRequest.readyState);
+					alert(textStatus);
 				}
 			});
 		}

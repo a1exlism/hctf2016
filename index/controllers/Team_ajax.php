@@ -32,7 +32,6 @@ class Team_ajax extends CI_Controller
 	public function get_source()
 	{
 		$source = array(
-			//  TRUE : xss 过滤
 			'name' => $this->input->post('name', TRUE),
 			'type' => $this->input->post('type', TRUE)
 		);
