@@ -136,6 +136,7 @@ $(function () {
 	}
 	
 	function getExtrem(obj, status) {
+		//  极值
 		var ext = 0;
 		var i, score;
 		if (status == 'max') {
@@ -154,10 +155,6 @@ $(function () {
 			}
 		}
 		return ext;
-	}
-	
-	function getMin() {
-		
 	}
 	
 	function rankInit() {

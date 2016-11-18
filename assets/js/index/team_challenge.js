@@ -41,11 +41,11 @@ function getSolvedPublic() {
 		type: 'get',
 		dataType: 'json',
 		success: function (data) {
-			var solvedInfo = $('#solved-info');
-			$(solvedInfo).find('ul').empty();
+			var solvedInfo = $('#solved-info ul');
+			$(solvedInfo).empty();
 			if (data) {
 				$.each(data, function (index, element) {
-					$(solvedInfo).find('ul').append($('<li>' +
+					$(solvedInfo).append($('<li>' +
 						element.solvedTime + ' :<span class="teamName"> ' +
 						element.teamName + '</span> solved ' +
 						element.chaName + '</li>'));

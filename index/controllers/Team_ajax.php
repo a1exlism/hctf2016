@@ -145,7 +145,6 @@ class Team_ajax extends CI_Controller
 	{
 		$notifies = $this->public_model->notify_select()->result();
 		$results = array();
-		var_dump($notifies);
 		for ($i = 0; $i < count($notifies); $i++) {
 			foreach ($notifies[$i] as $key => $value) {
 				switch ($key) {
