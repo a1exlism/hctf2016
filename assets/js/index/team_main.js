@@ -10,13 +10,13 @@ $(function () {
 			href: url
 		}).appendTo('head');
 	}
-	
+
 	function addJS(url) {
 		$('<script>').attr({
 			src: url
 		}).appendTo('body');
 	}
-	
+
 	function isExist(sname, stype) {
 		var typeReg = new RegExp(sname, 'gi');
 		var statusCode = 0;
@@ -40,16 +40,16 @@ $(function () {
 					statusCode = 1;
 					return true;
 				}
-				
+
 			});
 		}
 		return statusCode;
 	}
-	
+
 	//  动态加载静态资源 css/js
 	function getSource(sname, stype) {
 		stype = stype || 'js';  //默认以js加载
-		
+
 		if (isExist(sname, stype) == 1) {
 			return false;
 		} else {
@@ -77,7 +77,7 @@ $(function () {
 			});
 		}
 	}
-	
+
 	var mainContainer = $('#main-container');
 	var getBulletin = function () {
 		getSource('team_bulletin', 'css');
@@ -85,7 +85,7 @@ $(function () {
 		$(mainContainer).empty();
 		$(mainContainer).load('Team/bulletin');
 	};
-	
+
 	var getChanllenge = function () {
 		getSource('../../fonts/crown/iconfont', 'css');
 		getSource('team_challenge', 'css');
@@ -94,7 +94,7 @@ $(function () {
 		$(mainContainer).empty();
 		$(mainContainer).load('Team/challenge');
 	};
-	
+
 	var getRank = function () {
 		getSource('../echarts/echarts', 'js');
 		getSource('team_rank', 'css');
@@ -102,11 +102,11 @@ $(function () {
 		$(mainContainer).empty();
 		$(mainContainer).load('Team/rank');
 	};
-	
+
 	var getSettings = function () {
 		$(mainContainer).empty();
 		$(mainContainer).load('Team/settings', function () {
-			
+
 			$('#team-ranking .msg-btn').click(function () {
 				var sForm = $('#pass-change form');
 				if (sForm.css('display') == 'none') {
@@ -115,14 +115,14 @@ $(function () {
 					sForm.css('display', 'none');
 				}
 			});
-			
+
 			$('#pass-change').find('.submit-btn').click(passChange);
-			
+
 		});
 	};
-	
+
 	mainInit();
-	
+
 	$('#toggle-bulletin').click(getBulletin);
 	$('#toggle-challenge').click(getChanllenge);
 	$('#toggle-rank').click(getRank);
@@ -130,9 +130,9 @@ $(function () {
 		$('#team-solved .solved-body dl').empty();
 		mainInit();
 	});
-	
+
 	/* -- Team Settings -- */
-	
+
 	function mainInit() {
 		getSettings();  //默认在Settings界面
 		countdown();
@@ -140,12 +140,12 @@ $(function () {
 		getSolved();
 		getTeamInfo();
 	}
-	
+
 	setInterval(function () { //update in every 60seconds
 		getSolved();
 		getTeamInfo();
 	}, 60000);
-	
+
 	function getName() {
 		$.ajax({
 			url: 'Team_ajax/get_teamname',
@@ -157,7 +157,7 @@ $(function () {
 			}
 		});
 	}
-	
+
 	function countdown() {
 		function prefixZero(x) {
 			if (x.length == 1) {
@@ -166,7 +166,7 @@ $(function () {
 				return x;
 			}
 		}
-		
+
 		function getTime(deadline) {
 			var leftTime = (deadline - new Date()) / 1000;
 			var d, h, m, s;
@@ -174,7 +174,7 @@ $(function () {
 			h = prefixZero('' + parseInt((leftTime - d * 24 * 3600) / 3600));
 			m = prefixZero('' + parseInt((leftTime - d * 24 * 3600 - h * 3600) / 60));
 			s = prefixZero('' + parseInt((leftTime - d * 24 * 3600 - h * 3600 - m * 60)));
-			
+
 			return {
 				'leftTime': leftTime,
 				'd': d,
@@ -183,13 +183,13 @@ $(function () {
 				's': s
 			};
 		}
-		
-		
+
+
 		var deadline = new Date('2016-11-27 20:00:00');
 		var timeSpan = $('#toggle-time span')[0];
 		var timeObj = getTime(deadline);
 		if (timeObj.leftTime >= 0) {
-			
+
 			if (timeObj.d === 0 && timeObj.h < 8) {
 				timeSpan.style.color = '#ea4435';
 			}
@@ -206,7 +206,7 @@ $(function () {
 			//  退出当前循环
 		}
 	}
-	
+
 	function getSolved() {
 		$.ajax({
 			url: 'Team_ajax/get_solved',
@@ -228,8 +228,8 @@ $(function () {
 			}
 		});
 	}
-	
-	
+
+
 	function getTeamInfo() {
 		$.ajax({
 			url: 'Team_ajax/get_team_info',
@@ -244,10 +244,10 @@ $(function () {
 			}
 		})
 	};
-	
-	
+
+
 	var submitBtn = $('#pass-change').find('.submit-btn');
-	
+
 	function msgShow(e, msg, status) {
 		if (status === 1) {
 			e.css('color', '#34a853');
@@ -260,7 +260,7 @@ $(function () {
 			e.hide();
 		}, 2000);
 	}
-	
+
 	function passChange() {
 		var oriPass = $('#ori-pass').val();
 		var newPass = $('#new-pass').val();
@@ -270,7 +270,7 @@ $(function () {
 			return false;
 		}
 		$.ajax({
-			url: 'Team_ajax/pass_change',
+			url: 'team_ajax/pass_change',
 			type: 'POST',
 			dataType: 'json',
 			data: {
@@ -282,9 +282,6 @@ $(function () {
 					console.log(data);
 					if (data.status === 'success') {
 						msgShow(msgE, 'Success, Redirecting...', 1);
-						setTimeout(function () {
-							window.location.replace('team/logout');
-						}, 200);
 					} else {
 						msgShow(msgE, 'Validation failed', 2);
 					}
@@ -292,6 +289,6 @@ $(function () {
 			}
 		})
 	}
-	
-	
+
+
 });

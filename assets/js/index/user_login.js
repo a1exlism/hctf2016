@@ -1,5 +1,5 @@
 $(function () {
-	
+
 	particlesJS('particles-js', {
 		"particles": {
 			"number": {
@@ -116,15 +116,15 @@ $(function () {
 		},
 		"retina_detect": true
 	});
-	
+
 	//  todo: Optimize the Message pop-up
 	/* Login/Register panel switch */
-	
+
 	var linkLogin = $('#login-form-link'),
 		linkRegister = $('#register-form-link'),
 		formLogin = $('#form-login'),
 		formRegister = $('#form-register');
-	
+
 	$(linkLogin).click(function (event) {
 		$(formLogin).delay(100).fadeIn(100);
 		$(formRegister).fadeOut(100);
@@ -132,7 +132,7 @@ $(function () {
 		$(this).addClass('active');
 		event.preventDefault();
 	});
-	
+
 	$(linkRegister).click(function (event) {
 		$(formRegister).delay(100).fadeIn(100);
 		$(formLogin).fadeOut(100);
@@ -140,7 +140,7 @@ $(function () {
 		$(this).addClass('active');
 		event.preventDefault();
 	});
-	
+
 	/*--- Register input check ---*/
 	var btnRegister = document.querySelector('#submit-register'),
 		btnLogin = document.querySelector('#submit-login'),
@@ -149,26 +149,26 @@ $(function () {
 		inputPassword = document.getElementById('pass-register'),
 		inputConfirm = document.getElementById('password-confirm'),
 		inputPhoneNum = document.getElementById('phone');
-	
-	//  messages	
-	
+
+	//  messages
+
 	var mask = $('#mask'),
 		popupCaptcha = $('#popup-captcha');
-	
+
 	var msgtip = $('.msgtip');
 	// var msgSucReg = $('.msgtip-success-register'),
 	// 	msgFaiReg = $('.msgtip-fail-register'),
 	// 	msgSucLog = $('.msgtip-success-login'),
 	// 	msgFaiLog = $('.msgtip-fail-login');
-	
-	
+
+
 	//  Warning Infomation
 	function warningAdd() {
 		btnRegister.classList.remove('btn-primary');
 		btnRegister.classList.add('submit-wrong');
 		btnRegister.disabled = true;
 	}
-	
+
 	function warningRemove() {
 		if (btnRegister.classList.contains('submit-wrong')) {
 			btnRegister.value = 'Register Now';
@@ -177,35 +177,35 @@ $(function () {
 			btnRegister.classList.add('btn-primary');
 		}
 	}
-	
+
 	//  password confirm
-	
+
 	function passwdCheck() {
-		
+
 		if (inputPassword.value != inputConfirm.value) {
 			//  judge classname
 			if (btnRegister.classList.contains('submit-wrong')) {
-				//  JS Hack 
+				//  JS Hack
 				// if (Array.prototype.indexOf.apply(btnRegister.classList, ['submit-wrong']) != -1) {
 				return null;
 			}
-			
+
 			btnRegister.value = 'Check your passwd!';
-			warningAdd()
+			warningAdd();
 		}
 	}
-	
+
 	inputPassword.addEventListener('blur', passwdCheck);
 	inputPassword.addEventListener('focus', warningRemove);
 	inputConfirm.addEventListener('focus', warningRemove);
 	inputConfirm.addEventListener('blur', passwdCheck);
-	
+
 	/*
 	 *
 	 *   --  ajax asyn submit --
 	 *
 	 * */
-	
+
 	/* -- register -- */
 	$(btnRegister).click(function () {
 		$.ajax({
@@ -222,7 +222,7 @@ $(function () {
 			}
 		});
 	});
-	
+
 	var registerValidate = function (captchaObj) {
 		captchaObj.appendTo("#popup-captcha");
 		captchaObj.onSuccess(function () {
@@ -248,7 +248,7 @@ $(function () {
 						if (data.to_active && data.to_active === 1) {
 							mailSend(data.checksum, email);
 						}
-						
+
 					} else if (data && (data.status == "error")) {
 						tmpShow(msgtip, 'error', data.message);
 					}
@@ -272,9 +272,9 @@ $(function () {
 					tmpShow(msgtip, data.status, data.message);
 				}
 			}
-		})
+		});
 	}
-	
+
 	/* -- login -- */
 	$(btnLogin).click(function () {
 		$.ajax({
@@ -291,7 +291,7 @@ $(function () {
 			}
 		});
 	});
-	
+
 	var loginValidate = function (captchaObj) {
 		captchaObj.appendTo("#popup-captcha");
 		captchaObj.onSuccess(function () {
@@ -306,7 +306,7 @@ $(function () {
 			} else {
 				teamname = loginUser;
 			}
-			
+
 			$.ajax({
 				url: "geetest/verifyLogin",
 				type: "post",
@@ -332,7 +332,7 @@ $(function () {
 			});
 		});
 	};
-	
+
 	function tmpShow(ele, status, message) {
 		$(ele).empty();
 		$(ele).append('<div class="' + status + '">' + message + '</div>');
@@ -345,30 +345,30 @@ $(function () {
 			$(ele).hide();
 		}, time);
 	}
-	
+
 	/* --- Geetest Mask --- */
-	
+
 	function captchaHide() {
 		$(mask).hide();
 		$(popupCaptcha).hide();
 	}
-	
+
 	$(mask).click(function () {
 		captchaHide();
 		$(btnLogin).show();
 		$(btnRegister).show();
 	});
-	
+
 	$(btnLogin).click(function () {
 		$(popupCaptcha).empty();
 		$(mask).show();
 		$(popupCaptcha).show();
 	});
-	
+
 	$(btnRegister).click(function () {
 		$(popupCaptcha).empty();
 		$(mask).show();
 		$(popupCaptcha).show();
 	});
-	
+
 });

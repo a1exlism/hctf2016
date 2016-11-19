@@ -1,10 +1,10 @@
 1. 静态资源问题 https://segmentfault.com/q/1010000000409427
 2. Message: Call to undefined function base_url()
-  http://blog.vini123.com/1921.html 
+  http://blog.vini123.com/1921.html
   http://stackoverflow.com/questions/7503302/how-to-get-base-url-in-codeigniter-2
 3. class的类名bixu大写开头. 而且类名称必须和php文件名称相同才有效果
- 文件名也需要大写 
-4. 
+ 文件名也需要大写
+4.
 类名 class: pages
 THEN
 静态页面模板位于 application/views/pages/
@@ -21,9 +21,9 @@ http://example.com/[controller-class]/[controller-method]/[arguments]
   # sudo vi /etc/apache2/apache2.conf
   <Directory /var/www/>
     Options Indexes FollowSymLinks
-    AllowOverride All                                                         
+    AllowOverride All
     Require all granted
-  </Directory> 
+  </Directory>
   ```
 
   ```bash
@@ -42,7 +42,7 @@ http://example.com/[controller-class]/[controller-method]/[arguments]
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond $1 !^(index\.php|images|assets|robots\.txt|$)
-  RewriteRule ^(.*)$ /hctf2016/index.php/$1 [L] 
+  RewriteRule ^(.*)$ /hctf2016/index.php/$1 [L]
   ```
 
 6. [php双入口重写规则(apache2)](https://segmentfault.com/q/1010000002491453)
@@ -83,7 +83,9 @@ git reset HEAD .
 
 18. Unable to load dynamic library '/usr/lib/php/20151012/php_mbstring.dll'
     [gist](https://gist.github.com/69f5d75b6d420b9ca5606320f2f1bc56)
-    
+
 19. 邮件发送解决方案[CodeIgniter & Mailer](https://github.com/ivantcholakov/codeigniter-phpmailer)
 
 20. 在challenge页面需要后台遵守一个规范, url需要用`[]`括起来.
+
+21. challenge页面 提交flag报错, 需要将/index/log 目录权限更改为777 (临时), debug关闭之后正常
