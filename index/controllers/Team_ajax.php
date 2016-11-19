@@ -18,9 +18,9 @@ class Team_ajax extends CI_Controller
 		$this->load->helper('form');
 		$this->load->library('form_validation');  //表单验证类
 
-		if ($this->session_check->check() === 0) {
-			redirect('index/login', 'location');
-		}
+		// if ($this->session_check->check() === 0) {
+		// 	redirect('index/login', 'location');
+		// }
 		$this->session_token = $this->session->userdata('team_token');
 	}
 
@@ -173,14 +173,16 @@ class Team_ajax extends CI_Controller
 		echo json_encode($result);
 	}
 
-	public function get_filename($cha_id = null)
+	public function get_filename($cha_id = null, $team_token = null)
 	{
 		if (empty($cha_id)) {
 			echo "error";
 			exit();
 		}
-		$session_token = $this->session_token;
-		$file_name = $this->challenge_model->multi_select($session_token, $cha_id)->row()->file_name;
+		if(empty($team_token)){
+			$team_token = $this->session_token;
+		}
+		$file_name = $this->challenge_model->multi_select($team_token, $cha_id)->row()->file_name;
 		echo json_encode(array(
 			'file_name' => $file_name
 		));

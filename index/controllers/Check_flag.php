@@ -17,9 +17,9 @@ class Check_flag extends CI_Controller
 		$this->load->model('user_model');
 		$is_login = $this->session->userdata('is_login');
 		$this->token = $this->session->userdata('team_token');
-		if (!$is_login) {
-			redirect('index/login', 'location');
-		}
+		// if (!$is_login) {
+		// 	redirect('index/login', 'location');
+		// }
 	}
 
 	public function check()
@@ -29,16 +29,20 @@ class Check_flag extends CI_Controller
 
 		$flag = $this->input->post('flag');
 		$flag = $this->security->xss_clean($flag);
-		//$this->token='token';
-		$bool = $this->flag_model->check($id, $flag, $this->token);
+		
+		$token=$this->input->post('token',true);
+
+		$api = $this->flag_model->check($id, $flag, $token);
 		#bool 0校验错误 1作弊 2校验正确 3flag已经正确提交 4没有开题
 
+		echo json_encode($api);
+	}
 
-		if ($bool == 1) {
-
-			$this->reset();
-		}
-		echo json_encode(array("statusCode" => $bool));
+	public function check_level()
+	{
+		$token=$this->input->post('token',true);
+		$level=$this->flag_model->level_check($token);
+		echo json_encode(array('level'=>$level));
 	}
 
 	public function reset()
