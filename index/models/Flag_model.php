@@ -44,7 +44,7 @@ class Flag_model extends CI_model
 					else
 						$level_now=1;
 					break;
-				
+
 				case ('2'):
 					$sql="select * from dynamic_notify where challenge_level=2 and team_token=? and challenge_solved_time is not NULL";
 					$challenge=$this->db->query($sql,$token)->result_array();
@@ -91,16 +91,18 @@ class Flag_model extends CI_model
 		$team = $team->result_array();
 		if ($team[0]['compet_level'] <= $level)#level提升
 		{
-			$team[0]['compet_level'] = $level;
-			$this->db->where('team_token', $token)->update('team_info', $team[0]);
+			$arr = array(
+				"compet_level" => $level
+			);
+			$this->db->where('team_token', $token)->update('team_info', $arr);
 			#开题
 			$challenge = $this->db->where('challenge_level', $level)->get('challenge_info');
 			$challenge = $challenge->result_array();
 			$time = time();
-			foreach ($challenge as $value) 
+			foreach ($challenge as $value)
 			{
 				$challenge_id = $value['challenge_id'];
-				#检查是否开过该题 
+				#检查是否开过该题
 				$tmp_where = array('team_token' => $token, 'challenge_id' => $challenge_id);
 				$tmp_challenge = $this->db->where($tmp_where)->get('dynamic_notify');
 				$tmp_challenge = $tmp_challenge->result_array();
@@ -141,9 +143,9 @@ class Flag_model extends CI_model
 	{
 		$team_cheat=$this->db->where('team_token',$token)->select('is_cheat')->get('team_info');
 		$team_cheat=$team_cheat->result_array();
-		
+
 		if($team_cheat[0]['is_cheat']!=0)
-		{	
+		{
 			return 1;
 		}
 
@@ -158,7 +160,7 @@ class Flag_model extends CI_model
 		if(empty($result[0]))
 		{
 			return 4;
-		}	
+		}
 
 		else if($result[0]['challenge_flag'] == $flag && empty($result[0]['challenge_solved_time']))#正确flag
 		{
@@ -194,7 +196,7 @@ class Flag_model extends CI_model
 				#修改各个队伍分数
 				$ready_team = $this->db->where('challenge_id', $id)->select('team_token')->get('dynamic_notify');
 				$ready_team = $ready_team->result_array();
-				foreach ($ready_team as $value) 
+				foreach ($ready_team as $value)
 				{
 					$team_token = $value['team_token'];
 					#查询每队解出题目
@@ -220,11 +222,11 @@ class Flag_model extends CI_model
 				}
 
 			}
-		} 
+		}
 		else if (!empty($result[0]['challenge_solved_time']))#flag已经提交
 		{
 			$bool = 3;
-		} 
+		}
 		else if ($result[0]['challenge_flag'] !== $flag)#flag错误
 		{
 			$where = array(
