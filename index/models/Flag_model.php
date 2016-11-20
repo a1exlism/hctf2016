@@ -137,6 +137,7 @@ class Flag_model extends CI_model
 			}
 
 		}
+		return $level;
 	}
 
 	public function check($id, $flag, $token)
@@ -146,7 +147,14 @@ class Flag_model extends CI_model
 
 		if($team_cheat[0]['is_cheat']!=0)
 		{
-			return 1;
+			$api['status']=1;
+			$level_temp=$this->db->where('team_token',$token)->get('team_info')->result_array();
+			$level=$level_temp[0]['compet_level'];
+			$api['level']=$level;
+			$api['score']='';
+			$api['token']=$token;
+			$api['another_token']='';
+			return $api;
 		}
 
 		$final_time = time();
@@ -159,7 +167,14 @@ class Flag_model extends CI_model
 
 		if(empty($result[0]))
 		{
-			return 4;
+			$api['status']=4;
+			$level_temp=$this->db->where('team_token',$token)->get('team_info')->result_array();
+			$level=$level_temp[0]['compet_level'];
+			$api['level']=$level;
+			$api['score']='';
+			$api['token']=$token;
+			$api['another_token']='';
+			return $api;
 		}
 
 		else if($result[0]['challenge_flag'] == $flag && empty($result[0]['challenge_solved_time']))#正确flag
@@ -171,14 +186,22 @@ class Flag_model extends CI_model
 			{
 				$data = array('is_cheat' => 1);
 				$this->db->where('team_token', $token)->update('team_info', $data);
-				$bool = 1;
-			} else#解题完全正确
+				$api['status']=1;
+				$level_temp=$this->db->where('team_token',$token)->get('team_info')->result_array();
+				$level=$level_temp[0]['compet_level'];
+				$api['level']=$level;
+				$api['score']='';
+				$api['token']=$token;
+				$api['another_token']='';
+				return $api;
+			} 
+			else#解题完全正确
 			{
 				$data = array('challenge_solved_time' => $final_time);
 				$this->db->update('dynamic_notify', $data, $where);
 				$bool = 2;
 				$qisiwole=$this->db->where('team_token',$token)->get('team_info')->result_array();
-				$fp=fopen('log/log', 'a+');
+				$fp=fopen('log/right_log', 'a+');
 				fwrite($fp, date('y-m-d h:m:s').' '.$token.' '.$qisiwole[0]['team_name'].' '.$tmp[0]['challenge_name']."\r\n");
 				fclose($fp);
 				$challenge = $this->db->where('challenge_id', $id)->get('challenge_info');
@@ -192,7 +215,12 @@ class Flag_model extends CI_model
 				$this->db->where('team_token',$token)->update('team_info',array('score_update'=>$now_time));
 
 				#队伍level提升
-				$this->level_check($token);
+				$level=$this->level_check($token);
+				$api['status']=2;
+				$api['level']=$level;
+				$api['score']=$score;
+				$api['token']=$token;
+				$api['another_token']='';
 				#修改各个队伍分数
 				$ready_team = $this->db->where('challenge_id', $id)->select('team_token')->get('dynamic_notify');
 				$ready_team = $ready_team->result_array();
@@ -220,12 +248,19 @@ class Flag_model extends CI_model
 					$team_data = array('total_score' => $sum);
 					$this->db->where('team_token', $team_token)->update('team_info', $team_data);
 				}
-
+				return $api;
 			}
 		}
 		else if (!empty($result[0]['challenge_solved_time']))#flag已经提交
 		{
-			$bool = 3;
+			$api['status']=3;
+			$level_temp=$this->db->where('team_token',$token)->get('team_info')->result_array();
+			$level=$level_temp[0]['compet_level'];
+			$api['level']=$level;
+			$api['score']='';
+			$api['token']=$token;
+			$api['another_token']='';
+			return $api;
 		}
 		else if ($result[0]['challenge_flag'] !== $flag)#flag错误
 		{
@@ -242,10 +277,34 @@ class Flag_model extends CI_model
 					array('team_token' => $result[0]['team_token'], 'is_cheat' => 1)
 				);
 				$this->db->update_batch('team_info', $data, 'team_token');
+
+				$qisiwole=$this->db->where('team_token',$token)->get('team_info')->result_array();
+				$qisiwole2=$this->db->where('team_token',$result[0]['team_token'])->get('team_info')->result_array();
+				$challenge_tmp_name=$this->db->where('challenge_id',$id)->get('challenge_info')->result_array();
+				$fp=fopen('log/cheat_log', 'a+');
+				fwrite($fp, date('y-m-d h:m:s').' '.$token.' '.$qisiwole[0]['team_name'].' '.$result[0]['team_token'].' '.$qisiwole2[0]['team_name'].' '.$challenge_tmp_name[0]['challenge_name']."\r\n");
+				fclose($fp);
+				
 				$bool = 1;
-			} else#错误
+				$api['status']=1;
+				$level_temp=$this->db->where('team_token',$token)->get('team_info')->result_array();
+				$level=$level_temp[0]['compet_level'];
+				$api['level']=$level;
+				$api['score']='';
+				$api['token']=$token;
+				$api['another_token']=$result[0]['team_token'];
+				return $api;
+			} 
+			else#错误
 			{
-				$bool = 0;
+				$api['status']=0;
+				$level_temp=$this->db->where('team_token',$token)->get('team_info')->result_array();
+				$level=$level_temp[0]['compet_level'];
+				$api['level']=$level;
+				$api['score']='';
+				$api['token']=$token;
+				$api['another_token']='';
+				return $api;
 			}
 		}
 
