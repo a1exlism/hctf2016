@@ -1,0 +1,89 @@
+/* ---  fonts  --- */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Roboto'), local('Roboto-Regular'), url(../../fonts/CWB0XYA8bzo0kSThX0UTuA.woff2) format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+* {
+	font-family: Roboto,sans-serif;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #222;
+}
+
+
+#countdown-container {
+	width: 100%;
+	margin: 0 auto;
+	max-width: 1160px;
+}
+
+countdown-timer {
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	overflow: hidden;
+	position: relative;
+}
+
+countdown-timer > canvas {
+	margin: -3em auto -2em;
+}
+
+div h1 {
+	color: #fff;
+	text-align: center;
+	margin: 0 auto;
+	font-weight: 400;
+	font-size: 3em;
+}
+
+.h1_head {
+	margin-top: 1em;
+}
+
+.h1_end {
+	display: none;
+}
+
+.login_btn {
+	margin-bottom: 2.7em;
+	text-align: center;
+}
+
+.login_btn>input {
+	background-color: transparent;
+	color: rgba(255, 255, 255, 0.7);
+
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid rgba(255, 255, 255, 0.7);
+	border-radius: 4px;
+}
+
+.login_btn>input:hover {
+	color: #111;
+	background: rgba(255, 255, 255, 0.8);
+}

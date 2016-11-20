@@ -1,0 +1,98 @@
+/* latin-ext */
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 300;
+	src: local('Open Sans Light'), local('OpenSans-Light'), url(../../fonts/DXI1ORHCpsQm3Vp6mXoaTT0LW-43aMEzIO6XUTLjad8.woff2) format('woff2');
+	unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 300;
+	src: local('Open Sans Light'), local('OpenSans-Light'), url(../../fonts/DXI1ORHCpsQm3Vp6mXoaTegdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+/* --- main --- */
+* {
+	font-family: 'Open Sans',sans-serif;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #222;
+	color: #fff;
+}
+
+h1, p {
+	text-align: center;
+}
+
+h1 {
+	font-size: 70px;
+	color: #81d4e9;
+}
+
+p {
+	font-size: 24px;
+}
+
+.topbar {
+	position: fixed;
+	padding: 15px;
+}
+
+.topbar > a {
+	font-size: 20px;
+	font-weight: 400;
+	border-bottom: solid #fff 1px;
+	color: #fff;
+	-webkit-transition: color .2s linear, border-bottom .2s linear ;
+	-moz-transition: color .2s linear, border-bottom .2s linear ;
+	-ms-transition: color .2s linear, border-bottom .2s linear ;
+	-o-transition: color .2s linear, border-bottom .2s linear ;
+	transition: color .2s linear, border-bottom .2s linear ;
+	text-decoration: none;  /* 下划线 */
+}
+
+a:hover {
+	color: #ffa3a3;
+	border-bottom: 2px solid #ffa3a3;
+}
+
+.mainbar {
+	position: absolute;
+	top: 8%;
+}
+
+/* flex body */
+.flex-container {
+	display: flex;
+	margin: 20px auto 0;
+	height: 400px;
+	width: 80vw;
+}
+
+.flex-container > div {
+	height: 100%;
+	flex-grow: 1;
+	-webkit-transition: flex-grow .5s ease-in-out;
+	-moz-transition: flex-grow .5s ease-in-out;
+	-ms-transition: flex-grow .5s ease-in-out;
+	-o-transition: flex-grow .5s ease-in-out;
+	transition: flex-grow .5s ease-in-out;
+
+	color: #000;
+}
+
+.flex-container > div:hover {
+	flex-grow: 3;
+}

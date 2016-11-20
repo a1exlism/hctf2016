@@ -1,0 +1,322 @@
+#challenge {
+	padding: 25px;
+	color: #fff;
+	background-color: #464646;
+}
+
+#challenge > div > a {
+	color: #fff;
+	text-decoration: none;
+	line-height: 25px;
+	text-align: center;
+	padding-left: 5px;
+	border-left: solid #34a853 5px;
+}
+
+/*  solved info public  */
+#solved-info > ul {
+	height: 8em;
+	overflow-y: scroll;
+}
+
+#solved-info > ul::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: #808080;
+}
+
+#solved-info > ul::-webkit-scrollbar {
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+#solved-info > ul::-webkit-scrollbar-thumb {
+	background-color: #000000;
+	border: 2px solid #555555;
+}
+
+#solved-info > ul > li {
+	line-height: 1.8em;
+}
+
+#solved-info .teamName {
+	font-weight: bold;
+}
+
+/*  prob-card  */
+#challenge .prob-card {
+	text-transform: capitalize;
+}
+
+#challenge .prob-card {
+	background-color: #222;
+	height: 11em;
+	border: solid #464646 .5em;
+	padding: 0;
+	text-align: center;
+}
+
+#challenge .prob-card:hover {
+	cursor: pointer;
+	/* change cursor's style */
+}
+
+#challenge .card-bar {
+	height: 25%;
+	display: block;
+}
+
+#challenge .card-body {
+	height: 75%;
+	display: block;
+}
+
+#challenge .card-body .card-body-top {
+	height: 60%;
+}
+
+#challenge .card-body .card-body-bottom {
+	height: 40%;
+}
+
+#challenge .prob-card .card-bar-left {
+	width: 60%;
+	border-bottom: solid #fff974 1px;
+	/* 默认没有做完 */
+}
+
+#challenge .prob-card .card-bar-right {
+	width: 40%;
+	float: right;
+	color: #000;
+}
+
+#challenge .prob-card .doing {
+	background-color: #fff974;
+}
+
+#challenge .prob-card .done {
+	background-color: #5DFF7A;
+}
+
+#challenge .prob-card div[class^='card-bar-'] {
+	height: 100%;
+	display: table;
+	float: left;
+}
+
+#challenge .prob-card div[class^='card-bar-'] p {
+	height: 100%;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#challenge .prob-card div[class^='card-body-'] {
+	width: 100%;
+	display: table;
+}
+
+#challenge .prob-card div[class^='card-body-'] p {
+	width: 100%;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#challenge .prob-card .card-body-top p {
+	font-size: 2em;
+}
+
+#challenge .prob-card .card-body-bottom p {
+	font-size: 1.1em;
+}
+
+#challenge .prob-card .card-body-bottom .cha-solves {
+	display: inline-block;
+	margin-right: .5em;
+	border-bottom: solid 1px #fff;
+	float: right;
+}
+
+/* fixed popup cha-info*/
+#team-challenge .mask {
+	position: fixed;
+	text-align: center;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+	overflow: auto;
+	z-index: 100;
+}
+
+#team-challenge .popup {
+	position: fixed;
+	/*display: none;*/
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	z-index: 200;
+}
+
+#team-challenge .popup-close {
+	position: absolute;
+	right: .5em;
+	top: .5em;
+	font-size: 2em;
+	color: #fff;
+}
+
+#team-challenge .cha-info {
+	/* challenge details */
+	width: 50%;
+	height: 60%;
+	background: #333;
+	padding: 2em;
+	text-align: left;
+}
+
+#team-challenge .cha-info h1 {
+	margin-top: 0;
+}
+
+#team-challenge .cha-info .popup-close {
+	color: #fff;
+}
+
+#team-challenge .cha-info a {
+	color: #5899EE;
+}
+
+#team-challenge .cha-info .flags .form-control {
+	border-radius: 0;
+	color: #fff;
+	background-color: #333;
+}
+
+#team-challenge .cha-info .flags .btn {
+	border-radius: 0;
+	color: #fff;
+	background-color: #333;
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+#team-challenge .cha-info .flags .btn:hover {
+	color: #333;
+	background-color: #eee;
+	border: solid #eee 1px;
+}
+
+#team-challenge .cha-info .flag-notify {
+	margin: .5em;
+	text-align: center;
+}
+
+.flag-warning {
+	color: #f0ad4e;
+}
+
+.flag-danger {
+	color: #d9534f;
+}
+
+.flag-success {
+	color: #5cb85c;
+}
+
+.flag-info {
+	color: #428bca;
+}
+
+/* -- challenge geetest -- */
+#mask {
+	display: none;
+	position: fixed;
+	text-align: center;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	overflow: auto;
+	z-index: 300;
+}
+
+#popup-captcha {
+	position: fixed;
+	display: none;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	z-index: 400;
+	-moz-user-select: -moz-none;
+	-webkit-user-select: none;
+	/*
+		Introduced in IE 10.
+		See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+	*/
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/*
+ * -- sidebar --
+ */
+
+#team-challenge .sidebar {
+	padding: 1em 2em;
+}
+
+#team-challenge .sidebar h3 {
+	margin: 0.3em auto;
+	text-align: center;
+}
+
+#team-challenge .sidebar p {
+	margin-bottom: 0.5em;
+}
+
+#team-challenge .sidebar .score {
+	width: 40%;
+	float: right;
+	text-align: right;
+}
+
+#team-challenge .sidebar .iconfont {
+	display: inline-block;
+	float: left;
+}
+
+#team-challenge .sidebar .top-1 {
+	color: #FFDF00;
+}
+
+#team-challenge .sidebar .top-2 {
+	color: #C0C0C0;
+}
+
+#team-challenge .sidebar .top-3 {
+	color: #C87533;
+}

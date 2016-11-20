@@ -1,0 +1,13 @@
+h1 {
+	text-align: center;
+	margin: 1.3rem;
+}
+
+.basic-info span, .solved-info span {
+	display: inline-block;
+	width: 50%;
+}
+
+.solved-info li {
+	inline-height: 1.5em;
+}

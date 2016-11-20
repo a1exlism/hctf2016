@@ -10,12 +10,7 @@ CI framework
 
 入口文件: index.php
 
-新的需求：用户提交flag时需要使用验证码，验证码用拖动式
-
-
 ### adm1n
 管理员界面
-手动输入
 
 入口文件: admin.php
-
