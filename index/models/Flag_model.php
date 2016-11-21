@@ -142,8 +142,7 @@ class Flag_model extends CI_model
 
 	public function check($id, $flag, $token)
 	{
-		$team_cheat=$this->db->where('team_token',$token)->select('is_cheat')->get('team_info');
-		$team_cheat=$team_cheat->result_array();
+		$team_cheat=$this->db->where('team_token',$token)->get('team_info')->result_array();
 
 		if($team_cheat[0]['is_cheat']!=0)
 		{
