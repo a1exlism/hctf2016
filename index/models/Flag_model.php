@@ -186,6 +186,13 @@ class Flag_model extends CI_model
 			{
 				$data = array('is_cheat' => 1);
 				$this->db->where('team_token', $token)->update('team_info', $data);
+
+				$qisiwole=$this->db->where('team_token',$token)->get('team_info')->result_array();
+				$challenge_tmp_name=$this->db->where('challenge_id',$id)->get('challenge_info')->result_array();
+				$fp=fopen('log/cheat_log', 'a+');
+				fwrite($fp, date('y-m-d h:m:s').' '.$token.' '.$qisiwole[0]['team_name'].' '.$challenge_tmp_name[0]['challenge_name'].' '.$time."\r\n");
+				fclose($fp);
+
 				$api['status']=1;
 				$level_temp=$this->db->where('team_token',$token)->get('team_info')->result_array();
 				$level=$level_temp[0]['compet_level'];
